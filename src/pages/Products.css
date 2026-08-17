@@ -1,0 +1,62 @@
+.products-page {
+  padding: 50px 6%;
+  min-height: 80vh;
+}
+
+.products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.products-header h1 {
+  font-size: 32px;
+}
+
+.products-header p {
+  color: #777;
+  margin-top: 5px;
+}
+
+.products-header select {
+  padding: 12px 20px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.filter-buttons button {
+  padding: 10px 25px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+}
+
+.filter-buttons button.selected {
+  background: #ff3f6c;
+  color: white;
+  border-color: #ff3f6c;
+}
+
+.no-products {
+  text-align: center;
+  padding: 100px 20px;
+}
+
+@media (max-width: 600px) {
+  .products-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .filter-buttons {
+    overflow-x: auto;
+  }
+}
