@@ -57,7 +57,7 @@ const products = [
 
   {
     id: 5,
-    brand: "Puma",
+    brand: "Nike",
     name: "Men Running Shoes",
     category: "Men",
     type: "Shoes",
@@ -155,7 +155,7 @@ const products = [
 
   {
     id: 12,
-    brand: "Puma",
+    brand: "Nike",
     name: "Kids Sports Shoes",
     category: "Kids",
     type: "Shoes",

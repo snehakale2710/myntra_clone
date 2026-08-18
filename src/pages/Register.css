@@ -3,28 +3,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f5f5f5;
+  background: var(--surface);
   padding: 30px;
 }
 
 .register-card {
   width: 900px;
-  min-height: 600px;
-  background: white;
+  max-width: 100%;
+  min-height: 620px;
+  background: var(--paper);
   display: grid;
   grid-template-columns: 1fr 1fr;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  box-shadow: var(--shadow-lift);
 }
 
 .register-image {
   background:
     linear-gradient(
-      rgba(0, 0, 0, 0.6),
-      rgba(0, 0, 0, 0.6)
+      rgba(20, 18, 17, 0.6),
+      rgba(20, 18, 17, 0.6)
     ),
     url("https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900")
       center/cover;
-  color: white;
+  color: var(--paper);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -32,61 +35,99 @@
 }
 
 .register-image h1 {
-  font-size: 45px;
+  font-size: 42px;
+  font-weight: 500;
 }
 
 .register-image span {
-  color: #ff3f6c;
+  color: #e9c8ce;
+  font-style: italic;
+}
+
+.register-image p {
+  color: #d8d2c9;
+  margin-top: 14px;
+  font-size: 14px;
 }
 
 .register-form {
-  padding: 55px;
+  padding: 52px 56px;
 }
 
 .register-form h2 {
-  font-size: 30px;
+  font-size: 26px;
+  font-weight: 500;
+  margin-top: 8px;
 }
 
-.register-form > p {
-  color: #777;
-  margin: 10px 0 25px;
+.register-form > p:not(.eyebrow) {
+  color: var(--ink-soft);
+  margin: 12px 0 24px;
+  font-size: 13.5px;
 }
 
 .register-form form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 15px;
 }
 
 .register-form input {
   padding: 15px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-s);
   outline: none;
+  font-size: 14px;
+  transition: border-color 0.2s ease;
+}
+
+.register-form input:focus {
+  border-color: var(--ink);
 }
 
 .register-form form button {
   padding: 15px;
-  background: #ff3f6c;
-  color: white;
+  background: var(--ink);
+  color: var(--paper);
   border: none;
-  font-weight: bold;
+  border-radius: var(--radius-s);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.03em;
   cursor: pointer;
+  margin-top: 4px;
+  transition: background 0.2s ease;
+}
+
+.register-form form button:hover {
+  background: var(--accent-dark);
 }
 
 .switch button {
   border: none;
   background: transparent;
-  color: #ff3f6c;
-  font-weight: bold;
+  color: var(--accent);
+  font-weight: 600;
   cursor: pointer;
+  margin-left: 4px;
 }
 
 @media (max-width: 700px) {
+  .register-page {
+    padding: 0;
+  }
+
   .register-card {
     grid-template-columns: 1fr;
+    border-radius: 0;
+    min-height: 100vh;
   }
 
   .register-image {
     display: none;
+  }
+
+  .register-form {
+    padding: 48px 24px;
   }
 }

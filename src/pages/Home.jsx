@@ -3,6 +3,29 @@ import products from "../data/products";
 import ProductCard from "../components/ProductCard";
 import "./Home.css";
 
+const categories = [
+  {
+    name: "Men",
+    image:
+      "https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=500"
+  },
+  {
+    name: "Women",
+    image:
+      "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500"
+  },
+  {
+    name: "Kids",
+    image:
+      "https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?w=500"
+  },
+  {
+    name: "Accessories",
+    image:
+      "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=500"
+  }
+];
+
 function Home({
   setPage,
   addToWishlist,
@@ -16,22 +39,23 @@ function Home({
 
         <div className="hero-content">
 
-          <p>NEW COLLECTION 2026</p>
+          <p className="eyebrow eyebrow-light">
+            Autumn / Winter 2026
+          </p>
 
           <h1>
-            Elevate Your
-            <br />
-            Everyday Style
+            Clothing built for how you actually live
           </h1>
 
           <span>
-            Discover fashion made for you.
+            Considered pieces, honest pricing, and fabrics that
+            hold up. No noise — just clothes worth keeping.
           </span>
 
           <button
             onClick={() => setPage("products")}
           >
-            SHOP NOW
+            Shop the collection
           </button>
 
         </div>
@@ -41,8 +65,8 @@ function Home({
       <section className="home-section">
 
         <div className="section-heading">
-          <h2>TRENDING NOW</h2>
-          <p>Explore our latest collection</p>
+          <p className="eyebrow">Trending now</p>
+          <h2>What everyone's adding to bag</h2>
         </div>
 
         <div className="product-grid">
@@ -65,40 +89,44 @@ function Home({
 
       <section className="categories">
 
-        <h2>SHOP BY CATEGORY</h2>
+        <div className="section-heading">
+          <p className="eyebrow">Browse</p>
+          <h2>Shop by category</h2>
+        </div>
 
         <div className="category-grid">
 
-          <div
-            onClick={() => setPage("products")}
-          >
-            <span>👔</span>
-            <h3>MEN</h3>
-          </div>
-
-          <div
-            onClick={() => setPage("products")}
-          >
-            <span>👗</span>
-            <h3>WOMEN</h3>
-          </div>
-
-          <div
-            onClick={() => setPage("products")}
-          >
-            <span>🧒</span>
-            <h3>KIDS</h3>
-          </div>
-
-          <div
-            onClick={() => setPage("products")}
-          >
-            <span>👟</span>
-            <h3>SHOES</h3>
-          </div>
+          {categories.map((cat) => (
+            <div
+              key={cat.name}
+              className="category-tile"
+              onClick={() => setPage("products")}
+            >
+              <img src={cat.image} alt={cat.name} loading="lazy" />
+              <div className="category-tile-label">
+                <h3>{cat.name}</h3>
+                <span>Shop now →</span>
+              </div>
+            </div>
+          ))}
 
         </div>
 
+      </section>
+
+      <section className="promise-strip">
+        <div>
+          <strong>Free shipping</strong>
+          <span>On orders above ₹999</span>
+        </div>
+        <div>
+          <strong>14-day returns</strong>
+          <span>No questions asked</span>
+        </div>
+        <div>
+          <strong>Secure checkout</strong>
+          <span>100% protected payments</span>
+        </div>
       </section>
 
     </div>

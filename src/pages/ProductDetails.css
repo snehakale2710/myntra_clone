@@ -1,13 +1,16 @@
 .details-page {
-  padding: 60px 8%;
+  padding: 56px var(--edge) 80px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 60px;
+  gap: 64px;
   min-height: 80vh;
 }
 
 .details-image {
-  height: 650px;
+  height: 640px;
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  background: var(--surface);
 }
 
 .details-image img {
@@ -17,130 +20,212 @@
 }
 
 .details-content {
-  padding-top: 30px;
-}
-
-.details-brand {
-  color: #555;
-  font-size: 20px;
-  font-weight: bold;
+  padding-top: 20px;
+  max-width: 480px;
 }
 
 .details-content h1 {
   font-size: 30px;
-  margin: 12px 0 20px;
+  font-weight: 500;
+  margin: 16px 0 18px;
 }
 
 .details-description {
-  color: #666;
+  color: var(--ink-soft);
   line-height: 1.7;
+  font-size: 14px;
 }
 
 .details-price {
-  margin: 30px 0;
+  margin: 28px 0;
   display: flex;
-  gap: 15px;
+  gap: 14px;
   align-items: center;
 }
 
 .details-price strong {
-  font-size: 25px;
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 600;
 }
 
 .details-price del {
-  color: #888;
+  color: var(--ink-faint);
+  font-size: 14px;
 }
 
 .details-price span {
-  color: #ff905a;
-  font-weight: bold;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 13px;
 }
 
 .size-title {
-  font-weight: bold;
-  margin-bottom: 15px;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 14px;
 }
 
 .sizes {
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .sizes button {
-  width: 50px;
-  height: 45px;
-  background: white;
-  border: 1px solid #ddd;
-  cursor: pointer;
+  width: 48px;
+  height: 44px;
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-s);
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 .sizes button:hover {
-  border-color: #ff3f6c;
-  color: #ff3f6c;
+  border-color: var(--ink);
+}
+
+.sizes button.selected {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
 }
 
 .details-actions {
   display: flex;
-  gap: 15px;
+  gap: 14px;
   margin: 30px 0;
 }
 
 .add-cart,
 .add-wishlist {
   padding: 16px 25px;
-  cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.03em;
+  border-radius: var(--radius-s);
 }
 
 .add-cart {
-  background: #ff3f6c;
-  color: white;
+  background: var(--ink);
+  color: var(--paper);
   border: none;
   flex: 1;
+  transition: background 0.2s ease;
+}
+
+.add-cart:hover {
+  background: var(--accent-dark);
 }
 
 .add-wishlist {
-  background: white;
-  border: 1px solid #ddd;
+  background: var(--paper);
+  border: 1px solid var(--line-strong);
   flex: 1;
 }
 
+.add-wishlist:hover {
+  border-color: var(--ink);
+}
+
 .delivery {
-  border-top: 1px solid #eee;
-  padding-top: 25px;
+  border-top: 1px solid var(--line);
+  padding-top: 26px;
 }
 
 .delivery h3 {
-  font-size: 15px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .delivery p {
-  color: #777;
+  color: var(--ink-soft);
   margin: 10px 0;
+  font-size: 13px;
 }
 
-.delivery input {
-  padding: 12px;
-  width: 250px;
-  border: 1px solid #ddd;
+.pincode-form {
+  display: flex;
+  gap: 10px;
+  max-width: 320px;
+}
+
+.pincode-form input {
+  flex: 1;
+  padding: 12px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-s);
+  min-width: 0;
+}
+
+.pincode-form button {
+  padding: 12px 18px;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: var(--radius-s);
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.pincode-msg {
+  font-size: 12.5px;
+  color: var(--success);
+  margin-top: 12px !important;
 }
 
 .details-error {
   text-align: center;
-  padding: 100px;
+  padding: 100px 20px;
 }
 
 .details-error button {
   margin-top: 20px;
   padding: 12px 25px;
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: var(--radius-s);
+}
+
+@media (max-width: 900px) {
+  .details-page {
+    gap: 40px;
+  }
+
+  .details-image {
+    height: 500px;
+  }
 }
 
 @media (max-width: 800px) {
   .details-page {
     grid-template-columns: 1fr;
+    padding: 40px 20px 60px;
   }
 
   .details-image {
-    height: 450px;
+    height: 420px;
+  }
+
+  .details-content {
+    max-width: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .details-actions {
+    flex-direction: column;
+  }
+
+  .pincode-form {
+    max-width: none;
   }
 }

@@ -17,10 +17,10 @@ function Wishlist({
     <div className="wishlist-page">
 
       <div className="wishlist-header">
-        <h1>My Wishlist ❤️</h1>
+        <h1>My Wishlist</h1>
 
         <p>
-          {wishlist.length} items
+          {wishlist.length} {wishlist.length === 1 ? "item" : "items"} saved
         </p>
       </div>
 
@@ -61,7 +61,7 @@ function Wishlist({
               setPage("products")
             }
           >
-            EXPLORE PRODUCTS
+            Explore products
           </button>
 
         </div>

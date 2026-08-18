@@ -12,76 +12,61 @@ import ProductDetails from "./pages/ProductDetails";
 import Wishlist from "./pages/Wishlist";
 import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
+import Checkout from "./pages/Checkout";
+import Payment from "./pages/Payment";
 
 import "./App.css";
 
 function App() {
+  const [page, setPage] = useState(
+    localStorage.getItem("loggedIn") === "true"
+      ? "home"
+      : "login"
+  );
 
-  const [page, setPage] =
-    useState(
-      localStorage.getItem("loggedIn") === "true"
-        ? "home"
-        : "login"
-    );
+  const [searchTerm, setSearchTerm] = useState("");
 
-  const [searchTerm, setSearchTerm] =
-    useState("");
+  const [cart, setCart] = useState(
+    JSON.parse(localStorage.getItem("cart")) || []
+  );
 
-  const [cart, setCart] =
-    useState(
-      JSON.parse(
-        localStorage.getItem("cart")
-      ) || []
-    );
-
-  const [wishlist, setWishlist] =
-    useState(
-      JSON.parse(
-        localStorage.getItem("wishlist")
-      ) || []
-    );
+  const [wishlist, setWishlist] = useState(
+    JSON.parse(localStorage.getItem("wishlist")) || []
+  );
 
   const loggedIn =
     localStorage.getItem("loggedIn") === "true";
 
+  // =========================
+  // ADD TO CART
+  // =========================
+
   const addToCart = (product) => {
-
     const currentCart =
-      JSON.parse(
-        localStorage.getItem("cart")
-      ) || [];
+      JSON.parse(localStorage.getItem("cart")) || [];
 
-    const existing =
-      currentCart.find(
-        (item) =>
-          item.id === product.id
-      );
+    const existing = currentCart.find(
+      (item) => item.id === product.id
+    );
 
     let updatedCart;
 
     if (existing) {
-
-      updatedCart =
-        currentCart.map(
-          (item) =>
-            item.id === product.id
-              ? {
-                  ...item,
-                  quantity:
-                    (item.quantity || 1) +
-                    1
-                }
-              : item
-        );
-
+      updatedCart = currentCart.map((item) =>
+        item.id === product.id
+          ? {
+              ...item,
+              quantity: (item.quantity || 1) + 1,
+            }
+          : item
+      );
     } else {
-
       updatedCart = [
         ...currentCart,
         {
           ...product,
-          quantity: 1
-        }
+          quantity: 1,
+        },
       ];
     }
 
@@ -95,77 +80,59 @@ function App() {
     alert("Product added to bag!");
   };
 
-  const addToWishlist = (product) => {
+  // =========================
+  // ADD / REMOVE WISHLIST
+  // =========================
 
+  const addToWishlist = (product) => {
     const currentWishlist =
       JSON.parse(
-        localStorage.getItem(
-          "wishlist"
-        )
+        localStorage.getItem("wishlist")
       ) || [];
 
-    const exists =
-      currentWishlist.some(
-        (item) =>
-          item.id === product.id
-      );
+    const exists = currentWishlist.some(
+      (item) => item.id === product.id
+    );
 
     let updatedWishlist;
 
     if (exists) {
-
-      updatedWishlist =
-        currentWishlist.filter(
-          (item) =>
-            item.id !== product.id
-        );
-
+      updatedWishlist = currentWishlist.filter(
+        (item) => item.id !== product.id
+      );
     } else {
-
       updatedWishlist = [
         ...currentWishlist,
-        product
+        product,
       ];
     }
 
     localStorage.setItem(
       "wishlist",
-      JSON.stringify(
-        updatedWishlist
-      )
+      JSON.stringify(updatedWishlist)
     );
 
     setWishlist(updatedWishlist);
   };
 
-  const renderPage = () => {
+  // =========================
+  // PAGE RENDER
+  // =========================
 
+  const renderPage = () => {
     if (page === "login") {
-      return (
-        <Login
-          setPage={setPage}
-        />
-      );
+      return <Login setPage={setPage} />;
     }
 
     if (page === "register") {
-      return (
-        <Register
-          setPage={setPage}
-        />
-      );
+      return <Register setPage={setPage} />;
     }
 
     if (!loggedIn) {
-      return (
-        <Login
-          setPage={setPage}
-        />
-      );
+      return <Login setPage={setPage} />;
     }
 
     switch (page) {
-
       case "home":
         return (
           <Home
@@ -212,6 +179,20 @@ function App() {
           />
         );
 
+      case "checkout":
+        return (
+          <Checkout
+            setPage={setPage}
+          />
+        );
+
+      case "payment":
+        return (
+          <Payment
+            setPage={setPage}
+          />
+        );
+
       case "orders":
         return (
           <Orders
@@ -248,9 +229,7 @@ function App() {
               sum + (item.quantity || 1),
             0
           )}
-          wishlistCount={
-            wishlist.length
-          }
+          wishlistCount={wishlist.length}
           onSearch={setSearchTerm}
         />
       )}

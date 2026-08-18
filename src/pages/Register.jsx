@@ -69,7 +69,9 @@ function Register({ setPage }) {
 
         <div className="register-form">
 
-          <h2>Create Account</h2>
+          <p className="eyebrow">Join us</p>
+
+          <h2>Create your account</h2>
 
           <p>
             Join us and discover your style.
@@ -112,7 +114,7 @@ function Register({ setPage }) {
             />
 
             <button type="submit">
-              REGISTER
+              Create Account
             </button>
 
           </form>

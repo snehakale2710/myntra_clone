@@ -28,6 +28,11 @@ function Navbar({
     localStorage.getItem("loggedIn") === "true";
 
   return (
+    <>
+    <div className="announce-bar">
+      Free shipping on orders above ₹999 &nbsp;·&nbsp; Easy 14-day returns
+    </div>
+
     <nav className="navbar">
 
       <div
@@ -151,6 +156,7 @@ function Navbar({
       </button>
 
     </nav>
+    </>
   );
 }
 

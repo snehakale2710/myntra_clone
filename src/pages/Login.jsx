@@ -57,13 +57,15 @@ function Login({ setPage }) {
           </h1>
 
           <p>
-            Fashion that defines you.
+            Considered clothing for everyday wear.
           </p>
         </div>
 
         <div className="auth-right">
 
-          <h2>Welcome Back!</h2>
+          <p className="eyebrow">Welcome back</p>
+
+          <h2>Log in to your account</h2>
 
           <p>
             Login to continue shopping.
@@ -92,7 +94,7 @@ function Login({ setPage }) {
             />
 
             <button type="submit">
-              LOGIN
+              Log In
             </button>
 
           </form>

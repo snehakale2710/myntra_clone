@@ -34,11 +34,27 @@ function ProductCard({
         <img
           src={product.image}
           alt={product.name}
+          loading="lazy"
         />
 
         <span className="discount">
-          {product.discount}% OFF
+          {product.discount}% off
         </span>
+
+        <button
+          className={
+            isWishlisted
+              ? "wishlist active"
+              : "wishlist"
+          }
+          onClick={(e) => {
+            e.stopPropagation();
+            addToWishlist(product);
+          }}
+          aria-label="Toggle wishlist"
+        >
+          {isWishlisted ? "♥" : "♡"}
+        </button>
       </div>
 
       <div className="product-info">
@@ -53,37 +69,16 @@ function ProductCard({
           <del>
             ₹{product.originalPrice}
           </del>
-
-          <span>
-            ({product.discount}% OFF)
-          </span>
         </div>
 
-        <div className="card-buttons">
-
-          <button
-            className={
-              isWishlisted
-                ? "wishlist active"
-                : "wishlist"
-            }
-            onClick={() =>
-              addToWishlist(product)
-            }
-          >
-            {isWishlisted ? "♥" : "♡"}
-          </button>
-
-          <button
-            className="bag-btn"
-            onClick={() =>
-              addToCart(product)
-            }
-          >
-            ADD TO BAG
-          </button>
-
-        </div>
+        <button
+          className="bag-btn"
+          onClick={() =>
+            addToCart(product)
+          }
+        >
+          Add to Bag
+        </button>
 
       </div>
 
