@@ -2,19 +2,16 @@ import React, { useState } from "react";
 import "./Register.css";
 
 function Register({ setPage }) {
-
-  const [error, setError] =
-    useState("");
+  const [error, setError] = useState("");
 
   const handleRegister = (e) => {
-
     e.preventDefault();
 
     const name =
-      e.target.name.value;
+      e.target.name.value.trim();
 
     const email =
-      e.target.email.value;
+      e.target.email.value.trim().toLowerCase();
 
     const password =
       e.target.password.value;
@@ -22,30 +19,85 @@ function Register({ setPage }) {
     const confirmPassword =
       e.target.confirmPassword.value;
 
-    if (password !== confirmPassword) {
+    /* =========================
+       PASSWORD CHECK
+    ========================= */
 
+    if (password !== confirmPassword) {
       setError(
         "Passwords do not match."
       );
-
       return;
     }
 
-    const user = {
+    /* =========================
+       GET EXISTING USERS
+    ========================= */
+
+    const users =
+      JSON.parse(
+        localStorage.getItem("users")
+      ) || [];
+
+    /* =========================
+       CHECK DUPLICATE EMAIL
+    ========================= */
+
+    const existingUser =
+      users.find(
+        (user) =>
+          user.email.toLowerCase() === email
+      );
+
+    if (existingUser) {
+      setError(
+        "An account with this email already exists."
+      );
+      return;
+    }
+
+    /* =========================
+       CREATE USER
+    ========================= */
+
+    const newUser = {
+      id: Date.now(),
       name,
       email,
-      password
+      password,
     };
 
+    /* =========================
+       ADD USER
+       WITHOUT DELETING
+       OTHER USERS
+    ========================= */
+
+    const updatedUsers = [
+      ...users,
+      newUser,
+    ];
+
     localStorage.setItem(
-      "user",
-      JSON.stringify(user)
+      "users",
+      JSON.stringify(updatedUsers)
+    );
+
+    /* =========================
+       LOGIN THIS USER
+    ========================= */
+
+    localStorage.setItem(
+      "currentUser",
+      JSON.stringify(newUser)
     );
 
     localStorage.setItem(
       "loggedIn",
       "true"
     );
+
+    setError("");
 
     setPage("home");
   };
@@ -69,9 +121,13 @@ function Register({ setPage }) {
 
         <div className="register-form">
 
-          <p className="eyebrow">Join us</p>
+          <p className="eyebrow">
+            Join us
+          </p>
 
-          <h2>Create your account</h2>
+          <h2>
+            Create your account
+          </h2>
 
           <p>
             Join us and discover your style.
@@ -123,6 +179,7 @@ function Register({ setPage }) {
             Already have an account?
 
             <button
+              type="button"
               onClick={() =>
                 setPage("login")
               }

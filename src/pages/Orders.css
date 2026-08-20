@@ -1,19 +1,447 @@
-.print-bill-button {
-  width: 100%;
-  margin-top: 20px;
-  padding: 13px 20px;
-  border: 1px solid #111;
-  background: #111;
-  color: white;
-  border-radius: 5px;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
+.orders-page {
+  min-height: 80vh;
+
+  padding:
+    45px
+    var(--edge, 5vw)
+    90px;
 }
 
-.print-bill-button:hover {
+/* =========================
+   HEADER
+========================= */
+
+.orders-header {
+  max-width: 1200px;
+
+  margin: 0 auto 35px;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  justify-content: space-between;
+
+  gap: 30px;
+
+  padding-bottom: 30px;
+
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.continue-shopping {
+  padding: 13px 22px;
+
+  border: 1px solid #111;
+
+  background: #111;
+
+  color: white;
+
+  border-radius: 4px;
+
+  cursor: pointer;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  transition: 0.2s ease;
+}
+
+.continue-shopping:hover {
   background: #d4af37;
-  color: #111;
+
   border-color: #d4af37;
+
+  color: #111;
+}
+
+/* =========================
+   ORDERS LIST
+========================= */
+
+.orders-list {
+  max-width: 1200px;
+
+  margin: auto;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 24px;
+}
+
+.order-card {
+  border: 1px solid #e5e5e5;
+
+  background: white;
+}
+
+/* =========================
+   ORDER TOP
+========================= */
+
+.order-top {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 20px;
+
+  padding: 20px 24px;
+
+  background: #fafafa;
+
+  border-bottom: 1px solid #eee;
+}
+
+.order-top div,
+.order-bottom div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 5px;
+}
+
+.order-top span,
+.order-bottom span {
+  color: #999;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.1em;
+}
+
+.order-top strong,
+.order-bottom strong {
+  font-size: 13px;
+}
+
+.status {
+  color: #16833b;
+}
+
+/* =========================
+   PRODUCTS
+========================= */
+
+.order-products {
+  padding: 10px 24px;
+}
+
+.order-product {
+  display: grid;
+
+  grid-template-columns:
+    80px 1fr auto;
+
+  align-items: center;
+
+  gap: 18px;
+
+  padding: 16px 0;
+
+  border-bottom: 1px solid #eee;
+}
+
+.order-product:last-child {
+  border-bottom: none;
+}
+
+.order-product img {
+  width: 80px;
+  height: 100px;
+
+  object-fit: cover;
+}
+
+.order-product-info h3 {
+  margin: 0 0 7px;
+
+  font-size: 14px;
+}
+
+.order-product-info p {
+  margin: 4px 0;
+
+  color: #777;
+
+  font-size: 12px;
+}
+
+.order-product > strong {
+  font-size: 14px;
+}
+
+/* =========================
+   ORDER BOTTOM
+========================= */
+
+.order-bottom {
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 20px;
+
+  padding: 20px 24px;
+
+  border-top: 1px solid #eee;
+}
+
+.order-total {
+  font-size: 18px !important;
+}
+
+/* =========================
+   ADDRESS
+========================= */
+
+.order-address {
+  padding: 20px 24px;
+
+  background: #fafafa;
+
+  border-top: 1px solid #eee;
+}
+
+.order-address h3 {
+  margin: 0 0 12px;
+
+  font-size: 12px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.08em;
+}
+
+.order-address p {
+  margin: 4px 0;
+
+  color: #666;
+
+  font-size: 12px;
+}
+
+/* =========================
+   PRINT BILL
+========================= */
+
+.order-actions {
+  display: flex;
+
+  justify-content: flex-end;
+
+  padding: 18px 24px;
+
+  border-top: 1px solid #eee;
+
+  background: white;
+}
+
+.print-bill-btn {
+  display: inline-flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  padding: 12px 20px;
+
+  border: 1px solid #111;
+
+  background: #111;
+
+  color: white;
+
+  border-radius: 4px;
+
+  cursor: pointer;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  letter-spacing: 0.03em;
+
+  transition: all 0.2s ease;
+}
+
+.print-bill-btn:hover {
+  background: #d4af37;
+
+  border-color: #d4af37;
+
+  color: #111;
+}
+
+/* =========================
+   EMPTY ORDERS
+========================= */
+
+.empty-orders {
+  max-width: 500px;
+
+  margin: 100px auto;
+
+  text-align: center;
+}
+
+.empty-orders-icon {
+  font-size: 55px;
+}
+
+.empty-orders h2 {
+  margin: 20px 0 8px;
+
+  font-family: Georgia, serif;
+
+  font-weight: 500;
+}
+
+.empty-orders p {
+  color: #777;
+
+  font-size: 13px;
+}
+
+.empty-orders button {
+  margin-top: 20px;
+
+  padding: 13px 24px;
+
+  background: #111;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 4px;
+
+  cursor: pointer;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 800px) {
+
+  .orders-page {
+    padding:
+      35px
+      20px
+      70px;
+  }
+
+  .order-top {
+    grid-template-columns:
+      1fr 1fr;
+  }
+
+  .order-bottom {
+    flex-wrap: wrap;
+  }
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  .orders-page {
+    padding:
+      30px
+      15px
+      60px;
+  }
+
+  .orders-header {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 20px;
+  }
+
+  .continue-shopping {
+    width: 100%;
+  }
+
+  .order-top {
+    grid-template-columns: 1fr;
+
+    padding: 18px;
+  }
+
+  .order-products {
+    padding: 10px 15px;
+  }
+
+  .order-product {
+    grid-template-columns:
+      65px 1fr;
+
+    gap: 12px;
+  }
+
+  .order-product img {
+    width: 65px;
+
+    height: 85px;
+  }
+
+  .order-product > strong {
+    grid-column: 2;
+
+    font-size: 13px;
+  }
+
+  .order-bottom {
+    flex-direction: column;
+
+    padding: 18px;
+  }
+
+  .order-address {
+    padding: 18px;
+  }
+
+  .order-actions {
+    padding: 15px;
+  }
+
+  .print-bill-btn {
+    width: 100%;
+  }
+
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 380px) {
+
+  .order-product {
+    grid-template-columns:
+      55px 1fr;
+  }
+
+  .order-product img {
+    width: 55px;
+
+    height: 75px;
+  }
+
 }

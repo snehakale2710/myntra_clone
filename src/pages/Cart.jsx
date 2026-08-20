@@ -1,288 +1,348 @@
 import React from "react";
 import "./Cart.css";
 
-function Cart({ cart, setCart, setPage }) {
+function Cart({
+  cart,
+  setCart,
+  setPage
+}) {
 
-  const getPrice = (price) => {
-    if (typeof price === "number") {
-      return price;
-    }
-
-    return Number(
-      String(price)
-        .replace("₹", "")
-        .replace(/,/g, "")
-        .trim()
-    ) || 0;
-  };
-
-  const updateQuantity = (id, change) => {
-    const updatedCart = cart
-      .map((item) => {
-        if (item.id === id) {
-          const newQuantity =
-            (item.quantity || 1) + change;
-
-          return {
-            ...item,
-            quantity:
-              newQuantity < 1
-                ? 1
-                : newQuantity,
-          };
-        }
-
-        return item;
-      });
-
-    localStorage.setItem(
-      "cart",
-      JSON.stringify(updatedCart)
-    );
-
-    setCart(updatedCart);
-  };
-
-  const removeFromCart = (id) => {
-    const updatedCart = cart.filter(
+  const removeItem = (id) => {
+    const updated = cart.filter(
       (item) => item.id !== id
     );
 
+    setCart(updated);
+
     localStorage.setItem(
       "cart",
-      JSON.stringify(updatedCart)
+      JSON.stringify(updated)
     );
-
-    setCart(updatedCart);
   };
 
-  const totalAmount = cart.reduce(
-    (total, item) => {
-      return (
-        total +
-        getPrice(item.price) *
-          (item.quantity || 1)
-      );
-    },
+  const changeQuantity = (id, amount) => {
+    const updated = cart.map((item) => {
+
+      if (item.id === id) {
+        return {
+          ...item,
+          quantity: Math.max(
+            1,
+            (item.quantity || 1) + amount
+          )
+        };
+      }
+
+      return item;
+    });
+
+    setCart(updated);
+
+    localStorage.setItem(
+      "cart",
+      JSON.stringify(updated)
+    );
+  };
+
+  /* --------------------------------
+     OPEN PRODUCT DETAILS
+  -------------------------------- */
+
+  const openProductDetails = (item) => {
+
+    // Save selected product
+    localStorage.setItem(
+      "selectedProduct",
+      JSON.stringify(item)
+    );
+
+    // Open product details page
+    setPage("productDetails");
+  };
+
+
+  /* --------------------------------
+     TOTAL
+  -------------------------------- */
+
+  const total = cart.reduce(
+    (sum, item) =>
+      sum +
+      item.price * (item.quantity || 1),
     0
   );
 
-  const totalItems = cart.reduce(
-    (total, item) =>
-      total + (item.quantity || 1),
-    0
-  );
+
+  /* --------------------------------
+     PLACE ORDER
+  -------------------------------- */
+
+  const placeOrder = () => {
+
+    if (cart.length === 0) {
+      return;
+    }
+
+    const oldOrders =
+      JSON.parse(
+        localStorage.getItem("orders")
+      ) || [];
+
+    const newOrder = {
+      id: Date.now(),
+      date: new Date().toLocaleDateString(),
+      items: cart,
+      total: total,
+      status: "Confirmed"
+    };
+
+    localStorage.setItem(
+      "orders",
+      JSON.stringify([
+        newOrder,
+        ...oldOrders
+      ])
+    );
+
+    // Empty cart after order
+    localStorage.removeItem("cart");
+
+    setCart([]);
+
+    alert("Order placed successfully! 🎉");
+
+    setPage("orders");
+  };
+
+
+  /* --------------------------------
+     EMPTY CART
+  -------------------------------- */
+
+  if (cart.length === 0) {
+
+    return (
+      <div className="empty-cart">
+
+        <div>🛍️</div>
+
+        <h2>Your bag is empty</h2>
+
+        <p>
+          Add something you love.
+        </p>
+
+        <button
+          onClick={() =>
+            setPage("products")
+          }
+        >
+          Shop now
+        </button>
+
+      </div>
+    );
+  }
+
 
   return (
     <div className="cart-page">
 
-      <div className="cart-title">
-        <h1>My Bag</h1>
-        <p>
-          {totalItems} item
-          {totalItems !== 1 ? "s" : ""}
-        </p>
-      </div>
+      <h1>My Shopping Bag</h1>
 
-      {cart.length === 0 ? (
-        <div className="empty-cart">
+      <div className="cart-layout">
 
-          <div className="empty-cart-icon">
-            🛍️
-          </div>
+        {/* =========================
+            CART ITEMS
+        ========================== */}
 
-          <h2>Your Bag is Empty</h2>
+        <div className="cart-items">
 
-          <p>
-            Add some products to your bag
-            and come back here.
-          </p>
+          {cart.map((item) => (
 
-          <button
-            onClick={() => setPage("products")}
-          >
-            SHOP NOW
-          </button>
+            <div
+              className="cart-item"
+              key={item.id}
+            >
 
-        </div>
-      ) : (
+              {/* CLICKABLE IMAGE */}
 
-        <div className="cart-container">
+              <img
+                src={item.image}
+                alt={item.name}
+                className="cart-product-image"
+                onClick={() =>
+                  openProductDetails(item)
+                }
+              />
 
-          {/* LEFT SIDE */}
 
-          <div className="cart-products">
+              <div className="cart-item-info">
 
-            {cart.map((item) => (
+                {/* CLICKABLE BRAND */}
 
-              <div
-                className="cart-item"
-                key={item.id}
-              >
-
-                <img
-                  src={item.image}
-                  alt={
-                    item.name ||
-                    item.title ||
-                    "Product"
+                <h3
+                  className="cart-clickable"
+                  onClick={() =>
+                    openProductDetails(item)
                   }
-                />
+                >
+                  {item.brand}
+                </h3>
 
-                <div className="cart-item-info">
 
-                  <h3>
-                    {item.name ||
-                      item.title ||
-                      "Product"}
-                  </h3>
+                {/* CLICKABLE PRODUCT NAME */}
 
-                  {item.brand && (
-                    <p className="brand">
-                      {item.brand}
-                    </p>
-                  )}
+                <p
+                  className="cart-product-name"
+                  onClick={() =>
+                    openProductDetails(item)
+                  }
+                >
+                  {item.name}
 
-                  <p className="price">
-                    ₹
-                    {getPrice(
-                      item.price
-                    ).toLocaleString("en-IN")}
-                  </p>
+                  {item.size &&
+                    ` · Size ${item.size}`}
+                </p>
 
-                  <div className="quantity">
 
-                    <button
-                      onClick={() =>
-                        updateQuantity(
-                          item.id,
-                          -1
-                        )
-                      }
-                    >
-                      −
-                    </button>
+                <strong>
+                  ₹{item.price}
+                </strong>
 
-                    <span>
-                      {item.quantity || 1}
-                    </span>
 
-                    <button
-                      onClick={() =>
-                        updateQuantity(
-                          item.id,
-                          1
-                        )
-                      }
-                    >
-                      +
-                    </button>
+                {/* QUANTITY */}
 
-                  </div>
-
-                </div>
-
-                <div className="cart-item-right">
-
-                  <strong>
-                    ₹
-                    {(
-                      getPrice(item.price) *
-                      (item.quantity || 1)
-                    ).toLocaleString(
-                      "en-IN"
-                    )}
-                  </strong>
+                <div className="quantity">
 
                   <button
-                    className="remove-btn"
                     onClick={() =>
-                      removeFromCart(
-                        item.id
+                      changeQuantity(
+                        item.id,
+                        -1
                       )
                     }
                   >
-                    Remove
+                    −
+                  </button>
+
+                  <span>
+                    {item.quantity || 1}
+                  </span>
+
+                  <button
+                    onClick={() =>
+                      changeQuantity(
+                        item.id,
+                        1
+                      )
+                    }
+                  >
+                    +
                   </button>
 
                 </div>
 
+
+                {/* REMOVE */}
+
+                <button
+                  className="remove"
+                  onClick={() =>
+                    removeItem(item.id)
+                  }
+                >
+                  Remove
+                </button>
+
               </div>
 
-            ))}
-
-          </div>
-
-          {/* RIGHT SIDE */}
-
-          <div className="cart-summary">
-
-            <h2>PRICE DETAILS</h2>
-
-            <div className="summary-row">
-              <span>
-                Total Items
-              </span>
-
-              <span>
-                {totalItems}
-              </span>
             </div>
 
-            <div className="summary-row">
-              <span>
-                Total MRP
-              </span>
-
-              <span>
-                ₹
-                {totalAmount.toLocaleString(
-                  "en-IN"
-                )}
-              </span>
-            </div>
-
-            <div className="summary-row">
-              <span>
-                Delivery Charges
-              </span>
-
-              <span className="free">
-                FREE
-              </span>
-            </div>
-
-            <hr />
-
-            <div className="summary-total">
-
-              <strong>
-                Total Amount
-              </strong>
-
-              <strong>
-                ₹
-                {totalAmount.toLocaleString(
-                  "en-IN"
-                )}
-              </strong>
-
-            </div>
-
-            <button
-              className="checkout-btn"
-              onClick={() =>
-                setPage("checkout")
-              }
-            >
-              PROCEED TO CHECKOUT
-            </button>
-
-          </div>
+          ))}
 
         </div>
 
-      )}
+
+        {/* =========================
+            PRICE DETAILS
+        ========================== */}
+
+        <div className="price-box">
+
+          <h3>
+            Price details
+          </h3>
+
+
+          <div>
+
+            <span>
+              Total Items
+            </span>
+
+            <span>
+              {cart.reduce(
+                (sum, item) =>
+                  sum + (item.quantity || 1),
+                0
+              )}
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Total MRP
+            </span>
+
+            <span>
+              ₹{total}
+            </span>
+
+          </div>
+
+
+          <div>
+
+            <span>
+              Discount
+            </span>
+
+            <span className="green">
+              -₹0
+            </span>
+
+          </div>
+
+
+          <hr />
+
+
+          <div className="final-price">
+
+            <strong>
+              Total Amount
+            </strong>
+
+            <strong>
+              ₹{total}
+            </strong>
+
+          </div>
+
+
+          <button
+            onClick={placeOrder}
+          >
+            Place order
+          </button>
+
+        </div>
+
+      </div>
 
     </div>
   );

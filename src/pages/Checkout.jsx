@@ -1,283 +1,193 @@
 import React, { useState } from "react";
-import "./Checkout.css";
+import "./Register.css";
 
-function Checkout({ setPage }) {
-
-  const [address, setAddress] = useState(
-    JSON.parse(
-      localStorage.getItem("deliveryAddress")
-    ) || {
-      name: "",
-      mobile: "",
-      address: "",
-      city: "",
-      pincode: "",
-    }
-  );
-
+function Register({ setPage }) {
   const [error, setError] = useState("");
 
-  const cart =
-    JSON.parse(
-      localStorage.getItem("cart")
-    ) || [];
-
-  const getPrice = (price) => {
-    if (typeof price === "number") {
-      return price;
-    }
-
-    return (
-      Number(
-        String(price)
-          .replace("₹", "")
-          .replace(/,/g, "")
-          .trim()
-      ) || 0
-    );
-  };
-
-  const totalAmount = cart.reduce(
-    (total, item) =>
-      total +
-      getPrice(item.price) *
-        (item.quantity || 1),
-    0
-  );
-
-  const handleChange = (e) => {
-    setAddress({
-      ...address,
-      [e.target.name]: e.target.value,
-    });
-
-    setError("");
-  };
-
-  const handleContinue = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
 
-    if (
-      !address.name ||
-      !address.mobile ||
-      !address.address ||
-      !address.city ||
-      !address.pincode
-    ) {
+    const name =
+      e.target.name.value.trim();
+
+    const email =
+      e.target.email.value.trim().toLowerCase();
+
+    const password =
+      e.target.password.value;
+
+    const confirmPassword =
+      e.target.confirmPassword.value;
+
+    /* =========================
+       PASSWORD CHECK
+    ========================= */
+
+    if (password !== confirmPassword) {
       setError(
-        "Please fill all delivery details."
+        "Passwords do not match."
       );
       return;
     }
 
-    if (!/^[0-9]{10}$/.test(address.mobile)) {
+    /* =========================
+       GET EXISTING USERS
+    ========================= */
+
+    const users =
+      JSON.parse(
+        localStorage.getItem("users")
+      ) || [];
+
+    /* =========================
+       CHECK DUPLICATE EMAIL
+    ========================= */
+
+    const existingUser =
+      users.find(
+        (user) =>
+          user.email.toLowerCase() === email
+      );
+
+    if (existingUser) {
       setError(
-        "Please enter a valid 10-digit mobile number."
+        "An account with this email already exists."
       );
       return;
     }
 
-    if (!/^[0-9]{6}$/.test(address.pincode)) {
-      setError(
-        "Please enter a valid 6-digit pincode."
-      );
-      return;
-    }
+    /* =========================
+       CREATE USER
+    ========================= */
 
-    if (cart.length === 0) {
-      alert("Your cart is empty.");
-      setPage("cart");
-      return;
-    }
+    const newUser = {
+      id: Date.now(),
+      name,
+      email,
+      password,
+    };
+
+    /* =========================
+       ADD USER
+       WITHOUT DELETING
+       OTHER USERS
+    ========================= */
+
+    const updatedUsers = [
+      ...users,
+      newUser,
+    ];
 
     localStorage.setItem(
-      "deliveryAddress",
-      JSON.stringify(address)
+      "users",
+      JSON.stringify(updatedUsers)
     );
 
-    setPage("payment");
+    /* =========================
+       LOGIN THIS USER
+    ========================= */
+
+    localStorage.setItem(
+      "currentUser",
+      JSON.stringify(newUser)
+    );
+
+    localStorage.setItem(
+      "loggedIn",
+      "true"
+    );
+
+    setError("");
+
+    setPage("home");
   };
 
   return (
-    <div className="checkout-page">
+    <div className="register-page">
 
-      <div className="checkout-title">
-        <h1>Checkout</h1>
-        <p>Complete your order</p>
-      </div>
+      <div className="register-card">
 
-      <div className="checkout-container">
+        <div className="register-image">
 
-        {/* ADDRESS */}
+          <h1>
+            STYLE<span>HUB</span>
+          </h1>
 
-        <div className="checkout-left">
+          <p>
+            Your style. Your story.
+          </p>
 
-          <h2>Delivery Address</h2>
+        </div>
+
+        <div className="register-form">
+
+          <p className="eyebrow">
+            Join us
+          </p>
+
+          <h2>
+            Create your account
+          </h2>
+
+          <p>
+            Join us and discover your style.
+          </p>
 
           {error && (
-            <div className="checkout-error">
+            <div className="error">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleContinue}>
-
-            <label>Full Name</label>
+          <form onSubmit={handleRegister}>
 
             <input
-              type="text"
               name="name"
-              placeholder="Enter your full name"
-              value={address.name}
-              onChange={handleChange}
+              type="text"
+              placeholder="Full Name"
+              required
             />
-
-            <label>Mobile Number</label>
 
             <input
-              type="tel"
-              name="mobile"
-              placeholder="10-digit mobile number"
-              maxLength="10"
-              value={address.mobile}
-              onChange={handleChange}
+              name="email"
+              type="email"
+              placeholder="Email Address"
+              required
             />
 
-            <label>Address</label>
-
-            <textarea
-              name="address"
-              placeholder="House No., Building, Street, Area"
-              value={address.address}
-              onChange={handleChange}
+            <input
+              name="password"
+              type="password"
+              placeholder="Password"
+              required
             />
 
-            <div className="checkout-row">
+            <input
+              name="confirmPassword"
+              type="password"
+              placeholder="Confirm Password"
+              required
+            />
 
-              <div>
-                <label>City</label>
-
-                <input
-                  type="text"
-                  name="city"
-                  placeholder="City"
-                  value={address.city}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div>
-                <label>Pincode</label>
-
-                <input
-                  type="text"
-                  name="pincode"
-                  placeholder="Pincode"
-                  maxLength="6"
-                  value={address.pincode}
-                  onChange={handleChange}
-                />
-              </div>
-
-            </div>
-
-            <button
-              type="submit"
-              className="continue-payment-btn"
-            >
-              CONTINUE TO PAYMENT
+            <button type="submit">
+              Create Account
             </button>
 
           </form>
 
-        </div>
+          <p className="switch">
+            Already have an account?
 
-        {/* SUMMARY */}
-
-        <div className="checkout-right">
-
-          <h2>Order Summary</h2>
-
-          {cart.map((item) => (
-
-            <div
-              className="checkout-item"
-              key={item.id}
+            <button
+              type="button"
+              onClick={() =>
+                setPage("login")
+              }
             >
+              Login
+            </button>
 
-              <img
-                src={item.image}
-                alt={
-                  item.name ||
-                  item.title ||
-                  "Product"
-                }
-              />
-
-              <div>
-
-                <h3>
-                  {item.name ||
-                    item.title ||
-                    "Product"}
-                </h3>
-
-                <p>
-                  Quantity:{" "}
-                  {item.quantity || 1}
-                </p>
-
-                <strong>
-                  ₹
-                  {(
-                    getPrice(item.price) *
-                    (item.quantity || 1)
-                  ).toLocaleString("en-IN")}
-                </strong>
-
-              </div>
-
-            </div>
-
-          ))}
-
-          <div className="price-details">
-
-            <div>
-              <span>Subtotal</span>
-
-              <span>
-                ₹
-                {totalAmount.toLocaleString(
-                  "en-IN"
-                )}
-              </span>
-            </div>
-
-            <div>
-              <span>Delivery</span>
-
-              <span className="free">
-                FREE
-              </span>
-            </div>
-
-            <hr />
-
-            <div className="total-row">
-
-              <strong>Total Amount</strong>
-
-              <strong>
-                ₹
-                {totalAmount.toLocaleString(
-                  "en-IN"
-                )}
-              </strong>
-
-            </div>
-
-          </div>
+          </p>
 
         </div>
 
@@ -287,4 +197,4 @@ function Checkout({ setPage }) {
   );
 }
 
-export default Checkout;
+export default Register;

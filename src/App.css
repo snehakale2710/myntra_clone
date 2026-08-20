@@ -1,12 +1,89 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+
+  font-family:
+    Inter,
+    Arial,
+    sans-serif;
+
+  background: #fff;
+
+  color: #111;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+img {
+  max-width: 100%;
+}
+
 .app {
   min-height: 100vh;
+
   display: flex;
+
   flex-direction: column;
 }
+
 main {
   flex: 1;
-  min-height: 70vh;
 }
-button {
-  font-family: inherit;
+
+:root {
+  --paper: #ffffff;
+
+  --surface: #f7f7f7;
+
+  --ink: #111111;
+
+  --ink-soft: #666666;
+
+  --ink-faint: #999999;
+
+  --line: #e7e7e7;
+
+  --line-strong: #cccccc;
+
+  --accent: #d4af37;
+
+  --accent-dark: #b89520;
+
+  --pink: #ff3f6c;
+
+  --success: #16833b;
+
+  --danger: #c00000;
+
+  --edge: 5vw;
+
+  --radius-s: 4px;
+
+  --radius-m: 8px;
+
+  --shadow-lift:
+    0 15px 45px
+    rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 600px) {
+  :root {
+    --edge: 15px;
+  }
 }

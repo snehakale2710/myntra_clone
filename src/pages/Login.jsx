@@ -2,46 +2,58 @@ import React, { useState } from "react";
 import "./Login.css";
 
 function Login({ setPage }) {
-
-  const [error, setError] =
-    useState("");
+  const [error, setError] = useState("");
 
   const handleLogin = (e) => {
-
     e.preventDefault();
 
     const email =
-      e.target.email.value;
+      e.target.email.value.trim().toLowerCase();
 
     const password =
       e.target.password.value;
 
-    const savedUser =
+    /* =========================
+       GET ALL USERS
+    ========================= */
+
+    const users =
       JSON.parse(
-        localStorage.getItem("user")
-      );
+        localStorage.getItem("users")
+      ) || [];
 
-    if (!savedUser) {
-      setError(
-        "Please register before login."
-      );
-      return;
-    }
+    /* =========================
+       FIND USER
+    ========================= */
 
-    if (
-      email !== savedUser.email ||
-      password !== savedUser.password
-    ) {
+    const user = users.find(
+      (item) =>
+        item.email.toLowerCase() === email &&
+        item.password === password
+    );
+
+    if (!user) {
       setError(
         "Invalid email or password."
       );
       return;
     }
 
+    /* =========================
+       SAVE CURRENT USER
+    ========================= */
+
+    localStorage.setItem(
+      "currentUser",
+      JSON.stringify(user)
+    );
+
     localStorage.setItem(
       "loggedIn",
       "true"
     );
+
+    setError("");
 
     setPage("home");
   };
@@ -52,6 +64,7 @@ function Login({ setPage }) {
       <div className="auth-card">
 
         <div className="auth-left">
+
           <h1>
             STYLE<span>HUB</span>
           </h1>
@@ -59,13 +72,18 @@ function Login({ setPage }) {
           <p>
             Considered clothing for everyday wear.
           </p>
+
         </div>
 
         <div className="auth-right">
 
-          <p className="eyebrow">Welcome back</p>
+          <p className="eyebrow">
+            Welcome back
+          </p>
 
-          <h2>Log in to your account</h2>
+          <h2>
+            Log in to your account
+          </h2>
 
           <p>
             Login to continue shopping.
@@ -103,6 +121,7 @@ function Login({ setPage }) {
             Don't have an account?
 
             <button
+              type="button"
               onClick={() =>
                 setPage("register")
               }

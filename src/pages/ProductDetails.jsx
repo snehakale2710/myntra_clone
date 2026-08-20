@@ -1,15 +1,20 @@
 import React, { useState } from "react";
+
 import "./ProductDetails.css";
 
 function ProductDetails({
   setPage,
   addToWishlist,
-  addToCart
+  addToCart,
 }) {
+  const [selectedSize, setSelectedSize] =
+    useState("M");
 
-  const [selectedSize, setSelectedSize] = useState("M");
-  const [pincode, setPincode] = useState("");
-  const [pincodeMsg, setPincodeMsg] = useState("");
+  const [pincode, setPincode] =
+    useState("");
+
+  const [pincodeMsg, setPincodeMsg] =
+    useState("");
 
   const product =
     JSON.parse(
@@ -20,29 +25,44 @@ function ProductDetails({
 
   const checkPincode = (e) => {
     e.preventDefault();
-    if (pincode.trim().length === 6) {
-      setPincodeMsg("Delivery available — usually arrives in 3-5 days.");
+
+    if (
+      /^[0-9]{6}$/.test(
+        pincode.trim()
+      )
+    ) {
+      setPincodeMsg(
+        "Delivery available — usually arrives in 3-5 days."
+      );
     } else {
-      setPincodeMsg("Enter a valid 6-digit pincode.");
+      setPincodeMsg(
+        "Enter a valid 6-digit pincode."
+      );
     }
   };
 
   if (!product) {
     return (
       <div className="details-error">
-        <h2>Product not found</h2>
+
+        <h2>
+          Product not found
+        </h2>
 
         <button
-          onClick={() => setPage("products")}
+          onClick={() =>
+            setPage("products")
+          }
         >
           Back to Products
         </button>
+
       </div>
     );
   }
 
   return (
-    <div className="details-page">
+    <main className="details-page">
 
       <div className="details-image">
 
@@ -59,7 +79,9 @@ function ProductDetails({
           {product.brand}
         </p>
 
-        <h1>{product.name}</h1>
+        <h1>
+          {product.name}
+        </h1>
 
         <p className="details-description">
           {product.description}
@@ -68,11 +90,17 @@ function ProductDetails({
         <div className="details-price">
 
           <strong>
-            ₹{product.price}
+            ₹
+            {Number(
+              product.price
+            ).toLocaleString("en-IN")}
           </strong>
 
           <del>
-            ₹{product.originalPrice}
+            ₹
+            {Number(
+              product.originalPrice
+            ).toLocaleString("en-IN")}
           </del>
 
           <span>
@@ -82,21 +110,35 @@ function ProductDetails({
         </div>
 
         <div className="size-title">
-          Select size
+          Select Size
         </div>
 
         <div className="sizes">
-          {["S", "M", "L", "XL", "XXL"].map((size) => (
+
+          {[
+            "S",
+            "M",
+            "L",
+            "XL",
+            "XXL",
+          ].map((size) => (
+
             <button
               key={size}
               className={
-                selectedSize === size ? "selected" : ""
+                selectedSize === size
+                  ? "selected"
+                  : ""
               }
-              onClick={() => setSelectedSize(size)}
+              onClick={() =>
+                setSelectedSize(size)
+              }
             >
               {size}
             </button>
+
           ))}
+
         </div>
 
         <div className="details-actions">
@@ -104,10 +146,13 @@ function ProductDetails({
           <button
             className="add-cart"
             onClick={() =>
-              addToCart({ ...product, size: selectedSize })
+              addToCart({
+                ...product,
+                size: selectedSize,
+              })
             }
           >
-            Add to Bag
+            ADD TO BAG
           </button>
 
           <button
@@ -116,40 +161,59 @@ function ProductDetails({
               addToWishlist(product)
             }
           >
-            ♡ Wishlist
+            ♡ WISHLIST
           </button>
 
         </div>
 
         <div className="delivery">
 
-          <h3>Delivery options</h3>
+          <h3>
+            Delivery Options
+          </h3>
 
           <p>
             Enter your pincode to check
             delivery availability.
           </p>
 
-          <form className="pincode-form" onSubmit={checkPincode}>
+          <form
+            className="pincode-form"
+            onSubmit={checkPincode}
+          >
+
             <input
               type="text"
               placeholder="Enter pincode"
               maxLength={6}
               value={pincode}
-              onChange={(e) => setPincode(e.target.value)}
+              onChange={(e) =>
+                setPincode(
+                  e.target.value.replace(
+                    /\D/g,
+                    ""
+                  )
+                )
+              }
             />
-            <button type="submit">Check</button>
+
+            <button type="submit">
+              Check
+            </button>
+
           </form>
 
           {pincodeMsg && (
-            <p className="pincode-msg">{pincodeMsg}</p>
+            <p className="pincode-msg">
+              {pincodeMsg}
+            </p>
           )}
 
         </div>
 
       </div>
 
-    </div>
+    </main>
   );
 }
 

@@ -1,74 +1,87 @@
 import React from "react";
+import PageTitle from "../components/PageTitle";
 import "./Orders.css";
 
 function Orders({ setPage }) {
-  const orders =
-    JSON.parse(localStorage.getItem("orders")) || [];
+  /* =========================
+     CURRENT USER
+  ========================= */
 
-  const getPrice = (price) => {
-    if (typeof price === "number") {
-      return price;
-    }
-
-    return (
-      Number(
-        String(price)
-          .replace("₹", "")
-          .replace(/,/g, "")
-          .trim()
-      ) || 0
+  const currentUser =
+    JSON.parse(
+      localStorage.getItem("currentUser")
     );
-  };
 
-  // ==========================
-  // PRINT BILL
-  // ==========================
+  const ordersKey =
+    currentUser?.email
+      ? `orders_${currentUser.email.toLowerCase()}`
+      : "orders";
+
+  /* =========================
+     USER ORDERS
+  ========================= */
+
+  const orders =
+    JSON.parse(
+      localStorage.getItem(
+        ordersKey
+      )
+    ) || [];
+
+  /* =========================
+     PRICE
+  ========================= */
+
+  const formatPrice = (price) =>
+    Number(
+      price || 0
+    ).toLocaleString("en-IN");
+
+  /* =========================
+     PRINT BILL
+  ========================= */
 
   const printBill = (order) => {
-    const billWindow = window.open(
-      "",
-      "_blank",
-      "width=800,height=900"
-    );
-
-    if (!billWindow) {
-      alert(
-        "Please allow pop-ups to print your bill."
+    const billWindow =
+      window.open(
+        "",
+        "_blank",
+        "width=900,height=700"
       );
-      return;
-    }
 
-    const itemsHTML = order.items
-      .map((item) => {
-        const price = getPrice(item.price);
-        const quantity = item.quantity || 1;
-        const total = price * quantity;
+    if (!billWindow) return;
 
-        return `
-          <tr>
-            <td>
-              ${
-                item.name ||
-                item.title ||
-                "Product"
-              }
-            </td>
+    const itemsHTML =
+      order.items
+        ?.map(
+          (item) => `
+            <tr>
+              <td>
+                ${item.name || item.title || "Product"}
+              </td>
 
-            <td>
-              ₹${price.toLocaleString("en-IN")}
-            </td>
+              <td>
+                ${item.brand || "STYLEHUB"}
+              </td>
 
-            <td>
-              ${quantity}
-            </td>
+              <td>
+                ${item.quantity || 1}
+              </td>
 
-            <td>
-              ₹${total.toLocaleString("en-IN")}
-            </td>
-          </tr>
-        `;
-      })
-      .join("");
+              <td>
+                ₹${formatPrice(item.price)}
+              </td>
+
+              <td>
+                ₹${formatPrice(
+                  Number(item.price || 0) *
+                    (item.quantity || 1)
+                )}
+              </td>
+            </tr>
+          `
+        )
+        .join("") || "";
 
     billWindow.document.write(`
       <!DOCTYPE html>
@@ -78,7 +91,7 @@ function Orders({ setPage }) {
       <head>
 
         <title>
-          Style Hub Invoice - ${order.id}
+          STYLEHUB Invoice - ${order.id}
         </title>
 
         <style>
@@ -88,15 +101,15 @@ function Orders({ setPage }) {
           }
 
           body {
-            font-family: Arial, sans-serif;
             margin: 0;
             padding: 40px;
-            color: #222;
-            background: white;
+            font-family: Arial, sans-serif;
+            color: #111;
+            background: #fff;
           }
 
           .invoice {
-            max-width: 750px;
+            max-width: 900px;
             margin: auto;
           }
 
@@ -104,18 +117,17 @@ function Orders({ setPage }) {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            border-bottom: 3px solid #d4af37;
-            padding-bottom: 20px;
-            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid #111;
           }
 
-          .brand {
+          .logo {
             font-size: 30px;
-            font-weight: bold;
+            font-weight: 700;
             letter-spacing: 2px;
           }
 
-          .brand span {
+          .logo span {
             color: #d4af37;
           }
 
@@ -125,91 +137,94 @@ function Orders({ setPage }) {
 
           .invoice-title h1 {
             margin: 0;
-            font-size: 25px;
+            font-size: 26px;
           }
 
           .invoice-title p {
             margin: 6px 0;
             color: #666;
+            font-size: 13px;
           }
 
           .details {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 30px 0;
           }
 
-          .details-box {
-            width: 48%;
-          }
-
-          .details-box h3 {
+          .details h3 {
             margin-bottom: 10px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 8px;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
           }
 
-          .details-box p {
+          .details p {
             margin: 5px 0;
+            font-size: 13px;
             color: #555;
           }
 
           table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin-top: 25px;
           }
 
           th {
             background: #111;
-            color: white;
+            color: #fff;
             padding: 12px;
             text-align: left;
+            font-size: 12px;
           }
 
           td {
             padding: 12px;
             border-bottom: 1px solid #ddd;
+            font-size: 12px;
           }
 
-          .total-section {
-            margin-top: 25px;
+          .summary {
+            width: 320px;
             margin-left: auto;
-            width: 300px;
+            margin-top: 25px;
           }
 
-          .total-row {
+          .summary-row {
             display: flex;
             justify-content: space-between;
             padding: 8px 0;
+            font-size: 13px;
           }
 
-          .grand-total {
+          .total {
             border-top: 2px solid #111;
             margin-top: 10px;
             padding-top: 12px;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
           }
 
-          .status {
+          .payment {
             margin-top: 30px;
             padding: 15px;
-            background: #f4f8f4;
-            color: green;
-            text-align: center;
-            font-weight: bold;
+            background: #f7f7f7;
+            font-size: 13px;
           }
 
-          .footer {
-            margin-top: 50px;
+          .thank-you {
             text-align: center;
-            border-top: 1px solid #ddd;
+            margin-top: 45px;
             padding-top: 20px;
+            border-top: 1px solid #ddd;
             color: #777;
+            font-size: 12px;
           }
 
           @media print {
+
             body {
               padding: 20px;
             }
@@ -217,6 +232,7 @@ function Orders({ setPage }) {
             .no-print {
               display: none;
             }
+
           }
 
         </style>
@@ -229,13 +245,15 @@ function Orders({ setPage }) {
 
           <div class="header">
 
-            <div class="brand">
-              STYLE <span>HUB</span>
+            <div class="logo">
+              STYLE<span>HUB</span>
             </div>
 
             <div class="invoice-title">
 
-              <h1>INVOICE</h1>
+              <h1>
+                INVOICE
+              </h1>
 
               <p>
                 Order ID: ${order.id}
@@ -251,73 +269,53 @@ function Orders({ setPage }) {
 
           <div class="details">
 
-            <div class="details-box">
+            <div>
 
-              <h3>Delivery Address</h3>
+              <h3>
+                Delivery Address
+              </h3>
 
               <p>
                 <strong>
-                  ${
-                    order.address?.name ||
-                    "Customer"
-                  }
+                  ${order.address?.name || "Customer"}
                 </strong>
               </p>
 
               <p>
-                ${
-                  order.address?.address ||
-                  ""
-                }
+                ${order.address?.address || ""}
               </p>
 
               <p>
-                ${
-                  order.address?.city ||
-                  ""
-                }
-                ${
-                  order.address?.pincode ||
-                  ""
-                }
+                ${order.address?.city || ""}
+                ${order.address?.pincode || ""}
               </p>
 
               <p>
                 Mobile:
-                ${
-                  order.address?.mobile ||
-                  ""
-                }
+                ${order.address?.mobile || ""}
               </p>
 
             </div>
 
-            <div class="details-box">
+            <div>
 
-              <h3>Payment Details</h3>
+              <h3>
+                Payment Details
+              </h3>
 
               <p>
-                Method:
-                ${
-                  order.paymentMethod ||
-                  "Online Payment"
-                }
+                Payment Method:
+                ${order.paymentMethod || "N/A"}
               </p>
 
               <p>
-                Status:
-                ${
-                  order.paymentStatus ||
-                  "Paid"
-                }
+                Payment Status:
+                ${order.paymentStatus || "N/A"}
               </p>
 
               <p>
                 Order Status:
-                ${
-                  order.status ||
-                  "Confirmed"
-                }
+                ${order.status || "Confirmed"}
               </p>
 
             </div>
@@ -330,8 +328,9 @@ function Orders({ setPage }) {
 
               <tr>
                 <th>Product</th>
-                <th>Price</th>
+                <th>Brand</th>
                 <th>Qty</th>
+                <th>Price</th>
                 <th>Total</th>
               </tr>
 
@@ -345,66 +344,71 @@ function Orders({ setPage }) {
 
           </table>
 
-          <div class="total-section">
+          <div class="summary">
 
-            <div class="total-row">
+            <div class="summary-row">
 
               <span>
                 Subtotal
               </span>
 
-              <strong>
-                ₹${Number(
-                  order.amount
-                ).toLocaleString("en-IN")}
-              </strong>
+              <span>
+                ₹${formatPrice(order.amount)}
+              </span>
 
             </div>
 
-            <div class="total-row">
+            <div class="summary-row">
 
               <span>
                 Delivery
               </span>
 
-              <strong>
-                FREE
-              </strong>
-
-            </div>
-
-            <div class="total-row grand-total">
-
               <span>
-                Grand Total
+                FREE
               </span>
 
-              <strong>
-                ₹${Number(
-                  order.amount
-                ).toLocaleString("en-IN")}
-              </strong>
+            </div>
+
+            <div class="summary-row total">
+
+              <span>
+                Total Amount
+              </span>
+
+              <span>
+                ₹${formatPrice(order.amount)}
+              </span>
 
             </div>
 
           </div>
 
-          <div class="status">
+          <div class="payment">
 
-            ✓ Order Confirmed
+            <strong>
+              Payment:
+            </strong>
+
+            ${order.paymentMethod || "N/A"}
+
+            <br />
+
+            <strong>
+              Status:
+            </strong>
+
+            ${order.paymentStatus || "N/A"}
 
           </div>
 
-          <div class="footer">
+          <div class="thank-you">
 
-            <p>
-              Thank you for shopping with
-              <strong>Style Hub</strong>!
-            </p>
+            Thank you for shopping with STYLEHUB.
 
-            <p>
-              We hope to see you again.
-            </p>
+            <br />
+
+            Your style. Your story.
 
           </div>
 
@@ -427,15 +431,25 @@ function Orders({ setPage }) {
   };
 
   return (
-    <div className="orders-page">
+    <main className="orders-page">
 
-      <div className="orders-title">
+      <div className="orders-header">
 
-        <h1>My Orders</h1>
+        <PageTitle
+          eyebrow="STYLEHUB ACCOUNT"
+          title="My Orders"
+          description="Track and manage your recent purchases."
+          count={orders.length}
+        />
 
-        <p>
-          Track and manage your Style Hub orders
-        </p>
+        <button
+          className="continue-shopping"
+          onClick={() =>
+            setPage("products")
+          }
+        >
+          Continue Shopping
+        </button>
 
       </div>
 
@@ -443,16 +457,16 @@ function Orders({ setPage }) {
 
         <div className="empty-orders">
 
-          <div className="empty-icon">
+          <div className="empty-orders-icon">
             📦
           </div>
 
           <h2>
-            No Orders Yet
+            No orders yet
           </h2>
 
           <p>
-            You haven't placed any orders yet.
+            Your placed orders will appear here.
           </p>
 
           <button
@@ -460,21 +474,21 @@ function Orders({ setPage }) {
               setPage("products")
             }
           >
-            START SHOPPING
+            Start Shopping
           </button>
 
         </div>
 
       ) : (
 
-        <div className="orders-container">
+        <div className="orders-list">
 
           {orders
             .slice()
             .reverse()
             .map((order) => (
 
-              <div
+              <article
                 className="order-card"
                 key={order.id}
               >
@@ -483,7 +497,7 @@ function Orders({ setPage }) {
 
                   <div>
                     <span>
-                      Order ID
+                      ORDER ID
                     </span>
 
                     <strong>
@@ -493,7 +507,7 @@ function Orders({ setPage }) {
 
                   <div>
                     <span>
-                      Order Date
+                      ORDER DATE
                     </span>
 
                     <strong>
@@ -503,24 +517,24 @@ function Orders({ setPage }) {
 
                   <div>
                     <span>
-                      Status
+                      STATUS
                     </span>
 
-                    <strong className="confirmed">
-                      ✓ {order.status}
+                    <strong className="status">
+                      {order.status}
                     </strong>
                   </div>
 
                 </div>
 
-                <div className="order-items">
+                <div className="order-products">
 
-                  {order.items.map(
-                    (item) => (
+                  {order.items?.map(
+                    (item, index) => (
 
                       <div
-                        className="order-item"
-                        key={item.id}
+                        className="order-product"
+                        key={`${item.id}-${index}`}
                       >
 
                         <img
@@ -532,7 +546,7 @@ function Orders({ setPage }) {
                           }
                         />
 
-                        <div className="order-item-info">
+                        <div className="order-product-info">
 
                           <h3>
                             {item.name ||
@@ -541,25 +555,35 @@ function Orders({ setPage }) {
                           </h3>
 
                           <p>
-                            Quantity:{" "}
-                            {item.quantity ||
-                              1}
+                            Brand:{" "}
+                            {item.brand ||
+                              "STYLEHUB"}
                           </p>
 
-                          <strong>
-                            ₹
-                            {(
-                              getPrice(
-                                item.price
-                              ) *
-                              (item.quantity ||
-                                1)
-                            ).toLocaleString(
-                              "en-IN"
-                            )}
-                          </strong>
+                          {item.size && (
+                            <p>
+                              Size:{" "}
+                              {item.size}
+                            </p>
+                          )}
+
+                          <p>
+                            Quantity:{" "}
+                            {item.quantity || 1}
+                          </p>
 
                         </div>
+
+                        <strong>
+                          ₹
+                          {formatPrice(
+                            Number(
+                              item.price || 0
+                            ) *
+                              (item.quantity ||
+                                1)
+                          )}
+                        </strong>
 
                       </div>
 
@@ -572,51 +596,87 @@ function Orders({ setPage }) {
 
                   <div>
 
-                    Payment:
+                    <span>
+                      PAYMENT
+                    </span>
 
-                    <strong className="paid">
-
-                      {" "}
-                      ✓{" "}
-
-                      {order.paymentStatus}
-
+                    <strong>
+                      {order.paymentMethod}
                     </strong>
 
                   </div>
 
                   <div>
 
-                    Total:
+                    <span>
+                      PAYMENT STATUS
+                    </span>
 
                     <strong>
+                      {order.paymentStatus}
+                    </strong>
 
-                      {" "}
+                  </div>
+
+                  <div>
+
+                    <span>
+                      TOTAL
+                    </span>
+
+                    <strong className="order-total">
                       ₹
-                      {Number(
+                      {formatPrice(
                         order.amount
-                      ).toLocaleString(
-                        "en-IN"
                       )}
-
                     </strong>
 
                   </div>
 
                 </div>
 
-                {/* PRINT BILL BUTTON */}
+                <div className="order-address">
 
-                <button
-                  className="print-bill-button"
-                  onClick={() =>
-                    printBill(order)
-                  }
-                >
-                  🖨️ PRINT BILL
-                </button>
+                  <h3>
+                    Delivery Address
+                  </h3>
 
-              </div>
+                  <p>
+                    <strong>
+                      {order.address?.name}
+                    </strong>
+                  </p>
+
+                  <p>
+                    {order.address?.address}
+                  </p>
+
+                  <p>
+                    {order.address?.city}{" "}
+                    {order.address?.pincode}
+                  </p>
+
+                  <p>
+                    📞{" "}
+                    {order.address?.mobile}
+                  </p>
+
+                </div>
+
+                <div className="order-actions">
+
+                  <button
+                    className="print-bill-btn"
+                    onClick={() =>
+                      printBill(order)
+                    }
+                  >
+                    🖨 Print Bill
+                  </button>
+
+                </div>
+
+              </article>
 
             ))}
 
@@ -624,7 +684,7 @@ function Orders({ setPage }) {
 
       )}
 
-    </div>
+    </main>
   );
 }
 

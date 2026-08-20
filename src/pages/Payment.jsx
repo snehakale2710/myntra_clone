@@ -1,22 +1,59 @@
 import React, { useState } from "react";
 import "./Payment.css";
 
-function Payment({ setPage }) {
+function Payment({ setPage, setCart }) {
   const [paymentMethod, setPaymentMethod] =
     useState("upi");
 
   const [loading, setLoading] =
     useState(false);
 
+  /* =========================
+     CURRENT USER
+  ========================= */
+
+  const currentUser =
+    JSON.parse(
+      localStorage.getItem("currentUser")
+    );
+
+  const email = currentUser?.email
+    ?.toLowerCase();
+
+  const cartKey = email
+    ? `cart_${email}`
+    : "cart";
+
+  const addressKey = email
+    ? `deliveryAddress_${email}`
+    : "deliveryAddress";
+
+  const ordersKey = email
+    ? `orders_${email}`
+    : "orders";
+
+  /* =========================
+     CART
+  ========================= */
+
   const cart =
-    JSON.parse(localStorage.getItem("cart")) || [];
+    JSON.parse(
+      localStorage.getItem(cartKey)
+    ) || [];
+
+  /* =========================
+     ADDRESS
+  ========================= */
 
   const address =
     JSON.parse(
-      localStorage.getItem("deliveryAddress")
+      localStorage.getItem(addressKey)
     ) || {};
 
-  // Convert price into number
+  /* =========================
+     PRICE
+  ========================= */
+
   const getPrice = (price) => {
     if (typeof price === "number") {
       return price;
@@ -32,39 +69,57 @@ function Payment({ setPage }) {
     );
   };
 
-  // Calculate total
-  const totalAmount = cart.reduce(
-    (total, item) =>
-      total +
-      getPrice(item.price) *
+  /* =========================
+     TOTAL
+  ========================= */
+
+  const totalAmount =
+    cart.reduce(
+      (total, item) =>
+        total +
+        getPrice(item.price) *
+          (item.quantity || 1),
+      0
+    );
+
+  /* =========================
+     TOTAL ITEMS
+  ========================= */
+
+  const totalItems =
+    cart.reduce(
+      (total, item) =>
+        total +
         (item.quantity || 1),
-    0
-  );
+      0
+    );
 
-  // Total number of products
-  const totalItems = cart.reduce(
-    (total, item) =>
-      total + (item.quantity || 1),
-    0
-  );
-
-  // ==========================
-  // PLACE ORDER
-  // ==========================
+  /* =========================
+     PLACE ORDER
+  ========================= */
 
   const handlePlaceOrder = () => {
     if (cart.length === 0) {
-      alert("Your cart is empty.");
       setPage("cart");
+      return;
+    }
+
+    if (!currentUser) {
+      setPage("login");
       return;
     }
 
     setLoading(true);
 
-    // Simulate payment processing
     setTimeout(() => {
       const newOrder = {
         id: "SH" + Date.now(),
+
+        userEmail:
+          currentUser.email,
+
+        userName:
+          currentUser.name,
 
         amount: totalAmount,
 
@@ -77,7 +132,8 @@ function Payment({ setPage }) {
             ? "UPI"
             : paymentMethod === "card"
             ? "Credit / Debit Card"
-            : paymentMethod === "netbanking"
+            : paymentMethod ===
+              "netbanking"
             ? "Net Banking"
             : "Cash on Delivery",
 
@@ -88,40 +144,53 @@ function Payment({ setPage }) {
 
         status: "Confirmed",
 
-        date: new Date().toLocaleString(
-          "en-IN"
-        ),
+        date:
+          new Date().toLocaleString(
+            "en-IN"
+          ),
       };
 
-      // Get existing orders
+      /* =========================
+         GET USER'S ORDERS
+      ========================= */
+
       const previousOrders =
         JSON.parse(
-          localStorage.getItem("orders")
+          localStorage.getItem(
+            ordersKey
+          )
         ) || [];
 
-      // Add new order
+      /* =========================
+         ADD NEW ORDER
+      ========================= */
+
       const updatedOrders = [
         ...previousOrders,
         newOrder,
       ];
 
-      // Save orders
+      /* =========================
+         SAVE USER'S ORDERS
+      ========================= */
+
       localStorage.setItem(
-        "orders",
+        ordersKey,
         JSON.stringify(updatedOrders)
       );
 
-      // Clear cart
-      localStorage.removeItem("cart");
+      /* =========================
+         CLEAR USER'S CART
+      ========================= */
+
+      localStorage.removeItem(
+        cartKey
+      );
+
+      setCart([]);
 
       setLoading(false);
 
-      alert(
-        "🎉 Order Placed Successfully!\n\n" +
-        "Thank you for shopping with Style Hub."
-      );
-
-      // Go to Orders page
       setPage("orders");
     }, 1500);
   };
@@ -129,13 +198,11 @@ function Payment({ setPage }) {
   return (
     <div className="payment-page">
 
-      {/* ==========================
-          TITLE
-      ========================== */}
-
       <div className="payment-title">
 
-        <h1>Payment</h1>
+        <h1>
+          Payment
+        </h1>
 
         <p>
           Complete your Style Hub order
@@ -144,10 +211,6 @@ function Payment({ setPage }) {
       </div>
 
       <div className="payment-container">
-
-        {/* ==========================
-            PAYMENT SECTION
-        ========================== */}
 
         <div className="payment-box">
 
@@ -314,8 +377,7 @@ function Payment({ setPage }) {
               </strong>
 
               <p>
-                Pay when your order
-                arrives
+                Pay when your order arrives
               </p>
 
             </div>
@@ -336,9 +398,12 @@ function Payment({ setPage }) {
 
           <button
             className="pay-button"
-            onClick={handlePlaceOrder}
+            onClick={
+              handlePlaceOrder
+            }
             disabled={loading}
           >
+
             {loading
               ? "PROCESSING..."
               : paymentMethod === "cod"
@@ -348,24 +413,22 @@ function Payment({ setPage }) {
               : `PAY ₹${totalAmount.toLocaleString(
                   "en-IN"
                 )}`}
-          </button>
 
-          {/* BACK */}
+          </button>
 
           <button
             className="back-button"
             onClick={() =>
               setPage("checkout")
             }
+            disabled={loading}
           >
             ← Back to Checkout
           </button>
 
         </div>
 
-        {/* ==========================
-            ORDER SUMMARY
-        ========================== */}
+        {/* SUMMARY */}
 
         <div className="payment-summary">
 
