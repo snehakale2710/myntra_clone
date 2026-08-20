@@ -2,111 +2,82 @@ import React from "react";
 import "./ProfileCard.css";
 
 function ProfileCard({ setPage }) {
+  const user = JSON.parse(localStorage.getItem("user")) || {
+    name: "User",
+    email: "user@example.com",
+  };
 
-  const user =
-    JSON.parse(
-      localStorage.getItem("user")
-    ) || {};
-
-  const wishlist =
-    JSON.parse(
-      localStorage.getItem("wishlist")
-    ) || [];
-
-  const cart =
-    JSON.parse(
-      localStorage.getItem("cart")
-    ) || [];
-
-  const orders =
-    JSON.parse(
-      localStorage.getItem("orders")
-    ) || [];
-
-  const logout = () => {
-    localStorage.removeItem("loggedIn");
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("cart");
     setPage("login");
   };
 
   return (
-    <div className="profile-wrapper">
-
+    <div className="profile-card-container">
       <div className="profile-card">
+        {/* Profile Header */}
+        <div className="profile-card-header">
+          <div className="profile-avatar">
+            {user.name ? user.name.charAt(0).toUpperCase() : "U"}
+          </div>
 
-        <div className="profile-avatar">
-          {user.name
-            ? user.name.charAt(0).toUpperCase()
-            : "U"}
+          <div className="profile-user-info">
+            <h2>Hello, {user.name}</h2>
+            <p>{user.email}</p>
+          </div>
         </div>
 
-        <h2>
-          Hello, {user.name || "User"} 👋
-        </h2>
-
-        <p>{user.email}</p>
-
-        <div className="profile-stats">
-
-          <div
-            onClick={() => setPage("orders")}
-          >
-            <strong>
-              {orders.length}
-            </strong>
-            <span>Orders</span>
-          </div>
-
-          <div
-            onClick={() => setPage("wishlist")}
-          >
-            <strong>
-              {wishlist.length}
-            </strong>
-            <span>Wishlist</span>
-          </div>
-
-          <div
-            onClick={() => setPage("cart")}
-          >
-            <strong>
-              {cart.length}
-            </strong>
-            <span>Bag</span>
-          </div>
-
-        </div>
-
+        {/* Profile Options */}
         <div className="profile-options">
-
           <button
+            className="profile-option"
             onClick={() => setPage("orders")}
           >
-            📦 My Orders
+            <span className="profile-icon">📦</span>
+
+            <div>
+              <h3>My Orders</h3>
+              <p>View and track your orders</p>
+            </div>
+
+            <span className="arrow">›</span>
           </button>
 
           <button
+            className="profile-option"
             onClick={() => setPage("wishlist")}
           >
-            ❤️ My Wishlist
+            <span className="profile-icon">♡</span>
+
+            <div>
+              <h3>Wishlist</h3>
+              <p>View your saved products</p>
+            </div>
+
+            <span className="arrow">›</span>
           </button>
 
           <button
+            className="profile-option"
             onClick={() => setPage("cart")}
           >
-            🛍️ My Bag
-          </button>
+            <span className="profile-icon">🛍</span>
 
-          <button
-            className="logout-button"
-            onClick={logout}
-          >
-            🚪 Logout
-          </button>
+            <div>
+              <h3>My Bag</h3>
+              <p>View products in your bag</p>
+            </div>
 
+            <span className="arrow">›</span>
+          </button>
         </div>
 
+        {/* Logout */}
+        <button className="logout-button" onClick={handleLogout}>
+          Logout
+        </button>
       </div>
-
     </div>
   );
 }

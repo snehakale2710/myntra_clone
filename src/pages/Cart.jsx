@@ -1,350 +1,490 @@
 import React from "react";
 import "./Cart.css";
 
-function Cart({
-  cart,
-  setCart,
-  setPage
-}) {
+function Cart({ cart, setCart, setPage }) {
 
-  const removeItem = (id) => {
-    const updated = cart.filter(
-      (item) => item.id !== id
-    );
+  /* =========================
+     PRICE CONVERTER
+  ========================= */
 
-    setCart(updated);
+  const getPrice = (price) => {
+    if (typeof price === "number") {
+      return price;
+    }
 
-    localStorage.setItem(
-      "cart",
-      JSON.stringify(updated)
+    return (
+      Number(
+        String(price)
+          .replace("₹", "")
+          .replace(/,/g, "")
+          .trim()
+      ) || 0
     );
   };
 
-  const changeQuantity = (id, amount) => {
-    const updated = cart.map((item) => {
+  /* =========================
+     UPDATE QUANTITY
+  ========================= */
 
-      if (item.id === id) {
+  const updateQuantity = (id, change) => {
+
+    const updatedCart = cart
+      .map((item) => {
+
+        if (item.id !== id) {
+          return item;
+        }
+
+        const newQuantity =
+          (item.quantity || 1) + change;
+
         return {
           ...item,
-          quantity: Math.max(
-            1,
-            (item.quantity || 1) + amount
-          )
+          quantity:
+            newQuantity < 1
+              ? 1
+              : newQuantity,
         };
-      }
+      });
 
-      return item;
-    });
-
-    setCart(updated);
+    setCart(updatedCart);
 
     localStorage.setItem(
       "cart",
-      JSON.stringify(updated)
+      JSON.stringify(updatedCart)
     );
   };
 
-  /* --------------------------------
-     OPEN PRODUCT DETAILS
-  -------------------------------- */
+  /* =========================
+     REMOVE PRODUCT
+  ========================= */
 
-  const openProductDetails = (item) => {
+  const removeProduct = (id) => {
 
-    // Save selected product
+    const updatedCart =
+      cart.filter(
+        (item) => item.id !== id
+      );
+
+    setCart(updatedCart);
+
     localStorage.setItem(
-      "selectedProduct",
-      JSON.stringify(item)
+      "cart",
+      JSON.stringify(updatedCart)
     );
-
-    // Open product details page
-    setPage("productDetails");
   };
 
+  /* =========================
+     TOTAL ITEMS
+  ========================= */
 
-  /* --------------------------------
-     TOTAL
-  -------------------------------- */
-
-  const total = cart.reduce(
-    (sum, item) =>
-      sum +
-      item.price * (item.quantity || 1),
+  const totalItems = cart.reduce(
+    (total, item) =>
+      total + (item.quantity || 1),
     0
   );
 
+  /* =========================
+     TOTAL PRICE
+  ========================= */
 
-  /* --------------------------------
-     PLACE ORDER
-  -------------------------------- */
+  const totalAmount = cart.reduce(
+    (total, item) =>
+      total +
+      getPrice(item.price) *
+        (item.quantity || 1),
+    0
+  );
 
-  const placeOrder = () => {
-
-    if (cart.length === 0) {
-      return;
-    }
-
-    const oldOrders =
-      JSON.parse(
-        localStorage.getItem("orders")
-      ) || [];
-
-    const newOrder = {
-      id: Date.now(),
-      date: new Date().toLocaleDateString(),
-      items: cart,
-      total: total,
-      status: "Confirmed"
-    };
-
-    localStorage.setItem(
-      "orders",
-      JSON.stringify([
-        newOrder,
-        ...oldOrders
-      ])
-    );
-
-    // Empty cart after order
-    localStorage.removeItem("cart");
-
-    setCart([]);
-
-    alert("Order placed successfully! 🎉");
-
-    setPage("orders");
-  };
-
-
-  /* --------------------------------
+  /* =========================
      EMPTY CART
-  -------------------------------- */
+  ========================= */
 
   if (cart.length === 0) {
 
     return (
-      <div className="empty-cart">
+      <main className="cart-page">
 
-        <div>🛍️</div>
+        <div className="cart-empty">
 
-        <h2>Your bag is empty</h2>
+          <div className="cart-empty-icon">
+            🛍️
+          </div>
 
-        <p>
-          Add something you love.
-        </p>
+          <h1>
+            Your Bag is Empty
+          </h1>
+
+          <p>
+            Add something you love to your bag.
+          </p>
+
+          <button
+            onClick={() =>
+              setPage("products")
+            }
+          >
+            START SHOPPING
+          </button>
+
+        </div>
+
+      </main>
+    );
+  }
+
+  return (
+    <main className="cart-page">
+
+      {/* =========================
+          HEADER
+      ========================= */}
+
+      <div className="cart-header">
+
+        <div>
+
+          <span className="cart-kicker">
+            STYLEHUB BAG
+          </span>
+
+          <h1>
+            Shopping Bag
+          </h1>
+
+          <p>
+            {totalItems}{" "}
+            {totalItems === 1
+              ? "item"
+              : "items"}{" "}
+            in your bag
+          </p>
+
+        </div>
 
         <button
+          className="continue-shopping"
           onClick={() =>
             setPage("products")
           }
         >
-          Shop now
+          CONTINUE SHOPPING
         </button>
 
       </div>
-    );
-  }
 
+      {/* =========================
+          CART LAYOUT
+      ========================= */}
 
-  return (
-    <div className="cart-page">
-
-      <h1>My Shopping Bag</h1>
-
-      <div className="cart-layout">
+      <div className="cart-container">
 
         {/* =========================
-            CART ITEMS
-        ========================== */}
+            PRODUCTS
+        ========================= */}
 
-        <div className="cart-items">
+        <section className="cart-products">
 
-          {cart.map((item) => (
+          <div className="cart-section-title">
+            <h2>
+              Your Items
+            </h2>
 
-            <div
-              className="cart-item"
-              key={item.id}
-            >
+            <span>
+              {cart.length}{" "}
+              {cart.length === 1
+                ? "product"
+                : "products"}
+            </span>
+          </div>
 
-              {/* CLICKABLE IMAGE */}
+          {cart.map((item) => {
 
-              <img
-                src={item.image}
-                alt={item.name}
-                className="cart-product-image"
-                onClick={() =>
-                  openProductDetails(item)
-                }
-              />
+            const quantity =
+              item.quantity || 1;
 
+            const itemPrice =
+              getPrice(item.price);
 
-              <div className="cart-item-info">
+            const itemTotal =
+              itemPrice * quantity;
 
-                {/* CLICKABLE BRAND */}
+            return (
+              <article
+                className="cart-item"
+                key={item.id}
+              >
 
-                <h3
-                  className="cart-clickable"
-                  onClick={() =>
-                    openProductDetails(item)
-                  }
-                >
-                  {item.brand}
-                </h3>
+                {/* IMAGE */}
 
+                <div className="cart-image">
 
-                {/* CLICKABLE PRODUCT NAME */}
-
-                <p
-                  className="cart-product-name"
-                  onClick={() =>
-                    openProductDetails(item)
-                  }
-                >
-                  {item.name}
-
-                  {item.size &&
-                    ` · Size ${item.size}`}
-                </p>
-
-
-                <strong>
-                  ₹{item.price}
-                </strong>
-
-
-                {/* QUANTITY */}
-
-                <div className="quantity">
-
-                  <button
-                    onClick={() =>
-                      changeQuantity(
-                        item.id,
-                        -1
-                      )
+                  <img
+                    src={item.image}
+                    alt={
+                      item.name ||
+                      item.title ||
+                      "Product"
                     }
-                  >
-                    −
-                  </button>
+                  />
 
-                  <span>
-                    {item.quantity || 1}
+                </div>
+
+                {/* DETAILS */}
+
+                <div className="cart-details">
+
+                  <span className="cart-brand">
+                    {item.brand ||
+                      "STYLEHUB"}
                   </span>
 
+                  <h3>
+                    {item.name ||
+                      item.title ||
+                      "Product"}
+                  </h3>
+
+                  {item.description && (
+                    <p className="cart-description">
+                      {item.description}
+                    </p>
+                  )}
+
+                  {item.size && (
+                    <div className="cart-meta">
+                      <span>
+                        Size:
+                      </span>
+
+                      <strong>
+                        {item.size}
+                      </strong>
+                    </div>
+                  )}
+
+                  {item.color && (
+                    <div className="cart-meta">
+                      <span>
+                        Color:
+                      </span>
+
+                      <strong>
+                        {item.color}
+                      </strong>
+                    </div>
+                  )}
+
+                  <div className="cart-price">
+
+                    <strong>
+                      ₹
+                      {itemPrice.toLocaleString(
+                        "en-IN"
+                      )}
+                    </strong>
+
+                    {item.originalPrice && (
+                      <span>
+                        ₹
+                        {getPrice(
+                          item.originalPrice
+                        ).toLocaleString(
+                          "en-IN"
+                        )}
+                      </span>
+                    )}
+
+                  </div>
+
+                  {/* QUANTITY */}
+
+                  <div className="quantity-section">
+
+                    <span>
+                      Quantity
+                    </span>
+
+                    <div className="quantity-control">
+
+                      <button
+                        onClick={() =>
+                          updateQuantity(
+                            item.id,
+                            -1
+                          )
+                        }
+                      >
+                        −
+                      </button>
+
+                      <span>
+                        {quantity}
+                      </span>
+
+                      <button
+                        onClick={() =>
+                          updateQuantity(
+                            item.id,
+                            1
+                          )
+                        }
+                      >
+                        +
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                  {/* REMOVE */}
+
                   <button
+                    className="remove-item"
                     onClick={() =>
-                      changeQuantity(
-                        item.id,
-                        1
+                      removeProduct(
+                        item.id
                       )
                     }
                   >
-                    +
+                    Remove
                   </button>
 
                 </div>
 
+                {/* ITEM TOTAL */}
 
-                {/* REMOVE */}
+                <div className="cart-item-total">
 
-                <button
-                  className="remove"
-                  onClick={() =>
-                    removeItem(item.id)
-                  }
-                >
-                  Remove
-                </button>
+                  <span>
+                    Item Total
+                  </span>
 
-              </div>
+                  <strong>
+                    ₹
+                    {itemTotal.toLocaleString(
+                      "en-IN"
+                    )}
+                  </strong>
 
-            </div>
+                </div>
 
-          ))}
+              </article>
+            );
+          })}
 
-        </div>
-
+        </section>
 
         {/* =========================
-            PRICE DETAILS
-        ========================== */}
+            SUMMARY
+        ========================= */}
 
-        <div className="price-box">
+        <aside className="cart-summary">
 
-          <h3>
-            Price details
-          </h3>
+          <h2>
+            Order Summary
+          </h2>
 
+          <div className="summary-row">
 
-          <div>
+            <span>
+              Products
+            </span>
+
+            <span>
+              {cart.length}
+            </span>
+
+          </div>
+
+          <div className="summary-row">
 
             <span>
               Total Items
             </span>
 
             <span>
-              {cart.reduce(
-                (sum, item) =>
-                  sum + (item.quantity || 1),
-                0
+              {totalItems}
+            </span>
+
+          </div>
+
+          <div className="summary-row">
+
+            <span>
+              Subtotal
+            </span>
+
+            <span>
+              ₹
+              {totalAmount.toLocaleString(
+                "en-IN"
               )}
             </span>
 
           </div>
 
-
-          <div>
+          <div className="summary-row">
 
             <span>
-              Total MRP
+              Delivery
             </span>
 
-            <span>
-              ₹{total}
+            <span className="free">
+              FREE
             </span>
 
           </div>
-
-
-          <div>
-
-            <span>
-              Discount
-            </span>
-
-            <span className="green">
-              -₹0
-            </span>
-
-          </div>
-
 
           <hr />
 
-
-          <div className="final-price">
+          <div className="summary-total">
 
             <strong>
               Total Amount
             </strong>
 
             <strong>
-              ₹{total}
+              ₹
+              {totalAmount.toLocaleString(
+                "en-IN"
+              )}
             </strong>
 
           </div>
 
-
           <button
-            onClick={placeOrder}
+            className="checkout-btn"
+            onClick={() =>
+              setPage("checkout")
+            }
           >
-            Place order
+            PROCEED TO CHECKOUT
           </button>
 
-        </div>
+          <div className="cart-security">
+
+            <span>
+              🔒
+            </span>
+
+            <div>
+              <strong>
+                Safe & Secure Shopping
+              </strong>
+
+              <p>
+                Your order information is protected.
+              </p>
+            </div>
+
+          </div>
+
+        </aside>
 
       </div>
 
-    </div>
+    </main>
   );
 }
 

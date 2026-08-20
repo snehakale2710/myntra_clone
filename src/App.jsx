@@ -19,16 +19,12 @@ import "./App.css";
 
 function App() {
   /* =========================
-     CURRENT USER
+     LOGIN STATUS
   ========================= */
 
-  const getCurrentUser = () => {
-    return JSON.parse(
-      localStorage.getItem("currentUser")
-    );
-  };
-
-  const currentUser = getCurrentUser();
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("loggedIn") === "true"
+  );
 
   /* =========================
      PAGE
@@ -53,55 +49,20 @@ function App() {
   const [category, setCategory] = useState("All");
 
   /* =========================
-     USER STORAGE KEY
-  ========================= */
-
-  const getUserKey = (key) => {
-    const user = JSON.parse(
-      localStorage.getItem("currentUser")
-    );
-
-    if (!user || !user.email) {
-      return key;
-    }
-
-    return `${key}_${user.email.toLowerCase()}`;
-  };
-
-  /* =========================
      CART
   ========================= */
 
-  const [cart, setCart] = useState(() => {
-    const key = getUserKey("cart");
-
-    return (
-      JSON.parse(
-        localStorage.getItem(key)
-      ) || []
-    );
-  });
+  const [cart, setCart] = useState(
+    JSON.parse(localStorage.getItem("cart")) || []
+  );
 
   /* =========================
      WISHLIST
   ========================= */
 
-  const [wishlist, setWishlist] = useState(() => {
-    const key = getUserKey("wishlist");
-
-    return (
-      JSON.parse(
-        localStorage.getItem(key)
-      ) || []
-    );
-  });
-
-  /* =========================
-     LOGIN
-  ========================= */
-
-  const loggedIn =
-    localStorage.getItem("loggedIn") === "true";
+  const [wishlist, setWishlist] = useState(
+    JSON.parse(localStorage.getItem("wishlist")) || []
+  );
 
   /* =========================
      NAVIGATION
@@ -118,46 +79,57 @@ function App() {
   };
 
   /* =========================
+     LOGIN
+  ========================= */
+
+  const handleLogin = () => {
+    localStorage.setItem("loggedIn", "true");
+    setIsLoggedIn(true);
+    setPage("home");
+  };
+
+  /* =========================
+     LOGOUT
+  ========================= */
+
+  const handleLogout = () => {
+    localStorage.removeItem("loggedIn");
+
+    setIsLoggedIn(false);
+    setPage("login");
+
+    setSearchTerm("");
+    setCategory("All");
+  };
+
+  /* =========================
      ADD TO CART
+
+     Same product:
+     quantity increases
+
+     Bag count:
+     remains 1
   ========================= */
 
   const addToCart = (product) => {
-    const user = JSON.parse(
-      localStorage.getItem("currentUser")
-    );
-
-    if (!user || !user.email) {
-      setPage("login");
-      return;
-    }
-
-    const cartKey =
-      `cart_${user.email.toLowerCase()}`;
-
     const currentCart =
-      JSON.parse(
-        localStorage.getItem(cartKey)
-      ) || [];
+      JSON.parse(localStorage.getItem("cart")) || [];
 
     const existing = currentCart.find(
-      (item) =>
-        item.id === product.id &&
-        item.size === product.size
+      (item) => item.id === product.id
     );
 
     let updatedCart;
 
     if (existing) {
-      updatedCart = currentCart.map(
-        (item) =>
-          item.id === product.id &&
-          item.size === product.size
-            ? {
-                ...item,
-                quantity:
-                  (item.quantity || 1) + 1,
-              }
-            : item
+      updatedCart = currentCart.map((item) =>
+        item.id === product.id
+          ? {
+              ...item,
+              quantity: (item.quantity || 1) + 1,
+            }
+          : item
       );
     } else {
       updatedCart = [
@@ -170,7 +142,7 @@ function App() {
     }
 
     localStorage.setItem(
-      cartKey,
+      "cart",
       JSON.stringify(updatedCart)
     );
 
@@ -182,37 +154,21 @@ function App() {
   ========================= */
 
   const addToWishlist = (product) => {
-    const user = JSON.parse(
-      localStorage.getItem("currentUser")
-    );
-
-    if (!user || !user.email) {
-      setPage("login");
-      return;
-    }
-
-    const wishlistKey =
-      `wishlist_${user.email.toLowerCase()}`;
-
     const currentWishlist =
       JSON.parse(
-        localStorage.getItem(wishlistKey)
+        localStorage.getItem("wishlist")
       ) || [];
 
-    const exists =
-      currentWishlist.some(
-        (item) =>
-          item.id === product.id
-      );
+    const exists = currentWishlist.some(
+      (item) => item.id === product.id
+    );
 
     let updatedWishlist;
 
     if (exists) {
-      updatedWishlist =
-        currentWishlist.filter(
-          (item) =>
-            item.id !== product.id
-        );
+      updatedWishlist = currentWishlist.filter(
+        (item) => item.id !== product.id
+      );
     } else {
       updatedWishlist = [
         ...currentWishlist,
@@ -221,7 +177,7 @@ function App() {
     }
 
     localStorage.setItem(
-      wishlistKey,
+      "wishlist",
       JSON.stringify(updatedWishlist)
     );
 
@@ -233,17 +189,22 @@ function App() {
   ========================= */
 
   const renderPage = () => {
-    /* LOGIN */
+    /* =========================
+       LOGIN
+    ========================= */
 
     if (page === "login") {
       return (
         <Login
           setPage={setPage}
+          setIsLoggedIn={handleLogin}
         />
       );
     }
 
-    /* REGISTER */
+    /* =========================
+       REGISTER
+    ========================= */
 
     if (page === "register") {
       return (
@@ -253,21 +214,28 @@ function App() {
       );
     }
 
-    /* NOT LOGGED IN */
+    /* =========================
+       NOT LOGGED IN
+    ========================= */
 
-    if (!loggedIn) {
+    if (!isLoggedIn) {
       return (
         <Login
           setPage={setPage}
+          setIsLoggedIn={handleLogin}
         />
       );
     }
 
     /* =========================
-       HOME
+       MAIN PAGES
     ========================= */
 
     switch (page) {
+      /* =========================
+         HOME
+      ========================= */
+
       case "home":
         return (
           <Home
@@ -374,8 +342,13 @@ function App() {
         return (
           <ProfileCard
             setPage={setPage}
+            onLogout={handleLogout}
           />
         );
+
+      /* =========================
+         DEFAULT
+      ========================= */
 
       default:
         return (
@@ -389,7 +362,13 @@ function App() {
   };
 
   /* =========================
-     BAG COUNT
+     UNIQUE BAG COUNT
+
+     Example:
+
+     T-shirt x 2
+
+     Bag = 1
   ========================= */
 
   const cartCount = cart.length;
@@ -398,13 +377,20 @@ function App() {
      WISHLIST COUNT
   ========================= */
 
-  const wishlistCount =
-    wishlist.length;
+  const wishlistCount = wishlist.length;
+
+  /* =========================
+     APP
+  ========================= */
 
   return (
     <div className="app">
 
-      {loggedIn && (
+      {/* =========================
+          NAVBAR
+      ========================= */}
+
+      {isLoggedIn && (
         <Navbar
           setPage={setPage}
           cartCount={cartCount}
@@ -416,11 +402,19 @@ function App() {
         />
       )}
 
+      {/* =========================
+          PAGE
+      ========================= */}
+
       <main>
         {renderPage()}
       </main>
 
-      {loggedIn && <Footer />}
+      {/* =========================
+          FOOTER
+      ========================= */}
+
+      {isLoggedIn && <Footer />}
 
     </div>
   );

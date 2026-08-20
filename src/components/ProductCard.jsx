@@ -5,9 +5,8 @@ function ProductCard({
   product,
   setPage,
   addToWishlist,
-  addToCart
+  addToCart,
 }) {
-
   const wishlist =
     JSON.parse(
       localStorage.getItem("wishlist")
@@ -17,72 +16,102 @@ function ProductCard({
     (item) => item.id === product.id
   );
 
+  const openDetails = () => {
+    localStorage.setItem(
+      "selectedProduct",
+      JSON.stringify(product)
+    );
+
+    setPage("details");
+  };
+
   return (
-    <div className="product-card">
+    <article className="product-card">
 
       <div
-        className="product-image"
-        onClick={() => {
-          localStorage.setItem(
-            "selectedProduct",
-            JSON.stringify(product)
-          );
-
-          setPage("details");
-        }}
+        className="product-image-wrap"
+        onClick={openDetails}
       >
+
         <img
           src={product.image}
           alt={product.name}
           loading="lazy"
         />
 
-        <span className="discount">
-          {product.discount}% off
-        </span>
+        {product.discount && (
+          <span className="product-discount">
+            {product.discount}% OFF
+          </span>
+        )}
 
         <button
           className={
-            isWishlisted
-              ? "wishlist active"
-              : "wishlist"
+            `product-wishlist ${
+              isWishlisted
+                ? "wishlisted"
+                : ""
+            }`
           }
           onClick={(e) => {
             e.stopPropagation();
             addToWishlist(product);
           }}
-          aria-label="Toggle wishlist"
+          aria-label="Wishlist"
         >
           {isWishlisted ? "♥" : "♡"}
         </button>
+
       </div>
 
       <div className="product-info">
 
-        <h3>{product.brand}</h3>
+        <p className="product-brand">
+          {product.brand}
+        </p>
 
-        <p>{product.name}</p>
+        <h3
+          onClick={openDetails}
+        >
+          {product.name}
+        </h3>
 
-        <div className="price">
-          <strong>₹{product.price}</strong>
+        <p className="product-description">
+          {product.description}
+        </p>
 
-          <del>
-            ₹{product.originalPrice}
-          </del>
+        <div className="product-price">
+
+          <strong>
+            ₹
+            {Number(product.price).toLocaleString(
+              "en-IN"
+            )}
+          </strong>
+
+          {product.originalPrice && (
+            <del>
+              ₹
+              {Number(
+                product.originalPrice
+              ).toLocaleString("en-IN")}
+            </del>
+          )}
+
         </div>
 
         <button
-          className="bag-btn"
+          className="product-add"
           onClick={() =>
             addToCart(product)
           }
         >
-          Add to Bag
+          ADD TO BAG
         </button>
 
       </div>
 
-    </div>
+    </article>
   );
 }
 

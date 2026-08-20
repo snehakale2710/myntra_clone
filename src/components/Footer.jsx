@@ -1,87 +1,92 @@
-import React, { useState } from "react";
+import React from "react";
+import {
+  FaInstagram,
+  FaFacebookF,
+  FaPinterestP,
+} from "react-icons/fa";
 import "./Footer.css";
 
 function Footer() {
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-
-  const handleSubscribe = (e) => {
-    e.preventDefault();
-    if (email.trim()) {
-      setSubscribed(true);
-      setEmail("");
-    }
-  };
-
   return (
     <footer className="footer">
 
-      <div className="footer-top">
-        <div>
-          <h3>
+      <div className="footer-container">
+
+        <div className="footer-brand">
+
+          <h2>
             STYLE<span>HUB</span>
-          </h3>
-          <p className="footer-tagline">
+          </h2>
+
+          <p>
             Considered clothing for everyday wear.
-            Designed to last, priced to make sense.
+            Discover timeless styles made for you.
           </p>
-        </div>
 
-        <form className="newsletter" onSubmit={handleSubscribe}>
-          <p className="newsletter-label">Join the list</p>
-          <div className="newsletter-row">
-            <input
-              type="email"
-              placeholder="Your email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <button type="submit">Subscribe</button>
+          <div className="footer-social">
+
+            <a
+              href="#"
+              aria-label="Instagram"
+              className="social-icon"
+            >
+              <FaInstagram />
+            </a>
+
+            <a
+              href="#"
+              aria-label="Facebook"
+              className="social-icon"
+            >
+              <FaFacebookF />
+            </a>
+
+            <a
+              href="#"
+              aria-label="Pinterest"
+              className="social-icon"
+            >
+              <FaPinterestP />
+            </a>
+
           </div>
-          {subscribed && (
-            <p className="newsletter-success">
-              You're on the list — welcome.
-            </p>
-          )}
-        </form>
-      </div>
 
-      <div className="footer-columns">
-        <div className="footer-column">
-          <h4>Shop</h4>
-          <p>Men</p>
-          <p>Women</p>
-          <p>Kids</p>
-          <p>Accessories</p>
         </div>
 
         <div className="footer-column">
-          <h4>Support</h4>
-          <p>Contact Us</p>
-          <p>FAQ</p>
-          <p>Shipping</p>
-          <p>Returns &amp; Exchanges</p>
+
+          <h3>Customer Care</h3>
+
+          <button>Contact Us</button>
+          <button>Shipping & Delivery</button>
+          <button>Returns & Exchanges</button>
+          <button>FAQs</button>
+
         </div>
 
         <div className="footer-column">
-          <h4>Company</h4>
-          <p>Our Story</p>
-          <p>Sustainability</p>
-          <p>Careers</p>
+
+          <h3>Information</h3>
+
+          <button>About StyleHub</button>
+          <button>Privacy Policy</button>
+          <button>Terms & Conditions</button>
+          <button>Size Guide</button>
+
         </div>
 
-        <div className="footer-column">
-          <h4>Follow</h4>
-          <p>Instagram</p>
-          <p>Facebook</p>
-          <p>Pinterest</p>
-        </div>
       </div>
 
       <div className="footer-bottom">
-        <span>© 2026 StyleHub. All rights reserved.</span>
-        <span>Made with care, worn with confidence.</span>
+
+        <p>
+          © {new Date().getFullYear()} STYLEHUB. All rights reserved.
+        </p>
+
+        <p>
+          Made with ♥ for fashion lovers.
+        </p>
+
       </div>
 
     </footer>

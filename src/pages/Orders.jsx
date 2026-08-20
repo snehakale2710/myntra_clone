@@ -3,51 +3,22 @@ import PageTitle from "../components/PageTitle";
 import "./Orders.css";
 
 function Orders({ setPage }) {
-  /* =========================
-     CURRENT USER
-  ========================= */
-
-  const currentUser =
-    JSON.parse(
-      localStorage.getItem("currentUser")
-    );
-
-  const ordersKey =
-    currentUser?.email
-      ? `orders_${currentUser.email.toLowerCase()}`
-      : "orders";
-
-  /* =========================
-     USER ORDERS
-  ========================= */
-
   const orders =
-    JSON.parse(
-      localStorage.getItem(
-        ordersKey
-      )
-    ) || [];
-
-  /* =========================
-     PRICE
-  ========================= */
+    JSON.parse(localStorage.getItem("orders")) || [];
 
   const formatPrice = (price) =>
-    Number(
-      price || 0
-    ).toLocaleString("en-IN");
+    Number(price || 0).toLocaleString("en-IN");
 
   /* =========================
      PRINT BILL
   ========================= */
 
   const printBill = (order) => {
-    const billWindow =
-      window.open(
-        "",
-        "_blank",
-        "width=900,height=700"
-      );
+    const billWindow = window.open(
+      "",
+      "_blank",
+      "width=900,height=700"
+    );
 
     if (!billWindow) return;
 
@@ -90,9 +61,7 @@ function Orders({ setPage }) {
 
       <head>
 
-        <title>
-          STYLEHUB Invoice - ${order.id}
-        </title>
+        <title>STYLEHUB Invoice - ${order.id}</title>
 
         <style>
 
@@ -251,9 +220,7 @@ function Orders({ setPage }) {
 
             <div class="invoice-title">
 
-              <h1>
-                INVOICE
-              </h1>
+              <h1>INVOICE</h1>
 
               <p>
                 Order ID: ${order.id}
@@ -271,9 +238,7 @@ function Orders({ setPage }) {
 
             <div>
 
-              <h3>
-                Delivery Address
-              </h3>
+              <h3>Delivery Address</h3>
 
               <p>
                 <strong>
@@ -291,17 +256,14 @@ function Orders({ setPage }) {
               </p>
 
               <p>
-                Mobile:
-                ${order.address?.mobile || ""}
+                Mobile: ${order.address?.mobile || ""}
               </p>
 
             </div>
 
             <div>
 
-              <h3>
-                Payment Details
-              </h3>
+              <h3>Payment Details</h3>
 
               <p>
                 Payment Method:
@@ -348,9 +310,7 @@ function Orders({ setPage }) {
 
             <div class="summary-row">
 
-              <span>
-                Subtotal
-              </span>
+              <span>Subtotal</span>
 
               <span>
                 ₹${formatPrice(order.amount)}
@@ -360,21 +320,15 @@ function Orders({ setPage }) {
 
             <div class="summary-row">
 
-              <span>
-                Delivery
-              </span>
+              <span>Delivery</span>
 
-              <span>
-                FREE
-              </span>
+              <span>FREE</span>
 
             </div>
 
             <div class="summary-row total">
 
-              <span>
-                Total Amount
-              </span>
+              <span>Total Amount</span>
 
               <span>
                 ₹${formatPrice(order.amount)}
@@ -386,18 +340,12 @@ function Orders({ setPage }) {
 
           <div class="payment">
 
-            <strong>
-              Payment:
-            </strong>
-
+            <strong>Payment:</strong>
             ${order.paymentMethod || "N/A"}
 
             <br />
 
-            <strong>
-              Status:
-            </strong>
-
+            <strong>Status:</strong>
             ${order.paymentStatus || "N/A"}
 
           </div>
@@ -444,9 +392,7 @@ function Orders({ setPage }) {
 
         <button
           className="continue-shopping"
-          onClick={() =>
-            setPage("products")
-          }
+          onClick={() => setPage("products")}
         >
           Continue Shopping
         </button>
@@ -470,9 +416,7 @@ function Orders({ setPage }) {
           </p>
 
           <button
-            onClick={() =>
-              setPage("products")
-            }
+            onClick={() => setPage("products")}
           >
             Start Shopping
           </button>
@@ -496,9 +440,7 @@ function Orders({ setPage }) {
                 <div className="order-top">
 
                   <div>
-                    <span>
-                      ORDER ID
-                    </span>
+                    <span>ORDER ID</span>
 
                     <strong>
                       {order.id}
@@ -506,9 +448,7 @@ function Orders({ setPage }) {
                   </div>
 
                   <div>
-                    <span>
-                      ORDER DATE
-                    </span>
+                    <span>ORDER DATE</span>
 
                     <strong>
                       {order.date}
@@ -516,9 +456,7 @@ function Orders({ setPage }) {
                   </div>
 
                   <div>
-                    <span>
-                      STATUS
-                    </span>
+                    <span>STATUS</span>
 
                     <strong className="status">
                       {order.status}
@@ -577,11 +515,8 @@ function Orders({ setPage }) {
                         <strong>
                           ₹
                           {formatPrice(
-                            Number(
-                              item.price || 0
-                            ) *
-                              (item.quantity ||
-                                1)
+                            Number(item.price || 0) *
+                              (item.quantity || 1)
                           )}
                         </strong>
 
@@ -595,42 +530,28 @@ function Orders({ setPage }) {
                 <div className="order-bottom">
 
                   <div>
-
-                    <span>
-                      PAYMENT
-                    </span>
+                    <span>PAYMENT</span>
 
                     <strong>
                       {order.paymentMethod}
                     </strong>
-
                   </div>
 
                   <div>
-
-                    <span>
-                      PAYMENT STATUS
-                    </span>
+                    <span>PAYMENT STATUS</span>
 
                     <strong>
                       {order.paymentStatus}
                     </strong>
-
                   </div>
 
                   <div>
-
-                    <span>
-                      TOTAL
-                    </span>
+                    <span>TOTAL</span>
 
                     <strong className="order-total">
                       ₹
-                      {formatPrice(
-                        order.amount
-                      )}
+                      {formatPrice(order.amount)}
                     </strong>
-
                   </div>
 
                 </div>
@@ -662,6 +583,8 @@ function Orders({ setPage }) {
                   </p>
 
                 </div>
+
+                {/* PRINT BILL */}
 
                 <div className="order-actions">
 

@@ -5,158 +5,332 @@ function Navbar({
   setPage,
   cartCount,
   wishlistCount,
-  onSearch
+  onSearch,
+  currentPage,
+  currentCategory,
+  navigate,
 }) {
-  const [search, setSearch] = useState("");
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileMenu, setMobileMenu] = useState(false);
+
+  const [searchValue, setSearchValue] = useState("");
 
   const handleSearch = (e) => {
-    e.preventDefault();
+    const value = e.target.value;
 
-    if (search.trim()) {
-      onSearch(search);
-      setPage("products");
-    }
+    setSearchValue(value);
+    onSearch(value);
+
+    navigate(
+      "products",
+      value,
+      "All"
+    );
   };
 
-  const logout = () => {
-    localStorage.removeItem("loggedIn");
-    setPage("login");
+  const clearSearch = () => {
+    setSearchValue("");
+    onSearch("");
+    navigate("products", "", "All");
   };
 
-  const loggedIn =
-    localStorage.getItem("loggedIn") === "true";
+  const goCategory = (category) => {
+    setSearchValue("");
+    onSearch("");
+
+    navigate(
+      "products",
+      "",
+      category
+    );
+
+    setMobileMenu(false);
+  };
 
   return (
-    <>
-    <div className="announce-bar">
-      Free shipping on orders above ₹999 &nbsp;·&nbsp; Easy 14-day returns
-    </div>
+    <header className="navbar">
 
-    <nav className="navbar">
+      <div className="navbar-inner">
 
-      <div
-        className="logo"
-        onClick={() => setPage("home")}
-      >
-        STYLE<span>HUB</span>
-      </div>
-
-      <div
-        className={`nav-menu ${
-          menuOpen ? "show-menu" : ""
-        }`}
-      >
-        <button onClick={() => setPage("home")}>
-          HOME
-        </button>
+        {/* LOGO */}
 
         <button
+          className="logo"
           onClick={() => {
-            onSearch("");
-            setPage("products");
+            setPage("home");
+            setMobileMenu(false);
           }}
         >
-          MEN
+          STYLE<span>HUB</span>
         </button>
 
-        <button
-          onClick={() => {
-            onSearch("Women");
-            setPage("products");
-          }}
-        >
-          WOMEN
-        </button>
+        {/* DESKTOP NAVIGATION */}
 
-        <button
-          onClick={() => {
-            onSearch("Kids");
-            setPage("products");
-          }}
-        >
-          KIDS
-        </button>
+        <nav className="nav-links">
 
-        <button
-          onClick={() => {
-            onSearch("");
-            setPage("products");
-          }}
-        >
-          PRODUCTS
-        </button>
-      </div>
-
-      <form
-        className="search-box"
-        onSubmit={handleSearch}
-      >
-        <span>🔍</span>
-
-        <input
-          type="text"
-          placeholder="Search for products..."
-          value={search}
-          onChange={(e) =>
-            setSearch(e.target.value)
-          }
-        />
-      </form>
-
-      <div className="nav-actions">
-
-        <button
-          className="nav-icon"
-          onClick={() => setPage("profile")}
-        >
-          👤
-          <small>Profile</small>
-        </button>
-
-        <button
-          className="nav-icon"
-          onClick={() => setPage("wishlist")}
-        >
-          ♡
-          {wishlistCount > 0 && (
-            <b>{wishlistCount}</b>
-          )}
-          <small>Wishlist</small>
-        </button>
-
-        <button
-          className="nav-icon"
-          onClick={() => setPage("cart")}
-        >
-          🛍️
-          {cartCount > 0 && (
-            <b>{cartCount}</b>
-          )}
-          <small>Bag</small>
-        </button>
-
-        {loggedIn && (
           <button
-            className="logout-nav"
-            onClick={logout}
+            className={
+              currentPage === "home"
+                ? "active"
+                : ""
+            }
+            onClick={() => setPage("home")}
           >
-            Logout
+            Home
           </button>
-        )}
+
+          <button
+            className={
+              currentPage === "products" &&
+              currentCategory === "Men"
+                ? "active"
+                : ""
+            }
+            onClick={() => goCategory("Men")}
+          >
+            Men
+          </button>
+
+          <button
+            className={
+              currentPage === "products" &&
+              currentCategory === "Women"
+                ? "active"
+                : ""
+            }
+            onClick={() => goCategory("Women")}
+          >
+            Women
+          </button>
+
+          <button
+            className={
+              currentPage === "products" &&
+              currentCategory === "Kids"
+                ? "active"
+                : ""
+            }
+            onClick={() => goCategory("Kids")}
+          >
+            Kids
+          </button>
+
+          <button
+            className={
+              currentPage === "products" &&
+              currentCategory === "Beauty"
+                ? "active"
+                : ""
+            }
+            onClick={() => goCategory("Beauty")}
+          >
+            Beauty
+          </button>
+
+          <button
+            className={
+              currentPage === "products" &&
+              currentCategory === "Accessories"
+                ? "active"
+                : ""
+            }
+            onClick={() =>
+              goCategory("Accessories")
+            }
+          >
+            Accessories
+          </button>
+
+        </nav>
+
+        {/* SEARCH */}
+
+        <div className="navbar-search">
+
+          <span className="search-icon">
+            ⌕
+          </span>
+
+          <input
+            type="text"
+            placeholder="Search for products, brands and more"
+            value={searchValue}
+            onChange={handleSearch}
+          />
+
+          {searchValue && (
+            <button
+              className="search-clear"
+              onClick={clearSearch}
+            >
+              ×
+            </button>
+          )}
+
+        </div>
+
+        {/* ACTIONS */}
+
+        <div className="navbar-actions">
+
+          <button
+            className={
+              currentPage === "profile"
+                ? "nav-action active-action"
+                : "nav-action"
+            }
+            onClick={() => setPage("profile")}
+          >
+            <span className="nav-action-icon">
+              ♙
+            </span>
+
+            <span className="nav-action-label">
+              Profile
+            </span>
+          </button>
+
+          <button
+            className={
+              `nav-action wishlist-nav ${
+                wishlistCount > 0
+                  ? "wishlist-filled"
+                  : ""
+              } ${
+                currentPage === "wishlist"
+                  ? "active-action"
+                  : ""
+              }`
+            }
+            onClick={() => setPage("wishlist")}
+          >
+            <span className="nav-action-icon">
+              {wishlistCount > 0 ? "♥" : "♡"}
+            </span>
+
+            <span className="nav-action-label">
+              Wishlist
+            </span>
+
+            {wishlistCount > 0 && (
+              <span className="nav-count">
+                {wishlistCount}
+              </span>
+            )}
+          </button>
+
+          <button
+            className={
+              `nav-action ${
+                currentPage === "cart"
+                  ? "active-action"
+                  : ""
+              }`
+            }
+            onClick={() => setPage("cart")}
+          >
+            <span className="nav-action-icon">
+              🛍
+            </span>
+
+            <span className="nav-action-label">
+              Bag
+            </span>
+
+            {cartCount > 0 && (
+              <span className="nav-count">
+                {cartCount}
+              </span>
+            )}
+          </button>
+
+        </div>
+
+        {/* MOBILE BUTTON */}
+
+        <button
+          className="mobile-menu-button"
+          onClick={() =>
+            setMobileMenu(!mobileMenu)
+          }
+        >
+          {mobileMenu ? "×" : "☰"}
+        </button>
+
       </div>
 
-      <button
-        className="hamburger"
-        onClick={() =>
-          setMenuOpen(!menuOpen)
-        }
-      >
-        ☰
-      </button>
+      {/* MOBILE MENU */}
 
-    </nav>
-    </>
+      {mobileMenu && (
+        <div className="mobile-menu">
+
+          <button
+            className={
+              currentPage === "home"
+                ? "mobile-active"
+                : ""
+            }
+            onClick={() => {
+              setPage("home");
+              setMobileMenu(false);
+            }}
+          >
+            Home
+          </button>
+
+          {[
+            "Men",
+            "Women",
+            "Kids",
+            "Beauty",
+            "Accessories",
+          ].map((item) => (
+            <button
+              key={item}
+              className={
+                currentPage === "products" &&
+                currentCategory === item
+                  ? "mobile-active"
+                  : ""
+              }
+              onClick={() =>
+                goCategory(item)
+              }
+            >
+              {item}
+            </button>
+          ))}
+
+          <button
+            onClick={() => {
+              setPage("wishlist");
+              setMobileMenu(false);
+            }}
+          >
+            ♥ Wishlist
+          </button>
+
+          <button
+            onClick={() => {
+              setPage("cart");
+              setMobileMenu(false);
+            }}
+          >
+            🛍 Bag
+          </button>
+
+          <button
+            onClick={() => {
+              setPage("profile");
+              setMobileMenu(false);
+            }}
+          >
+            ♙ Profile
+          </button>
+
+        </div>
+      )}
+
+    </header>
   );
 }
 

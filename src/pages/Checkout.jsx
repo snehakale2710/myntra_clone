@@ -1,200 +1,365 @@
 import React, { useState } from "react";
-import "./Register.css";
 
-function Register({ setPage }) {
-  const [error, setError] = useState("");
+import "./Checkout.css";
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-
-    const name =
-      e.target.name.value.trim();
-
-    const email =
-      e.target.email.value.trim().toLowerCase();
-
-    const password =
-      e.target.password.value;
-
-    const confirmPassword =
-      e.target.confirmPassword.value;
-
-    /* =========================
-       PASSWORD CHECK
-    ========================= */
-
-    if (password !== confirmPassword) {
-      setError(
-        "Passwords do not match."
-      );
-      return;
-    }
-
-    /* =========================
-       GET EXISTING USERS
-    ========================= */
-
-    const users =
+function Checkout({ setPage }) {
+  const [address, setAddress] =
+    useState(
       JSON.parse(
-        localStorage.getItem("users")
-      ) || [];
+        localStorage.getItem(
+          "deliveryAddress"
+        )
+      ) || {
+        name: "",
+        mobile: "",
+        address: "",
+        city: "",
+        pincode: "",
+      }
+    );
 
-    /* =========================
-       CHECK DUPLICATE EMAIL
-    ========================= */
+  const [error, setError] =
+    useState("");
 
-    const existingUser =
-      users.find(
-        (user) =>
-          user.email.toLowerCase() === email
-      );
+  const cart =
+    JSON.parse(
+      localStorage.getItem("cart")
+    ) || [];
 
-    if (existingUser) {
-      setError(
-        "An account with this email already exists."
-      );
-      return;
+  const getPrice = (price) => {
+    if (typeof price === "number") {
+      return price;
     }
 
-    /* =========================
-       CREATE USER
-    ========================= */
+    return (
+      Number(
+        String(price)
+          .replace("₹", "")
+          .replace(/,/g, "")
+          .trim()
+      ) || 0
+    );
+  };
 
-    const newUser = {
-      id: Date.now(),
+  const totalAmount = cart.reduce(
+    (total, item) =>
+      total +
+      getPrice(item.price) *
+        (item.quantity || 1),
+    0
+  );
+
+  const handleChange = (e) => {
+    const {
       name,
-      email,
-      password,
-    };
+      value,
+    } = e.target;
 
-    /* =========================
-       ADD USER
-       WITHOUT DELETING
-       OTHER USERS
-    ========================= */
-
-    const updatedUsers = [
-      ...users,
-      newUser,
-    ];
-
-    localStorage.setItem(
-      "users",
-      JSON.stringify(updatedUsers)
-    );
-
-    /* =========================
-       LOGIN THIS USER
-    ========================= */
-
-    localStorage.setItem(
-      "currentUser",
-      JSON.stringify(newUser)
-    );
-
-    localStorage.setItem(
-      "loggedIn",
-      "true"
-    );
+    setAddress((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
 
     setError("");
+  };
 
-    setPage("home");
+  const handleContinue = (e) => {
+    e.preventDefault();
+
+    if (
+      !address.name.trim() ||
+      !address.mobile.trim() ||
+      !address.address.trim() ||
+      !address.city.trim() ||
+      !address.pincode.trim()
+    ) {
+      setError(
+        "Please fill all delivery details."
+      );
+      return;
+    }
+
+    if (
+      !/^[0-9]{10}$/.test(
+        address.mobile
+      )
+    ) {
+      setError(
+        "Please enter a valid 10-digit mobile number."
+      );
+      return;
+    }
+
+    if (
+      !/^[0-9]{6}$/.test(
+        address.pincode
+      )
+    ) {
+      setError(
+        "Please enter a valid 6-digit pincode."
+      );
+      return;
+    }
+
+    if (cart.length === 0) {
+      alert(
+        "Your cart is empty."
+      );
+
+      setPage("cart");
+
+      return;
+    }
+
+    localStorage.setItem(
+      "deliveryAddress",
+      JSON.stringify(address)
+    );
+
+    setPage("payment");
   };
 
   return (
-    <div className="register-page">
+    <main className="checkout-page">
 
-      <div className="register-card">
+      <div className="checkout-title">
 
-        <div className="register-image">
+        <h1>
+          Checkout
+        </h1>
 
-          <h1>
-            STYLE<span>HUB</span>
-          </h1>
+        <p>
+          Complete your STYLEHUB order
+        </p>
 
-          <p>
-            Your style. Your story.
-          </p>
+      </div>
 
-        </div>
+      <div className="checkout-container">
 
-        <div className="register-form">
-
-          <p className="eyebrow">
-            Join us
-          </p>
+        <div className="checkout-left">
 
           <h2>
-            Create your account
+            Delivery Address
           </h2>
 
-          <p>
-            Join us and discover your style.
-          </p>
-
           {error && (
-            <div className="error">
+            <div className="checkout-error">
               {error}
             </div>
           )}
 
-          <form onSubmit={handleRegister}>
+          <form
+            onSubmit={handleContinue}
+          >
+
+            <label>
+              Full Name
+            </label>
 
             <input
               name="name"
               type="text"
-              placeholder="Full Name"
-              required
+              placeholder="Enter your full name"
+              value={address.name}
+              onChange={handleChange}
             />
+
+            <label>
+              Mobile Number
+            </label>
 
             <input
-              name="email"
-              type="email"
-              placeholder="Email Address"
-              required
+              name="mobile"
+              type="tel"
+              placeholder="10-digit mobile number"
+              maxLength={10}
+              value={address.mobile}
+              onChange={(e) =>
+                handleChange({
+                  target: {
+                    name: "mobile",
+                    value:
+                      e.target.value.replace(
+                        /\D/g,
+                        ""
+                      ),
+                  },
+                })
+              }
             />
 
-            <input
-              name="password"
-              type="password"
-              placeholder="Password"
-              required
+            <label>
+              Address
+            </label>
+
+            <textarea
+              name="address"
+              placeholder="House No., Building, Street, Area"
+              value={address.address}
+              onChange={handleChange}
             />
 
-            <input
-              name="confirmPassword"
-              type="password"
-              placeholder="Confirm Password"
-              required
-            />
+            <div className="checkout-row">
 
-            <button type="submit">
-              Create Account
+              <div>
+                <label>
+                  City
+                </label>
+
+                <input
+                  name="city"
+                  type="text"
+                  placeholder="City"
+                  value={address.city}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div>
+                <label>
+                  Pincode
+                </label>
+
+                <input
+                  name="pincode"
+                  type="text"
+                  placeholder="Pincode"
+                  maxLength={6}
+                  value={address.pincode}
+                  onChange={(e) =>
+                    handleChange({
+                      target: {
+                        name: "pincode",
+                        value:
+                          e.target.value.replace(
+                            /\D/g,
+                            ""
+                          ),
+                      },
+                    })
+                  }
+                />
+              </div>
+
+            </div>
+
+            <button
+              type="submit"
+              className="continue-payment-btn"
+            >
+              CONTINUE TO PAYMENT
             </button>
 
           </form>
 
-          <p className="switch">
-            Already have an account?
+        </div>
 
-            <button
-              type="button"
-              onClick={() =>
-                setPage("login")
-              }
+        <div className="checkout-right">
+
+          <h2>
+            Order Summary
+          </h2>
+
+          {cart.map((item) => (
+
+            <div
+              className="checkout-item"
+              key={item.id}
             >
-              Login
-            </button>
 
-          </p>
+              <img
+                src={item.image}
+                alt={
+                  item.name ||
+                  "Product"
+                }
+              />
+
+              <div>
+
+                <h3>
+                  {item.name}
+                </h3>
+
+                {item.size && (
+                  <p>
+                    Size: {item.size}
+                  </p>
+                )}
+
+                <p>
+                  Quantity:{" "}
+                  {item.quantity || 1}
+                </p>
+
+                <strong>
+                  ₹
+                  {(
+                    getPrice(
+                      item.price
+                    ) *
+                    (item.quantity || 1)
+                  ).toLocaleString(
+                    "en-IN"
+                  )}
+                </strong>
+
+              </div>
+
+            </div>
+
+          ))}
+
+          <div className="price-details">
+
+            <div>
+              <span>
+                Subtotal
+              </span>
+
+              <span>
+                ₹
+                {totalAmount.toLocaleString(
+                  "en-IN"
+                )}
+              </span>
+            </div>
+
+            <div>
+              <span>
+                Delivery
+              </span>
+
+              <span className="free">
+                FREE
+              </span>
+            </div>
+
+            <hr />
+
+            <div className="total-row">
+
+              <strong>
+                Total Amount
+              </strong>
+
+              <strong>
+                ₹
+                {totalAmount.toLocaleString(
+                  "en-IN"
+                )}
+              </strong>
+
+            </div>
+
+          </div>
 
         </div>
 
       </div>
 
-    </div>
+    </main>
   );
 }
 
-export default Register;
+export default Checkout;
