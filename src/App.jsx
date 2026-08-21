@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -18,6 +18,24 @@ import Payment from "./pages/Payment";
 import "./App.css";
 
 function App() {
+  const getPageFromHash = () => {
+    const page = window.location.hash.replace("#/", "");
+
+    return [
+      "home",
+      "products",
+      "details",
+      "wishlist",
+      "cart",
+      "checkout",
+      "payment",
+      "orders",
+      "profile",
+    ].includes(page)
+      ? page
+      : "home";
+  };
+
   /* =========================
      LOGIN STATUS
   ========================= */
@@ -30,9 +48,9 @@ function App() {
      PAGE
   ========================= */
 
-  const [page, setPage] = useState(
+  const [page, setPage] = useState(() =>
     localStorage.getItem("loggedIn") === "true"
-      ? "home"
+      ? getPageFromHash()
       : "login"
   );
 
@@ -65,6 +83,63 @@ function App() {
   );
 
   /* =========================
+     HASH CHANGE
+  ========================= */
+
+  useEffect(() => {
+    const onHashChange = () => {
+      if (isLoggedIn) {
+        const newPage = getPageFromHash();
+
+        setPage(newPage);
+
+        // Scroll to top when hash/page changes
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+        }, 0);
+      }
+    };
+
+    window.addEventListener("hashchange", onHashChange);
+
+    return () => {
+      window.removeEventListener("hashchange", onHashChange);
+    };
+  }, [isLoggedIn]);
+
+  /* =========================
+     UPDATE URL
+  ========================= */
+
+  useEffect(() => {
+    if (
+      isLoggedIn &&
+      window.location.hash !== `#/${page}`
+    ) {
+      window.history.replaceState(
+        null,
+        "",
+        `#/${page}`
+      );
+    }
+  }, [isLoggedIn, page]);
+
+  /* =========================
+     SCROLL TO TOP
+     FOR EVERY PAGE
+  ========================= */
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "instant",
+      });
+    }, 0);
+  }, [page]);
+
+  /* =========================
      NAVIGATION
   ========================= */
 
@@ -75,7 +150,16 @@ function App() {
   ) => {
     setSearchTerm(searchValue);
     setCategory(categoryValue);
+
+    // Change page
     setPage(newPage);
+
+    // Immediately scroll to top
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
   };
 
   /* =========================
@@ -84,8 +168,17 @@ function App() {
 
   const handleLogin = () => {
     localStorage.setItem("loggedIn", "true");
+
     setIsLoggedIn(true);
     setPage("home");
+
+    window.history.replaceState(
+      null,
+      "",
+      "#/home"
+    );
+
+    window.scrollTo(0, 0);
   };
 
   /* =========================
@@ -100,16 +193,12 @@ function App() {
 
     setSearchTerm("");
     setCategory("All");
+
+    window.scrollTo(0, 0);
   };
 
   /* =========================
      ADD TO CART
-
-     Same product:
-     quantity increases
-
-     Bag count:
-     remains 1
   ========================= */
 
   const addToCart = (product) => {
@@ -189,9 +278,7 @@ function App() {
   ========================= */
 
   const renderPage = () => {
-    /* =========================
-       LOGIN
-    ========================= */
+    /* LOGIN */
 
     if (page === "login") {
       return (
@@ -202,9 +289,7 @@ function App() {
       );
     }
 
-    /* =========================
-       REGISTER
-    ========================= */
+    /* REGISTER */
 
     if (page === "register") {
       return (
@@ -214,9 +299,7 @@ function App() {
       );
     }
 
-    /* =========================
-       NOT LOGGED IN
-    ========================= */
+    /* NOT LOGGED IN */
 
     if (!isLoggedIn) {
       return (
@@ -227,27 +310,18 @@ function App() {
       );
     }
 
-    /* =========================
-       MAIN PAGES
-    ========================= */
+    /* MAIN PAGES */
 
     switch (page) {
-      /* =========================
-         HOME
-      ========================= */
-
       case "home":
         return (
           <Home
             setPage={setPage}
+            navigate={navigate}
             addToWishlist={addToWishlist}
             addToCart={addToCart}
           />
         );
-
-      /* =========================
-         PRODUCTS
-      ========================= */
 
       case "products":
         return (
@@ -261,10 +335,6 @@ function App() {
           />
         );
 
-      /* =========================
-         PRODUCT DETAILS
-      ========================= */
-
       case "details":
         return (
           <ProductDetails
@@ -273,10 +343,6 @@ function App() {
             addToCart={addToCart}
           />
         );
-
-      /* =========================
-         WISHLIST
-      ========================= */
 
       case "wishlist":
         return (
@@ -287,10 +353,6 @@ function App() {
           />
         );
 
-      /* =========================
-         CART
-      ========================= */
-
       case "cart":
         return (
           <Cart
@@ -300,20 +362,12 @@ function App() {
           />
         );
 
-      /* =========================
-         CHECKOUT
-      ========================= */
-
       case "checkout":
         return (
           <Checkout
             setPage={setPage}
           />
         );
-
-      /* =========================
-         PAYMENT
-      ========================= */
 
       case "payment":
         return (
@@ -323,20 +377,12 @@ function App() {
           />
         );
 
-      /* =========================
-         ORDERS
-      ========================= */
-
       case "orders":
         return (
           <Orders
             setPage={setPage}
           />
         );
-
-      /* =========================
-         PROFILE
-      ========================= */
 
       case "profile":
         return (
@@ -346,14 +392,11 @@ function App() {
           />
         );
 
-      /* =========================
-         DEFAULT
-      ========================= */
-
       default:
         return (
           <Home
             setPage={setPage}
+            navigate={navigate}
             addToWishlist={addToWishlist}
             addToCart={addToCart}
           />
@@ -362,20 +405,10 @@ function App() {
   };
 
   /* =========================
-     UNIQUE BAG COUNT
-
-     Example:
-
-     T-shirt x 2
-
-     Bag = 1
+     COUNTS
   ========================= */
 
   const cartCount = cart.length;
-
-  /* =========================
-     WISHLIST COUNT
-  ========================= */
 
   const wishlistCount = wishlist.length;
 
@@ -386,9 +419,7 @@ function App() {
   return (
     <div className="app">
 
-      {/* =========================
-          NAVBAR
-      ========================= */}
+      {/* NAVBAR */}
 
       {isLoggedIn && (
         <Navbar
@@ -402,17 +433,13 @@ function App() {
         />
       )}
 
-      {/* =========================
-          PAGE
-      ========================= */}
+      {/* PAGE */}
 
       <main>
         {renderPage()}
       </main>
 
-      {/* =========================
-          FOOTER
-      ========================= */}
+      {/* FOOTER */}
 
       {isLoggedIn && <Footer />}
 

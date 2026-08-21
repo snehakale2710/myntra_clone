@@ -31,6 +31,14 @@ function ProductCard({
       <div
         className="product-image-wrap"
         onClick={openDetails}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openDetails();
+          }
+        }}
       >
 
         <img
@@ -70,11 +78,9 @@ function ProductCard({
           {product.brand}
         </p>
 
-        <h3
-          onClick={openDetails}
-        >
-          {product.name}
-        </h3>
+        <button className="product-title-button" onClick={openDetails}>
+          <h3>{product.name}</h3>
+        </button>
 
         <p className="product-description">
           {product.description}

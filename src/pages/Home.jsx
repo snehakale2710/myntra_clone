@@ -28,6 +28,7 @@ const categories = [
 
 function Home({
   setPage,
+  navigate,
   addToWishlist,
   addToCart
 }) {
@@ -53,7 +54,7 @@ function Home({
           </span>
 
           <button
-            onClick={() => setPage("products")}
+            onClick={() => navigate("products", "", "All")}
           >
             Shop the collection
           </button>
@@ -97,17 +98,18 @@ function Home({
         <div className="category-grid">
 
           {categories.map((cat) => (
-            <div
+            <button
+              type="button"
               key={cat.name}
               className="category-tile"
-              onClick={() => setPage("products")}
+              onClick={() => navigate("products", "", cat.name)}
             >
               <img src={cat.image} alt={cat.name} loading="lazy" />
               <div className="category-tile-label">
                 <h3>{cat.name}</h3>
                 <span>Shop now →</span>
               </div>
-            </div>
+            </button>
           ))}
 
         </div>

@@ -12,6 +12,7 @@ function Footer() {
 
       <div className="footer-container">
 
+        {/* ================= BRAND ================= */}
         <div className="footer-brand">
 
           <h2>
@@ -23,7 +24,7 @@ function Footer() {
             Discover timeless styles made for you.
           </p>
 
-          <div className="footer-social">
+          <div className="footer-socials">
 
             <a
               href="#"
@@ -53,6 +54,8 @@ function Footer() {
 
         </div>
 
+
+        {/* ================= CUSTOMER CARE ================= */}
         <div className="footer-column">
 
           <h3>Customer Care</h3>
@@ -64,6 +67,8 @@ function Footer() {
 
         </div>
 
+
+        {/* ================= INFORMATION ================= */}
         <div className="footer-column">
 
           <h3>Information</h3>
@@ -77,6 +82,8 @@ function Footer() {
 
       </div>
 
+
+      {/* ================= BOTTOM ================= */}
       <div className="footer-bottom">
 
         <p>
@@ -84,7 +91,7 @@ function Footer() {
         </p>
 
         <p>
-          Made with ♥ for fashion lovers.
+          Made with <span className="heart">♥</span> for fashion lovers.
         </p>
 
       </div>

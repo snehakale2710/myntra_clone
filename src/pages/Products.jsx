@@ -20,6 +20,9 @@ function Products({
   const [sort, setSort] =
     useState("default");
 
+  const [maxPrice, setMaxPrice] = useState("All");
+  const [minimumRating, setMinimumRating] = useState("All");
+
   const categoryData = {
     All: [
       "All",
@@ -170,10 +173,20 @@ function Products({
         product.subcategory?.toLowerCase() ===
           subCategory.toLowerCase();
 
+      const matchesPrice =
+        maxPrice === "All" ||
+        Number(product.price) <= Number(maxPrice);
+
+      const matchesRating =
+        minimumRating === "All" ||
+        Number(product.rating || 0) >= Number(minimumRating);
+
       return (
         matchesSearch &&
         matchesCategory &&
-        matchesSubCategory
+        matchesSubCategory &&
+        matchesPrice &&
+        matchesRating
       );
     });
 
@@ -213,6 +226,8 @@ function Products({
     category,
     subCategory,
     sort,
+    maxPrice,
+    minimumRating,
   ]);
 
   const getTitle = () => {
@@ -263,6 +278,8 @@ function Products({
     setCategory("All");
     setSubCategory("All");
     setSort("default");
+    setMaxPrice("All");
+    setMinimumRating("All");
   };
 
   return (
@@ -337,6 +354,27 @@ function Products({
 
       </section>
 
+      <section className="catalogue-filters" aria-label="Product filters">
+        <label>
+          Price
+          <select value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)}>
+            <option value="All">Any price</option>
+            <option value="750">Under ₹750</option>
+            <option value="1500">Under ₹1,500</option>
+            <option value="2500">Under ₹2,500</option>
+          </select>
+        </label>
+
+        <label>
+          Customer rating
+          <select value={minimumRating} onChange={(e) => setMinimumRating(e.target.value)}>
+            <option value="All">Any rating</option>
+            <option value="4">4.0 & above</option>
+            <option value="4.5">4.5 & above</option>
+          </select>
+        </label>
+      </section>
+
       <section className="category-section">
 
         <div className="category-heading">
@@ -404,7 +442,9 @@ function Products({
 
         {(category !== "All" ||
           subCategory !== "All" ||
-          searchTerm) && (
+          searchTerm ||
+          maxPrice !== "All" ||
+          minimumRating !== "All") && (
           <button
             className="clear-filters"
             onClick={clearFilters}

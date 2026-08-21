@@ -5,6 +5,7 @@
 }
 
 .product-image-wrap {
+  cursor: pointer;
   position: relative;
 
   width: 100%;
@@ -192,4 +193,21 @@
     font-size: 9px;
     padding: 9px;
   }
+}
+
+.product-title-button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.product-title-button:focus-visible,
+.product-image-wrap:focus-visible {
+  outline: 3px solid #ff3f6c;
+  outline-offset: 3px;
 }

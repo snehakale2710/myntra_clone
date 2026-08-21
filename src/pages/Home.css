@@ -107,6 +107,14 @@
 }
 
 .category-tile {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  width: 100%;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
   position: relative;
   height: 340px;
   cursor: pointer;
