@@ -15,7 +15,7 @@ const products = [
     discount: 50,
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=700",
+      "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=700&q=80",
     description:
       "Premium casual shirt designed for everyday comfort and modern style.",
   },
@@ -31,7 +31,7 @@ const products = [
     discount: 50,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1542272604-787c3835535d?w=700",
+      "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=700&q=80",
     description:
       "Classic slim fit jeans with comfortable stretch and premium denim.",
   },
@@ -47,7 +47,7 @@ const products = [
     discount: 40,
     rating: 4.2,
     image:
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=700",
+      "https://images.unsplash.com/photo-1552252059-9d77e4059ad1?w=700&q=80",
     description:
       "Comfortable printed cotton t-shirt for everyday casual styling.",
   },
@@ -63,7 +63,7 @@ const products = [
     discount: 50,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1527719327859-5b7b4b9a2e4d?w=700",
+      "https://images.unsplash.com/photo-1507680434567-5739c80be1ac?w=700&q=80",
     description:
       "Classic polo t-shirt made for smart casual occasions.",
   },
@@ -79,7 +79,7 @@ const products = [
     discount: 50,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700",
+      "https://images.unsplash.com/photo-1544441893-675973e31985?w=700&q=80",
     description:
       "Comfortable running shoes designed for active lifestyles.",
   },
@@ -95,7 +95,7 @@ const products = [
     discount: 50,
     rating: 4.1,
     image:
-      "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=700",
+      "https://images.unsplash.com/photo-1593030103066-0093718efeb9?w=700&q=80",
     description:
       "Smart slim-fit trousers for everyday and office wear.",
   },
@@ -111,7 +111,7 @@ const products = [
     discount: 48,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=700",
+      "https://images.unsplash.com/photo-1596993100471-c3905dafa78e?w=700&q=80",
     description:
       "Relaxed oversized hoodie made for comfortable streetwear styling.",
   },
@@ -127,7 +127,7 @@ const products = [
     discount: 49,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=700",
+      "https://images.unsplash.com/photo-1603189343302-e603f7add05a?w=700&q=80",
     description:
       "Classic denim jacket with a timeless casual look.",
   },
@@ -143,7 +143,7 @@ const products = [
     discount: 50,
     rating: 4.2,
     image:
-      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=700",
+      "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=700&q=80",
     description:
       "Stylish checked shirt perfect for casual weekends.",
   },
@@ -159,7 +159,7 @@ const products = [
     discount: 50,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1602293589930-45aad59ba3ab?w=700",
+      "https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?w=700&q=80",
     description:
       "Regular fit denim with durable construction and comfortable styling.",
   },
@@ -175,7 +175,7 @@ const products = [
     discount: 46,
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=700",
+      "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=700&q=80",
     description:
       "Modern graphic t-shirt made from soft cotton fabric.",
   },
@@ -191,7 +191,7 @@ const products = [
     discount: 48,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1603252110481-7ba873bf42ab?w=700",
+      "https://images.unsplash.com/photo-1667284152861-36e03571486a?w=700&q=80",
     description:
       "Elegant formal shirt designed for professional occasions.",
   },
@@ -223,7 +223,7 @@ const products = [
     discount: 50,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=700",
+      "https://images.unsplash.com/photo-1479064555552-3ef4979f8908?w=700&q=80",
     description:
       "Lightweight training sneakers designed for daily movement.",
   },
@@ -260,7 +260,7 @@ const products = [
     discount: 50,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=700",
+      "https://images.unsplash.com/photo-1616313253719-c46514cddee1?w=700&q=80",
     description:
       "Elegant floral dress featuring a stylish silhouette and lightweight fabric.",
   },
@@ -276,7 +276,7 @@ const products = [
     discount: 46,
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?w=700",
+      "https://images.unsplash.com/photo-1614786269829-d24616faf56d?w=700&q=80",
     description:
       "Stylish women's top perfect for casual outings and everyday wear.",
   },
@@ -292,7 +292,7 @@ const products = [
     discount: 50,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=700",
+      "https://images.unsplash.com/photo-1562151270-c7d22ceb586a?w=700&q=80",
     description:
       "Trendy casual dress with a modern fit and fashionable look.",
   },
@@ -308,7 +308,7 @@ const products = [
     discount: 50,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=700",
+      "https://images.unsplash.com/photo-1604284195847-88dc4b5a9faa?w=700&q=80",
     description:
       "Beautiful printed kurta suitable for festive and everyday occasions.",
   },
@@ -356,7 +356,7 @@ const products = [
     discount: 46,
     rating: 4.2,
     image:
-      "https://images.unsplash.com/photo-1564257577054-9e8e7e0d7e8c?w=700",
+      "https://images.unsplash.com/photo-1614786269829-d24616faf56d?w=700&q=80",
     description:
       "Minimal solid top that pairs perfectly with jeans and trousers.",
   },
@@ -372,7 +372,7 @@ const products = [
     discount: 50,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=700",
+      "https://images.unsplash.com/photo-1604284195847-88dc4b5a9faa?w=700&q=80",
     description:
       "Elegant ethnic kurta set designed for festive occasions.",
   },
@@ -404,7 +404,7 @@ const products = [
     discount: 47,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1548883354-7622d03aca27?w=700",
+      "https://images.unsplash.com/photo-1590330297626-d7aff25a0431?w=700&q=80",
     description:
       "Classic denim jacket that adds a stylish layer to any outfit.",
   },
@@ -420,7 +420,7 @@ const products = [
     discount: 48,
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=700",
+      "https://images.unsplash.com/photo-1580478491436-fd6a937acc9e?w=700&q=80",
     description:
       "Modern wide-leg trousers designed for effortless elegance.",
   },
@@ -436,7 +436,7 @@ const products = [
     discount: 50,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=700",
+      "https://images.unsplash.com/photo-1613915617430-8ab0fd7c6baf?w=700&q=80",
     description:
       "Stylish party dress designed for evening occasions.",
   },
@@ -505,7 +505,7 @@ const products = [
     discount: 44,
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=700",
+      "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=700&q=80",
     description:
       "Soft and comfortable t-shirt designed for kids.",
   },
@@ -537,7 +537,7 @@ const products = [
     discount: 44,
     rating: 4.2,
     image:
-      "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=700",
+      "https://images.unsplash.com/photo-1529756148791-fbca69bfe693?w=700&q=80",
     description:
       "Fun printed t-shirt made from soft and breathable fabric.",
   },
@@ -553,7 +553,7 @@ const products = [
     discount: 50,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=700",
+      "https://images.unsplash.com/photo-1578897367107-2828e351c8a8?w=700&q=80",
     description:
       "Comfortable and stylish casual dress for little ones.",
   },
@@ -601,7 +601,7 @@ const products = [
     discount: 46,
     rating: 4.2,
     image:
-      "https://images.unsplash.com/photo-1519457431-44ccd64a579b?w=700",
+      "https://images.unsplash.com/photo-1758782213532-bbb5fd89885e?w=700&q=80",
     description:
       "Smart casual shirt suitable for everyday outings.",
   },
@@ -617,7 +617,7 @@ const products = [
     discount: 45,
     rating: 4.1,
     image:
-      "https://images.unsplash.com/photo-1519457431-44ccd64a579b?w=700",
+      "https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?w=700&q=80",
     description:
       "Comfortable denim shorts perfect for summer days.",
   },
@@ -649,7 +649,7 @@ const products = [
     discount: 50,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=700",
+      "https://images.unsplash.com/photo-1590480598135-3be152c87913?w=700&q=80",
     description:
       "Lightweight summer dress for comfortable everyday wear.",
   },
@@ -665,7 +665,7 @@ const products = [
     discount: 45,
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=700",
+      "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=700&q=80",
     description:
       "Playful graphic t-shirt designed for active kids.",
   },
@@ -681,7 +681,7 @@ const products = [
     discount: 44,
     rating: 4.1,
     image:
-      "https://images.unsplash.com/photo-1519457431-44ccd64a579b?w=700",
+      "https://images.unsplash.com/photo-1519457431-44ccd64a579b?w=700&q=80",
     description:
       "Easy-to-wear casual shorts for everyday activities.",
   },
@@ -729,14 +729,14 @@ const products = [
     discount: 50,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=700",
+      "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=700&q=80",
     description:
       "Festive clothing set designed for celebrations and special days.",
   },
 
 
   // =====================================================
-  // BEAUTY - 15 PRODUCTS
+  // BEAUTY - 15 PRODUCTS (unchanged — original images kept)
   // =====================================================
 
   {
@@ -981,7 +981,7 @@ const products = [
 
 
   // =====================================================
-  // ACCESSORIES - 15 PRODUCTS
+  // ACCESSORIES - 15 PRODUCTS (unchanged — original images kept)
   // =====================================================
 
   {
