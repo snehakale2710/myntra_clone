@@ -9,15 +9,27 @@ function Navbar({
   currentPage,
   currentCategory,
   navigate,
+  onBack,
+  canGoBack,
 }) {
-  const [mobileMenu, setMobileMenu] = useState(false);
 
-  const [searchValue, setSearchValue] = useState("");
+  const [mobileMenu, setMobileMenu] =
+    useState(false);
+
+  const [searchValue, setSearchValue] =
+    useState("");
+
+
+  // ==========================================
+  // SEARCH
+  // ==========================================
 
   const handleSearch = (e) => {
+
     const value = e.target.value;
 
     setSearchValue(value);
+
     onSearch(value);
 
     navigate(
@@ -25,16 +37,37 @@ function Navbar({
       value,
       "All"
     );
+
   };
+
+
+  // ==========================================
+  // CLEAR SEARCH
+  // ==========================================
 
   const clearSearch = () => {
+
     setSearchValue("");
+
     onSearch("");
-    navigate("products", "", "All");
+
+    navigate(
+      "products",
+      "",
+      "All"
+    );
+
   };
 
+
+  // ==========================================
+  // CATEGORY
+  // ==========================================
+
   const goCategory = (category) => {
+
     setSearchValue("");
+
     onSearch("");
 
     navigate(
@@ -44,26 +77,55 @@ function Navbar({
     );
 
     setMobileMenu(false);
+
   };
+
 
   return (
     <header className="navbar">
 
       <div className="navbar-inner">
 
-        {/* LOGO */}
+
+        {/* ==================================
+            BACK BUTTON
+        ================================== */}
+
+        {canGoBack && (
+
+          <button
+            className="navbar-back-button"
+            onClick={onBack}
+            title="Go to previous page"
+            aria-label="Go to previous page"
+          >
+            ←
+          </button>
+
+        )}
+
+
+        {/* ==================================
+            LOGO
+        ================================== */}
 
         <button
           className="logo"
           onClick={() => {
+
             setPage("home");
+
             setMobileMenu(false);
+
           }}
         >
           STYLE<span>HUB</span>
         </button>
 
-        {/* DESKTOP NAVIGATION */}
+
+        {/* ==================================
+            DESKTOP NAVIGATION
+        ================================== */}
 
         <nav className="nav-links">
 
@@ -73,10 +135,13 @@ function Navbar({
                 ? "active"
                 : ""
             }
-            onClick={() => setPage("home")}
+            onClick={() =>
+              setPage("home")
+            }
           >
             Home
           </button>
+
 
           <button
             className={
@@ -85,10 +150,13 @@ function Navbar({
                 ? "active"
                 : ""
             }
-            onClick={() => goCategory("Men")}
+            onClick={() =>
+              goCategory("Men")
+            }
           >
             Men
           </button>
+
 
           <button
             className={
@@ -97,10 +165,13 @@ function Navbar({
                 ? "active"
                 : ""
             }
-            onClick={() => goCategory("Women")}
+            onClick={() =>
+              goCategory("Women")
+            }
           >
             Women
           </button>
+
 
           <button
             className={
@@ -109,10 +180,13 @@ function Navbar({
                 ? "active"
                 : ""
             }
-            onClick={() => goCategory("Kids")}
+            onClick={() =>
+              goCategory("Kids")
+            }
           >
             Kids
           </button>
+
 
           <button
             className={
@@ -121,10 +195,13 @@ function Navbar({
                 ? "active"
                 : ""
             }
-            onClick={() => goCategory("Beauty")}
+            onClick={() =>
+              goCategory("Beauty")
+            }
           >
             Beauty
           </button>
+
 
           <button
             className={
@@ -142,13 +219,17 @@ function Navbar({
 
         </nav>
 
-        {/* SEARCH */}
+
+        {/* ==================================
+            SEARCH
+        ================================== */}
 
         <div className="navbar-search">
 
           <span className="search-icon">
             ⌕
           </span>
+
 
           <input
             type="text"
@@ -157,20 +238,29 @@ function Navbar({
             onChange={handleSearch}
           />
 
+
           {searchValue && (
+
             <button
               className="search-clear"
               onClick={clearSearch}
             >
               ×
             </button>
+
           )}
 
         </div>
 
-        {/* ACTIONS */}
+
+        {/* ==================================
+            ACTIONS
+        ================================== */}
 
         <div className="navbar-actions">
+
+
+          {/* PROFILE */}
 
           <button
             className={
@@ -178,8 +268,11 @@ function Navbar({
                 ? "nav-action active-action"
                 : "nav-action"
             }
-            onClick={() => setPage("profile")}
+            onClick={() =>
+              setPage("profile")
+            }
           >
+
             <span className="nav-action-icon">
               ♙
             </span>
@@ -187,47 +280,72 @@ function Navbar({
             <span className="nav-action-label">
               Profile
             </span>
+
           </button>
 
+
+          {/* WISHLIST */}
+
           <button
-            className={
-              `nav-action wishlist-nav ${
+            className={`
+              nav-action
+              wishlist-nav
+              ${
                 wishlistCount > 0
                   ? "wishlist-filled"
                   : ""
-              } ${
+              }
+              ${
                 currentPage === "wishlist"
                   ? "active-action"
                   : ""
-              }`
+              }
+            `}
+            onClick={() =>
+              setPage("wishlist")
             }
-            onClick={() => setPage("wishlist")}
           >
+
             <span className="nav-action-icon">
-              {wishlistCount > 0 ? "♥" : "♡"}
+
+              {wishlistCount > 0
+                ? "♥"
+                : "♡"}
+
             </span>
 
             <span className="nav-action-label">
               Wishlist
             </span>
 
+
             {wishlistCount > 0 && (
+
               <span className="nav-count">
                 {wishlistCount}
               </span>
+
             )}
+
           </button>
 
+
+          {/* BAG */}
+
           <button
-            className={
-              `nav-action ${
+            className={`
+              nav-action
+              ${
                 currentPage === "cart"
                   ? "active-action"
                   : ""
-              }`
+              }
+            `}
+            onClick={() =>
+              setPage("cart")
             }
-            onClick={() => setPage("cart")}
           >
+
             <span className="nav-action-icon">
               🛍
             </span>
@@ -236,16 +354,23 @@ function Navbar({
               Bag
             </span>
 
+
             {cartCount > 0 && (
+
               <span className="nav-count">
                 {cartCount}
               </span>
+
             )}
+
           </button>
 
         </div>
 
-        {/* MOBILE BUTTON */}
+
+        {/* ==================================
+            MOBILE MENU BUTTON
+        ================================== */}
 
         <button
           className="mobile-menu-button"
@@ -258,10 +383,35 @@ function Navbar({
 
       </div>
 
-      {/* MOBILE MENU */}
+
+      {/* ====================================
+          MOBILE MENU
+      ==================================== */}
 
       {mobileMenu && (
+
         <div className="mobile-menu">
+
+
+          {/* MOBILE BACK */}
+
+          {canGoBack && (
+
+            <button
+              className="mobile-back-button"
+              onClick={() => {
+
+                onBack();
+
+                setMobileMenu(false);
+
+              }}
+            >
+              ← Previous Page
+            </button>
+
+          )}
+
 
           <button
             className={
@@ -270,12 +420,16 @@ function Navbar({
                 : ""
             }
             onClick={() => {
+
               setPage("home");
+
               setMobileMenu(false);
+
             }}
           >
             Home
           </button>
+
 
           {[
             "Men",
@@ -284,6 +438,7 @@ function Navbar({
             "Beauty",
             "Accessories",
           ].map((item) => (
+
             <button
               key={item}
               className={
@@ -298,36 +453,50 @@ function Navbar({
             >
               {item}
             </button>
+
           ))}
+
 
           <button
             onClick={() => {
+
               setPage("wishlist");
+
               setMobileMenu(false);
+
             }}
           >
             ♥ Wishlist
           </button>
 
+
           <button
             onClick={() => {
+
               setPage("cart");
+
               setMobileMenu(false);
+
             }}
           >
             🛍 Bag
           </button>
 
+
           <button
             onClick={() => {
+
               setPage("profile");
+
               setMobileMenu(false);
+
             }}
           >
             ♙ Profile
           </button>
 
         </div>
+
       )}
 
     </header>

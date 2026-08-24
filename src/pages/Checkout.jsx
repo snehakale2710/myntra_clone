@@ -2,13 +2,11 @@ import React, { useState } from "react";
 
 import "./Checkout.css";
 
-function Checkout({ setPage }) {
+function Checkout({ cart, setPage }) {
   const [address, setAddress] =
     useState(
       JSON.parse(
-        localStorage.getItem(
-          "deliveryAddress"
-        )
+        localStorage.getItem("deliveryAddress")
       ) || {
         name: "",
         mobile: "",
@@ -18,13 +16,7 @@ function Checkout({ setPage }) {
       }
     );
 
-  const [error, setError] =
-    useState("");
-
-  const cart =
-    JSON.parse(
-      localStorage.getItem("cart")
-    ) || [];
+  const [error, setError] = useState("");
 
   const getPrice = (price) => {
     if (typeof price === "number") {
@@ -101,10 +93,9 @@ function Checkout({ setPage }) {
       return;
     }
 
-    if (cart.length === 0) {
-      alert(
-        "Your cart is empty."
-      );
+    // Check the SAME cart that App.jsx and Cart.jsx are using
+    if (!cart || cart.length === 0) {
+      alert("Your cart is empty.");
 
       setPage("cart");
 

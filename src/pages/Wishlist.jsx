@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import ProductCard from "../components/ProductCard";
 import PageTitle from "../components/PageTitle";
 
+import { getUserData } from "../utils/userStorage";
+
 import "./Wishlist.css";
 
 function Wishlist({
@@ -10,22 +12,18 @@ function Wishlist({
   addToWishlist,
   addToCart,
 }) {
-  const [wishlist, setWishlist] =
-    useState(
-      JSON.parse(
-        localStorage.getItem("wishlist")
-      ) || []
-    );
+  const [wishlist, setWishlist] = useState(() =>
+    getUserData("wishlist", [])
+  );
 
   const handleWishlist = (product) => {
+    // Add/remove product using App.jsx function
     addToWishlist(product);
 
-    const updated =
-      JSON.parse(
-        localStorage.getItem("wishlist")
-      ) || [];
+    // Get the updated wishlist from the SAME storage
+    const updatedWishlist = getUserData("wishlist", []);
 
-    setWishlist(updated);
+    setWishlist(updatedWishlist);
   };
 
   return (
@@ -51,9 +49,7 @@ function Wishlist({
               key={product.id}
               product={product}
               setPage={setPage}
-              addToWishlist={
-                handleWishlist
-              }
+              addToWishlist={handleWishlist}
               addToCart={addToCart}
             />
           ))}
@@ -77,9 +73,7 @@ function Wishlist({
           </p>
 
           <button
-            onClick={() =>
-              setPage("products")
-            }
+            onClick={() => setPage("products")}
           >
             Explore Products
           </button>

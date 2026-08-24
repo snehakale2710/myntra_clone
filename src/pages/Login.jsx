@@ -1,67 +1,75 @@
 import React, { useState } from "react";
 import "./Login.css";
 
-function Login({ setPage }) {
+function Login({ setPage, setIsLoggedIn }) {
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    const email =
-      e.target.email.value.trim().toLowerCase();
-
-    const password =
-      e.target.password.value;
-
-    /* =========================
-       GET ALL USERS
-    ========================= */
-
-    const users =
-      JSON.parse(
-        localStorage.getItem("users")
-      ) || [];
-
-    /* =========================
-       FIND USER
-    ========================= */
-
-    const user = users.find(
-      (item) =>
-        item.email.toLowerCase() === email &&
-        item.password === password
-    );
-
-    if (!user) {
-      setError(
-        "Invalid email or password."
-      );
-      return;
-    }
-
-    /* =========================
-       SAVE CURRENT USER
-    ========================= */
-
-    localStorage.setItem(
-      "currentUser",
-      JSON.stringify(user)
-    );
-
-    localStorage.setItem(
-      "loggedIn",
-      "true"
-    );
-
     setError("");
+    setLoading(true);
 
-    setPage("home");
+    const email = e.target.email.value.trim().toLowerCase();
+    const password = e.target.password.value;
+
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            password,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || "Invalid email or password.");
+        setLoading(false);
+        return;
+      }
+
+      // Save logged-in user
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify(data.user)
+      );
+
+      localStorage.setItem("loggedIn", "true");
+
+      // Update App login state
+      if (setIsLoggedIn) {
+        setIsLoggedIn(true);
+      }
+
+      // Go to home
+      setPage("home");
+
+    } catch (error) {
+      console.error("Login error:", error);
+
+      setError(
+        "Unable to connect to the server."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="auth-page">
 
       <div className="auth-card">
+
+        {/* LEFT SIDE */}
 
         <div className="auth-left">
 
@@ -74,6 +82,8 @@ function Login({ setPage }) {
           </p>
 
         </div>
+
+        {/* RIGHT SIDE */}
 
         <div className="auth-right">
 
@@ -89,6 +99,8 @@ function Login({ setPage }) {
             Login to continue shopping.
           </p>
 
+          {/* ERROR */}
+
           {error && (
             <div className="error">
               {error}
@@ -97,12 +109,16 @@ function Login({ setPage }) {
 
           <form onSubmit={handleLogin}>
 
+            {/* EMAIL */}
+
             <input
               name="email"
               type="email"
               placeholder="Email Address"
               required
             />
+
+            {/* PASSWORD */}
 
             <input
               name="password"
@@ -111,13 +127,32 @@ function Login({ setPage }) {
               required
             />
 
-            <button type="submit">
-              Log In
+            {/* FORGOT PASSWORD */}
+
+            <p
+              className="forgot-password"
+              onClick={() =>
+                setPage("forgot-password")
+              }
+            >
+              Forgot Password?
+            </p>
+
+            {/* LOGIN BUTTON */}
+
+            <button
+              type="submit"
+              disabled={loading}
+            >
+              {loading ? "Logging in..." : "Log In"}
             </button>
 
           </form>
 
+          {/* REGISTER */}
+
           <p className="switch">
+
             Don't have an account?
 
             <button
@@ -128,6 +163,7 @@ function Login({ setPage }) {
             >
               Register
             </button>
+
           </p>
 
         </div>

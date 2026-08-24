@@ -1,16 +1,15 @@
 import React from "react";
 import "./ProductCard.css";
 
+import { getUserData } from "../utils/userStorage";
+
 function ProductCard({
   product,
   setPage,
   addToWishlist,
   addToCart,
 }) {
-  const wishlist =
-    JSON.parse(
-      localStorage.getItem("wishlist")
-    ) || [];
+  const wishlist = getUserData("wishlist", []);
 
   const isWishlisted = wishlist.some(
     (item) => item.id === product.id
@@ -34,7 +33,10 @@ function ProductCard({
         role="button"
         tabIndex={0}
         onKeyDown={(event) => {
-          if (event.key === "Enter" || event.key === " ") {
+          if (
+            event.key === "Enter" ||
+            event.key === " "
+          ) {
             event.preventDefault();
             openDetails();
           }
@@ -54,18 +56,19 @@ function ProductCard({
         )}
 
         <button
-          className={
-            `product-wishlist ${
-              isWishlisted
-                ? "wishlisted"
-                : ""
-            }`
-          }
+          type="button"
+          className={`product-wishlist ${
+            isWishlisted ? "wishlisted" : ""
+          }`}
           onClick={(e) => {
             e.stopPropagation();
             addToWishlist(product);
           }}
-          aria-label="Wishlist"
+          aria-label={
+            isWishlisted
+              ? "Remove from wishlist"
+              : "Add to wishlist"
+          }
         >
           {isWishlisted ? "♥" : "♡"}
         </button>
@@ -78,7 +81,10 @@ function ProductCard({
           {product.brand}
         </p>
 
-        <button className="product-title-button" onClick={openDetails}>
+        <button
+          className="product-title-button"
+          onClick={openDetails}
+        >
           <h3>{product.name}</h3>
         </button>
 
@@ -108,9 +114,7 @@ function ProductCard({
 
         <button
           className="product-add"
-          onClick={() =>
-            addToCart(product)
-          }
+          onClick={() => addToCart(product)}
         >
           ADD TO BAG
         </button>

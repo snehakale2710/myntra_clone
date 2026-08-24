@@ -1,7 +1,17 @@
 import React from "react";
 import "./Cart.css";
 
-function Cart({ cart, setCart, setPage }) {
+import {
+  getUserData,
+  saveUserData,
+} from "../utils/userStorage";
+
+function Cart({
+  cart,
+  setCart,
+  setPage,
+  addToWishlist,
+}) {
 
   /* =========================
      PRICE CONVERTER
@@ -22,45 +32,44 @@ function Cart({ cart, setCart, setPage }) {
     );
   };
 
+
   /* =========================
      UPDATE QUANTITY
   ========================= */
 
   const updateQuantity = (id, change) => {
+    const updatedCart = cart.map((item) => {
 
-    const updatedCart = cart
-      .map((item) => {
+      if (item.id !== id) {
+        return item;
+      }
 
-        if (item.id !== id) {
-          return item;
-        }
+      const newQuantity =
+        (item.quantity || 1) + change;
 
-        const newQuantity =
-          (item.quantity || 1) + change;
-
-        return {
-          ...item,
-          quantity:
-            newQuantity < 1
-              ? 1
-              : newQuantity,
-        };
-      });
+      return {
+        ...item,
+        quantity:
+          newQuantity < 1
+            ? 1
+            : newQuantity,
+      };
+    });
 
     setCart(updatedCart);
 
-    localStorage.setItem(
+    saveUserData(
       "cart",
-      JSON.stringify(updatedCart)
+      updatedCart
     );
   };
+
 
   /* =========================
      REMOVE PRODUCT
   ========================= */
 
   const removeProduct = (id) => {
-
     const updatedCart =
       cart.filter(
         (item) => item.id !== id
@@ -68,11 +77,52 @@ function Cart({ cart, setCart, setPage }) {
 
     setCart(updatedCart);
 
-    localStorage.setItem(
+    saveUserData(
       "cart",
-      JSON.stringify(updatedCart)
+      updatedCart
     );
   };
+
+
+  /* =========================
+     MOVE TO WISHLIST
+  ========================= */
+
+  const moveToWishlist = (product) => {
+
+    /*
+      IMPORTANT:
+      Do NOT manually save the wishlist here.
+
+      App.jsx addToWishlist() already:
+      1. Checks whether the product exists
+      2. Adds it to wishlist
+      3. Saves it to localStorage
+      4. Updates wishlist state
+    */
+
+    if (addToWishlist) {
+      addToWishlist(product);
+    }
+
+
+    /* =========================
+       REMOVE FROM CART
+    ========================= */
+
+    const updatedCart =
+      cart.filter(
+        (item) => item.id !== product.id
+      );
+
+    setCart(updatedCart);
+
+    saveUserData(
+      "cart",
+      updatedCart
+    );
+  };
+
 
   /* =========================
      TOTAL ITEMS
@@ -83,6 +133,7 @@ function Cart({ cart, setCart, setPage }) {
       total + (item.quantity || 1),
     0
   );
+
 
   /* =========================
      TOTAL PRICE
@@ -95,6 +146,7 @@ function Cart({ cart, setCart, setPage }) {
         (item.quantity || 1),
     0
   );
+
 
   /* =========================
      EMPTY CART
@@ -133,12 +185,15 @@ function Cart({ cart, setCart, setPage }) {
     );
   }
 
+
+  /* =========================
+     CART PAGE
+  ========================= */
+
   return (
     <main className="cart-page">
 
-      {/* =========================
-          HEADER
-      ========================= */}
+      {/* HEADER */}
 
       <div className="cart-header">
 
@@ -173,19 +228,17 @@ function Cart({ cart, setCart, setPage }) {
 
       </div>
 
-      {/* =========================
-          CART LAYOUT
-      ========================= */}
+
+      {/* CART LAYOUT */}
 
       <div className="cart-container">
 
-        {/* =========================
-            PRODUCTS
-        ========================= */}
+        {/* PRODUCTS */}
 
         <section className="cart-products">
 
           <div className="cart-section-title">
+
             <h2>
               Your Items
             </h2>
@@ -196,7 +249,9 @@ function Cart({ cart, setCart, setPage }) {
                 ? "product"
                 : "products"}
             </span>
+
           </div>
+
 
           {cart.map((item) => {
 
@@ -208,6 +263,7 @@ function Cart({ cart, setCart, setPage }) {
 
             const itemTotal =
               itemPrice * quantity;
+
 
             return (
               <article
@@ -230,6 +286,7 @@ function Cart({ cart, setCart, setPage }) {
 
                 </div>
 
+
                 {/* DETAILS */}
 
                 <div className="cart-details">
@@ -245,14 +302,17 @@ function Cart({ cart, setCart, setPage }) {
                       "Product"}
                   </h3>
 
+
                   {item.description && (
                     <p className="cart-description">
                       {item.description}
                     </p>
                   )}
 
+
                   {item.size && (
                     <div className="cart-meta">
+
                       <span>
                         Size:
                       </span>
@@ -260,11 +320,14 @@ function Cart({ cart, setCart, setPage }) {
                       <strong>
                         {item.size}
                       </strong>
+
                     </div>
                   )}
 
+
                   {item.color && (
                     <div className="cart-meta">
+
                       <span>
                         Color:
                       </span>
@@ -272,8 +335,12 @@ function Cart({ cart, setCart, setPage }) {
                       <strong>
                         {item.color}
                       </strong>
+
                     </div>
                   )}
+
+
+                  {/* PRICE */}
 
                   <div className="cart-price">
 
@@ -296,6 +363,7 @@ function Cart({ cart, setCart, setPage }) {
                     )}
 
                   </div>
+
 
                   {/* QUANTITY */}
 
@@ -337,20 +405,40 @@ function Cart({ cart, setCart, setPage }) {
 
                   </div>
 
-                  {/* REMOVE */}
 
-                  <button
-                    className="remove-item"
-                    onClick={() =>
-                      removeProduct(
-                        item.id
-                      )
-                    }
-                  >
-                    Remove
-                  </button>
+                  {/* CART ACTIONS */}
+
+                  <div className="cart-actions">
+
+                    {/* REMOVE */}
+
+                    <button
+                      className="remove-item"
+                      onClick={() =>
+                        removeProduct(
+                          item.id
+                        )
+                      }
+                    >
+                      Remove
+                    </button>
+
+
+                    {/* MOVE TO WISHLIST */}
+
+                    <button
+                      className="move-to-wishlist"
+                      onClick={() =>
+                        moveToWishlist(item)
+                      }
+                    >
+                      ♡ Move to Wishlist
+                    </button>
+
+                  </div>
 
                 </div>
+
 
                 {/* ITEM TOTAL */}
 
@@ -375,15 +463,15 @@ function Cart({ cart, setCart, setPage }) {
 
         </section>
 
-        {/* =========================
-            SUMMARY
-        ========================= */}
+
+        {/* SUMMARY */}
 
         <aside className="cart-summary">
 
           <h2>
             Order Summary
           </h2>
+
 
           <div className="summary-row">
 
@@ -397,6 +485,7 @@ function Cart({ cart, setCart, setPage }) {
 
           </div>
 
+
           <div className="summary-row">
 
             <span>
@@ -408,6 +497,7 @@ function Cart({ cart, setCart, setPage }) {
             </span>
 
           </div>
+
 
           <div className="summary-row">
 
@@ -424,6 +514,7 @@ function Cart({ cart, setCart, setPage }) {
 
           </div>
 
+
           <div className="summary-row">
 
             <span>
@@ -436,7 +527,9 @@ function Cart({ cart, setCart, setPage }) {
 
           </div>
 
+
           <hr />
+
 
           <div className="summary-total">
 
@@ -453,6 +546,7 @@ function Cart({ cart, setCart, setPage }) {
 
           </div>
 
+
           <button
             className="checkout-btn"
             onClick={() =>
@@ -462,6 +556,7 @@ function Cart({ cart, setCart, setPage }) {
             PROCEED TO CHECKOUT
           </button>
 
+
           <div className="cart-security">
 
             <span>
@@ -469,6 +564,7 @@ function Cart({ cart, setCart, setPage }) {
             </span>
 
             <div>
+
               <strong>
                 Safe & Secure Shopping
               </strong>
@@ -476,6 +572,7 @@ function Cart({ cart, setCart, setPage }) {
               <p>
                 Your order information is protected.
               </p>
+
             </div>
 
           </div>

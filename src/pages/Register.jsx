@@ -3,103 +3,90 @@ import "./Register.css";
 
 function Register({ setPage }) {
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
 
-    const name =
-      e.target.name.value.trim();
+    setError("");
 
-    const email =
-      e.target.email.value.trim().toLowerCase();
-
-    const password =
-      e.target.password.value;
-
-    const confirmPassword =
-      e.target.confirmPassword.value;
+    const name = e.target.name.value.trim();
+    const email = e.target.email.value.trim().toLowerCase();
+    const password = e.target.password.value;
+    const confirmPassword = e.target.confirmPassword.value;
 
     /* =========================
        PASSWORD CHECK
     ========================= */
 
     if (password !== confirmPassword) {
-      setError(
-        "Passwords do not match."
-      );
+      setError("Passwords do not match.");
       return;
     }
 
     /* =========================
-       GET EXISTING USERS
+       SEND DATA TO BACKEND
     ========================= */
 
-    const users =
-      JSON.parse(
-        localStorage.getItem("users")
-      ) || [];
+    try {
+      setLoading(true);
 
-    /* =========================
-       CHECK DUPLICATE EMAIL
-    ========================= */
-
-    const existingUser =
-      users.find(
-        (user) =>
-          user.email.toLowerCase() === email
+      const response = await fetch(
+        "http://localhost:5000/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            password,
+          }),
+        }
       );
 
-    if (existingUser) {
+      const data = await response.json();
+
+      /* =========================
+         HANDLE BACKEND ERROR
+      ========================= */
+
+      if (!response.ok) {
+        setError(data.message || "Registration failed.");
+        return;
+      }
+
+      /* =========================
+         SAVE LOGGED-IN USER
+      ========================= */
+
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify(data.user)
+      );
+
+      localStorage.setItem(
+        "loggedIn",
+        "true"
+      );
+
+      setError("");
+
+      /* =========================
+         GO TO HOME
+      ========================= */
+
+      setPage("home");
+    } catch (error) {
+      console.error("Registration error:", error);
+
       setError(
-        "An account with this email already exists."
+        "Unable to connect to the server. Please try again."
       );
-      return;
+    } finally {
+      setLoading(false);
     }
-
-    /* =========================
-       CREATE USER
-    ========================= */
-
-    const newUser = {
-      id: Date.now(),
-      name,
-      email,
-      password,
-    };
-
-    /* =========================
-       ADD USER
-       WITHOUT DELETING
-       OTHER USERS
-    ========================= */
-
-    const updatedUsers = [
-      ...users,
-      newUser,
-    ];
-
-    localStorage.setItem(
-      "users",
-      JSON.stringify(updatedUsers)
-    );
-
-    /* =========================
-       LOGIN THIS USER
-    ========================= */
-
-    localStorage.setItem(
-      "currentUser",
-      JSON.stringify(newUser)
-    );
-
-    localStorage.setItem(
-      "loggedIn",
-      "true"
-    );
-
-    setError("");
-
-    setPage("home");
   };
 
   return (
@@ -169,8 +156,13 @@ function Register({ setPage }) {
               required
             />
 
-            <button type="submit">
-              Create Account
+            <button
+              type="submit"
+              disabled={loading}
+            >
+              {loading
+                ? "Creating Account..."
+                : "Create Account"}
             </button>
 
           </form>
@@ -180,9 +172,7 @@ function Register({ setPage }) {
 
             <button
               type="button"
-              onClick={() =>
-                setPage("login")
-              }
+              onClick={() => setPage("login")}
             >
               Login
             </button>

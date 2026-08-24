@@ -146,3 +146,16 @@
     padding: 48px 24px;
   }
 }
+.forgot-password {
+  text-align: right;
+  margin: -5px 0 18px;
+  color: #ff3f6c;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}

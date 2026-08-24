@@ -7,6 +7,7 @@ import ProfileCard from "./components/ProfileCard";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ForgotPassword from "./pages/ForgotPassword";
 import Products from "./pages/Products";
 import ProductDetails from "./pages/ProductDetails";
 import Wishlist from "./pages/Wishlist";
@@ -15,138 +16,511 @@ import Orders from "./pages/Orders";
 import Checkout from "./pages/Checkout";
 import Payment from "./pages/Payment";
 
-import { getUserData, saveUserData } from "./utils/userStorage";
+import {
+  getUserData,
+  saveUserData,
+} from "./utils/userStorage";
 
 import "./App.css";
 
 function App() {
+
+  // ==========================================
+  // GET PAGE FROM URL HASH
+  // ==========================================
+
   const getPageFromHash = () => {
     const page = window.location.hash.replace("#/", "");
+
     return [
-      "home", "products", "details", "wishlist", "cart",
-      "checkout", "payment", "orders", "profile",
-    ].includes(page) ? page : "home";
+      "home",
+      "products",
+      "details",
+      "wishlist",
+      "cart",
+      "checkout",
+      "payment",
+      "orders",
+      "profile",
+      "forgot-password",
+    ].includes(page)
+      ? page
+      : "home";
   };
+
+
+  // ==========================================
+  // LOGIN
+  // ==========================================
 
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("loggedIn") === "true"
   );
 
+
+  // ==========================================
+  // CURRENT PAGE
+  // ==========================================
+
   const [page, setPage] = useState(() =>
-    localStorage.getItem("loggedIn") === "true" ? getPageFromHash() : "login"
+    localStorage.getItem("loggedIn") === "true"
+      ? getPageFromHash()
+      : "login"
   );
+
+
+  // ==========================================
+  // SEARCH & CATEGORY
+  // ==========================================
 
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("All");
 
-  // per-user cart/wishlist, falls back to [] if not logged in yet
-  const [cart, setCart] = useState(() => getUserData("cart", []));
-  const [wishlist, setWishlist] = useState(() => getUserData("wishlist", []));
 
-  // when login state flips to true, (re)load this user's own cart/wishlist
+  // ==========================================
+  // CART & WISHLIST
+  // ==========================================
+
+  const [cart, setCart] = useState(() =>
+    getUserData("cart", [])
+  );
+
+  const [wishlist, setWishlist] = useState(() =>
+    getUserData("wishlist", [])
+  );
+
+
+  // ==========================================
+  // PAGE HISTORY
+  // ==========================================
+
+  const [pageHistory, setPageHistory] = useState(() => {
+
+    if (
+      localStorage.getItem("loggedIn") !== "true"
+    ) {
+      return [];
+    }
+
+    return [getPageFromHash()];
+  });
+
+
+  // ==========================================
+  // LOAD USER DATA
+  // ==========================================
+
   useEffect(() => {
+
     if (isLoggedIn) {
-      setCart(getUserData("cart", []));
-      setWishlist(getUserData("wishlist", []));
+
+      setCart(
+        getUserData("cart", [])
+      );
+
+      setWishlist(
+        getUserData("wishlist", [])
+      );
+
     }
+
   }, [isLoggedIn]);
 
+
+  // ==========================================
+  // HASH CHANGE
+  // ==========================================
+
   useEffect(() => {
+
     const onHashChange = () => {
+
       if (isLoggedIn) {
-        setPage(getPageFromHash());
-        setTimeout(() => window.scrollTo(0, 0), 0);
+
+        const newPage = getPageFromHash();
+
+        setPage(newPage);
+
+        window.scrollTo(0, 0);
+
       }
+
     };
-    window.addEventListener("hashchange", onHashChange);
-    return () => window.removeEventListener("hashchange", onHashChange);
+
+    window.addEventListener(
+      "hashchange",
+      onHashChange
+    );
+
+    return () => {
+
+      window.removeEventListener(
+        "hashchange",
+        onHashChange
+      );
+
+    };
+
   }, [isLoggedIn]);
 
-  useEffect(() => {
-    if (isLoggedIn && window.location.hash !== `#/${page}`) {
-      window.history.replaceState(null, "", `#/${page}`);
-    }
-  }, [isLoggedIn, page]);
+
+  // ==========================================
+  // SCROLL TO TOP
+  // ==========================================
 
   useEffect(() => {
-    setTimeout(() => window.scrollTo({ top: 0, left: 0, behavior: "instant" }), 0);
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
+
   }, [page]);
 
-  const navigate = (newPage, searchValue = "", categoryValue = "All") => {
+
+  // ==========================================
+  // NAVIGATION
+  // ==========================================
+
+  const navigate = (
+    newPage,
+    searchValue = "",
+    categoryValue = "All"
+  ) => {
+
     setSearchTerm(searchValue);
     setCategory(categoryValue);
+
+
+    // Don't add duplicate page
+    if (newPage === page) {
+
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "instant",
+      });
+
+      return;
+    }
+
+
+    // Add page to our custom history
+    setPageHistory((previousHistory) => [
+      ...previousHistory,
+      newPage,
+    ]);
+
+
+    // Change page
     setPage(newPage);
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+
+
+    // Change URL
+    window.history.pushState(
+      { page: newPage },
+      "",
+      `#/${newPage}`
+    );
+
+
+    // Scroll top
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
+
   };
+
+
+  // ==========================================
+  // SET PAGE
+  // ==========================================
+
+  const handleSetPage = (
+    newPage,
+    searchValue = "",
+    categoryValue = "All"
+  ) => {
+
+    navigate(
+      newPage,
+      searchValue,
+      categoryValue
+    );
+
+  };
+
+
+  // ==========================================
+  // BACK BUTTON
+  // ==========================================
+
+  const handleBack = () => {
+
+    if (pageHistory.length <= 1) {
+      return;
+    }
+
+
+    // Remove current page
+    const updatedHistory =
+      pageHistory.slice(0, -1);
+
+
+    // Get REAL previous page
+    const previousPage =
+      updatedHistory[
+        updatedHistory.length - 1
+      ];
+
+
+    // Update custom history
+    setPageHistory(updatedHistory);
+
+
+    // Open previous page
+    setPage(previousPage);
+
+
+    // Update URL
+    window.history.replaceState(
+      { page: previousPage },
+      "",
+      `#/${previousPage}`
+    );
+
+
+    // Scroll to top
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
+
+  };
+
+
+  // ==========================================
+  // LOGIN
+  // ==========================================
 
   const handleLogin = () => {
-    localStorage.setItem("loggedIn", "true");
+
+    localStorage.setItem(
+      "loggedIn",
+      "true"
+    );
+
     setIsLoggedIn(true);
+
     setPage("home");
-    window.history.replaceState(null, "", "#/home");
+
+    setPageHistory(["home"]);
+
+    window.history.replaceState(
+      { page: "home" },
+      "",
+      "#/home"
+    );
+
     window.scrollTo(0, 0);
+
   };
 
+
+  // ==========================================
+  // LOGOUT
+  // ==========================================
+
   const handleLogout = () => {
+
     localStorage.removeItem("loggedIn");
     localStorage.removeItem("currentUser");
 
     setIsLoggedIn(false);
+
     setPage("login");
+
+    setPageHistory([]);
+
     setSearchTerm("");
     setCategory("All");
+
     setCart([]);
     setWishlist([]);
 
+    window.history.replaceState(
+      null,
+      "",
+      "#/login"
+    );
+
     window.scrollTo(0, 0);
+
   };
+
+
+  // ==========================================
+  // ADD TO CART
+  // ==========================================
 
   const addToCart = (product) => {
-    const currentCart = getUserData("cart", []);
-    const existing = currentCart.find((item) => item.id === product.id);
+
+    const currentCart =
+      getUserData("cart", []);
+
+    const existing =
+      currentCart.find(
+        (item) =>
+          item.id === product.id
+      );
+
 
     const updatedCart = existing
+
       ? currentCart.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: (item.quantity || 1) + 1 }
+            ? {
+                ...item,
+                quantity:
+                  (item.quantity || 1) + 1,
+              }
             : item
         )
-      : [...currentCart, { ...product, quantity: 1 }];
 
-    saveUserData("cart", updatedCart);
+      : [
+          ...currentCart,
+          {
+            ...product,
+            quantity: 1,
+          },
+        ];
+
+
+    saveUserData(
+      "cart",
+      updatedCart
+    );
+
     setCart(updatedCart);
+
   };
+
+
+  // ==========================================
+  // ADD TO WISHLIST
+  // ==========================================
 
   const addToWishlist = (product) => {
-    const currentWishlist = getUserData("wishlist", []);
-    const exists = currentWishlist.some((item) => item.id === product.id);
+
+    const currentWishlist =
+      getUserData("wishlist", []);
+
+
+    const exists =
+      currentWishlist.some(
+        (item) =>
+          item.id === product.id
+      );
+
 
     const updatedWishlist = exists
-      ? currentWishlist.filter((item) => item.id !== product.id)
-      : [...currentWishlist, product];
 
-    saveUserData("wishlist", updatedWishlist);
+      ? currentWishlist.filter(
+          (item) =>
+            item.id !== product.id
+        )
+
+      : [
+          ...currentWishlist,
+          product,
+        ];
+
+
+    saveUserData(
+      "wishlist",
+      updatedWishlist
+    );
+
     setWishlist(updatedWishlist);
+
   };
 
+
+  // ==========================================
+  // RENDER PAGE
+  // ==========================================
+
   const renderPage = () => {
+
     if (page === "login") {
-      return <Login setPage={setPage} setIsLoggedIn={handleLogin} />;
-    }
-    if (page === "register") {
-      return <Register setPage={setPage} />;
-    }
-    if (!isLoggedIn) {
-      return <Login setPage={setPage} setIsLoggedIn={handleLogin} />;
+
+      return (
+        <Login
+          setPage={handleSetPage}
+          setIsLoggedIn={handleLogin}
+        />
+      );
+
     }
 
+
+    if (page === "register") {
+
+      return (
+        <Register
+          setPage={handleSetPage}
+        />
+      );
+
+    }
+
+
+    if (page === "forgot-password") {
+
+      return (
+        <ForgotPassword
+          setPage={handleSetPage}
+        />
+      );
+
+    }
+
+
+    if (!isLoggedIn) {
+
+      return (
+        <Login
+          setPage={handleSetPage}
+          setIsLoggedIn={handleLogin}
+        />
+      );
+
+    }
+
+
     switch (page) {
+
       case "home":
-        return <Home setPage={setPage} navigate={navigate} addToWishlist={addToWishlist} addToCart={addToCart} />;
+
+        return (
+          <Home
+            setPage={handleSetPage}
+            navigate={navigate}
+            addToWishlist={addToWishlist}
+            addToCart={addToCart}
+          />
+        );
+
+
       case "products":
+
         return (
           <Products
-            setPage={setPage}
+            setPage={handleSetPage}
             searchTerm={searchTerm}
             category={category}
             setCategory={setCategory}
@@ -154,43 +528,152 @@ function App() {
             addToCart={addToCart}
           />
         );
+
+
       case "details":
-        return <ProductDetails setPage={setPage} addToWishlist={addToWishlist} addToCart={addToCart} />;
+
+        return (
+          <ProductDetails
+            setPage={handleSetPage}
+            addToWishlist={addToWishlist}
+            addToCart={addToCart}
+          />
+        );
+
+
       case "wishlist":
-        return <Wishlist setPage={setPage} addToWishlist={addToWishlist} addToCart={addToCart} />;
+
+        return (
+          <Wishlist
+            setPage={handleSetPage}
+            addToWishlist={addToWishlist}
+            addToCart={addToCart}
+          />
+        );
+
+
       case "cart":
-        return <Cart cart={cart} setCart={setCart} setPage={setPage} />;
+
+        return (
+          <Cart
+            cart={cart}
+            setCart={setCart}
+            setPage={handleSetPage}
+            addToWishlist={addToWishlist}
+          />
+        );
+
+
       case "checkout":
-        return <Checkout setPage={setPage} />;
+
+        return (
+          <Checkout
+            cart={cart}
+            setPage={handleSetPage}
+          />
+        );
+
+
       case "payment":
-        return <Payment setPage={setPage} setCart={setCart} />;
+
+        return (
+          <Payment
+            setPage={handleSetPage}
+            setCart={setCart}
+          />
+        );
+
+
       case "orders":
-        return <Orders setPage={setPage} />;
+
+        return (
+          <Orders
+            setPage={handleSetPage}
+          />
+        );
+
+
       case "profile":
-        return <ProfileCard setPage={setPage} onLogout={handleLogout} />;
+
+        return (
+          <ProfileCard
+            setPage={handleSetPage}
+            onLogout={handleLogout}
+          />
+        );
+
+
       default:
-        return <Home setPage={setPage} navigate={navigate} addToWishlist={addToWishlist} addToCart={addToCart} />;
+
+        return (
+          <Home
+            setPage={handleSetPage}
+            navigate={navigate}
+            addToWishlist={addToWishlist}
+            addToCart={addToCart}
+          />
+        );
+
     }
+
   };
 
+
+  // ==========================================
+  // COUNTS
+  // ==========================================
+
   const cartCount = cart.length;
-  const wishlistCount = wishlist.length;
+
+  const wishlistCount =
+    wishlist.length;
+
+
+  // ==========================================
+  // MAIN UI
+  // ==========================================
 
   return (
     <div className="app">
+
+      {/* NAVBAR */}
+
       {isLoggedIn && (
+
         <Navbar
-          setPage={setPage}
+          setPage={handleSetPage}
+
           cartCount={cartCount}
+
           wishlistCount={wishlistCount}
+
           onSearch={setSearchTerm}
+
           currentPage={page}
+
           currentCategory={category}
+
           navigate={navigate}
+
+          onBack={handleBack}
+
+          canGoBack={pageHistory.length > 1}
         />
+
       )}
-      <main>{renderPage()}</main>
+
+
+      {/* PAGE */}
+
+      <main>
+        {renderPage()}
+      </main>
+
+
+      {/* FOOTER */}
+
       {isLoggedIn && <Footer />}
+
     </div>
   );
 }
