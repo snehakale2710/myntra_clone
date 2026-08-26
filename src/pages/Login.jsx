@@ -56,9 +56,7 @@ function Login({ setPage, setIsLoggedIn }) {
     } catch (error) {
       console.error("Login error:", error);
 
-      setError(
-        "Unable to connect to the server."
-      );
+      setError("Unable to connect to the server.");
     } finally {
       setLoading(false);
     }
@@ -129,14 +127,13 @@ function Login({ setPage, setIsLoggedIn }) {
 
             {/* FORGOT PASSWORD */}
 
-            <p
+            <button
+              type="button"
               className="forgot-password"
-              onClick={() =>
-                setPage("forgot-password")
-              }
+              onClick={() => setPage("forgot-password")}
             >
               Forgot Password?
-            </p>
+            </button>
 
             {/* LOGIN BUTTON */}
 
@@ -157,9 +154,7 @@ function Login({ setPage, setIsLoggedIn }) {
 
             <button
               type="button"
-              onClick={() =>
-                setPage("register")
-              }
+              onClick={() => setPage("register")}
             >
               Register
             </button>
