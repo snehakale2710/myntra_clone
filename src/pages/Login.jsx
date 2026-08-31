@@ -15,6 +15,9 @@ function Login({ setPage, setIsLoggedIn }) {
     const password = e.target.password.value;
 
     try {
+      console.log("Sending login request...");
+      console.log("Email:", email);
+
       const response = await fetch(
         "http://localhost:5000/api/auth/login",
         {
@@ -29,34 +32,42 @@ function Login({ setPage, setIsLoggedIn }) {
         }
       );
 
+      console.log("Login response status:", response.status);
+
       const data = await response.json();
 
+      console.log("Login response:", data);
+
       if (!response.ok) {
-        setError(data.message || "Invalid email or password.");
-        setLoading(false);
+        setError(
+          data.message || "Invalid email or password."
+        );
         return;
       }
 
-      // Save logged-in user
-      localStorage.setItem(
-        "currentUser",
-        JSON.stringify(data.user)
-      );
+      // Save user
+      if (data.user) {
+        localStorage.setItem(
+          "currentUser",
+          JSON.stringify(data.user)
+        );
+      }
 
       localStorage.setItem("loggedIn", "true");
 
-      // Update App login state
+      // Update React login state
       if (setIsLoggedIn) {
         setIsLoggedIn(true);
       }
 
       // Go to home
       setPage("home");
-
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("LOGIN FETCH ERROR:", error);
 
-      setError("Unable to connect to the server.");
+      setError(
+        "Unable to connect to the server. Make sure the backend is running on port 5000."
+      );
     } finally {
       setLoading(false);
     }
@@ -64,13 +75,10 @@ function Login({ setPage, setIsLoggedIn }) {
 
   return (
     <div className="auth-page">
-
       <div className="auth-card">
 
         {/* LEFT SIDE */}
-
         <div className="auth-left">
-
           <h1>
             STYLE<span>HUB</span>
           </h1>
@@ -78,13 +86,10 @@ function Login({ setPage, setIsLoggedIn }) {
           <p>
             Considered clothing for everyday wear.
           </p>
-
         </div>
 
         {/* RIGHT SIDE */}
-
         <div className="auth-right">
-
           <p className="eyebrow">
             Welcome back
           </p>
@@ -97,8 +102,6 @@ function Login({ setPage, setIsLoggedIn }) {
             Login to continue shopping.
           </p>
 
-          {/* ERROR */}
-
           {error && (
             <div className="error">
               {error}
@@ -107,16 +110,12 @@ function Login({ setPage, setIsLoggedIn }) {
 
           <form onSubmit={handleLogin}>
 
-            {/* EMAIL */}
-
             <input
               name="email"
               type="email"
               placeholder="Email Address"
               required
             />
-
-            {/* PASSWORD */}
 
             <input
               name="password"
@@ -125,31 +124,28 @@ function Login({ setPage, setIsLoggedIn }) {
               required
             />
 
-            {/* FORGOT PASSWORD */}
-
             <button
               type="button"
               className="forgot-password"
-              onClick={() => setPage("forgot-password")}
+              onClick={() =>
+                setPage("forgot-password")
+              }
             >
               Forgot Password?
             </button>
-
-            {/* LOGIN BUTTON */}
 
             <button
               type="submit"
               disabled={loading}
             >
-              {loading ? "Logging in..." : "Log In"}
+              {loading
+                ? "Logging in..."
+                : "Log In"}
             </button>
 
           </form>
 
-          {/* REGISTER */}
-
           <p className="switch">
-
             Don't have an account?
 
             <button
@@ -158,13 +154,10 @@ function Login({ setPage, setIsLoggedIn }) {
             >
               Register
             </button>
-
           </p>
 
         </div>
-
       </div>
-
     </div>
   );
 }

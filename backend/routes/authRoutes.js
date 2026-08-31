@@ -1,137 +1,175 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
+
 const User = require("../models/User");
 
 const router = express.Router();
 
-console.log("✅ authRoutes.js LOADED");
+// ==========================================
+// AUTH TEST
+// GET /api/auth/test
+// ==========================================
 
-// =========================
-// TEST ROUTE
-// =========================
 router.get("/test", (req, res) => {
-  console.log("✅ /test route called");
-
-  res.json({
-    message: "Auth route is working!",
+  res.status(200).json({
+    message: "Auth routes are working!",
   });
 });
 
-// =========================
+// ==========================================
 // REGISTER
-// =========================
+// POST /api/auth/register
+// ==========================================
+
 router.post("/register", async (req, res) => {
   try {
+    console.log("📥 Register request received");
+
     const { name, email, password } = req.body;
 
-    // Check required fields
+    console.log("Name:", name);
+    console.log("Email:", email);
+
+    // Check fields
     if (!name || !email || !password) {
       return res.status(400).json({
-        message: "Please fill all fields",
+        message: "All fields are required.",
       });
     }
 
-    // Convert email to lowercase
-    const normalizedEmail = email.trim().toLowerCase();
+    // Clean values
+    const cleanName = name.trim();
+    const cleanEmail = email.trim().toLowerCase();
 
-    // Check if user already exists
+    // Check existing user
     const existingUser = await User.findOne({
-      email: normalizedEmail,
+      email: cleanEmail,
     });
 
     if (existingUser) {
-      return res.status(409).json({
-        message: "User already exists",
+      return res.status(400).json({
+        message: "Email already registered.",
       });
     }
 
     // Hash password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(
+      password,
+      10
+    );
 
     // Create user
-    const user = new User({
-      name: name.trim(),
-      email: normalizedEmail,
+    const user = await User.create({
+      name: cleanName,
+      email: cleanEmail,
       password: hashedPassword,
     });
 
-    await user.save();
+    console.log(
+      "✅ User registered:",
+      user.email
+    );
 
-    console.log("✅ User registered:", normalizedEmail);
+    // Don't send password
+    const userResponse = {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+    };
 
-    res.status(201).json({
-      message: "Registration successful",
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-      },
+    return res.status(201).json({
+      message: "Registration successful.",
+      user: userResponse,
     });
   } catch (error) {
-    console.error("❌ Register error:", error);
+    console.error("❌ Registration error:");
+    console.error(error);
 
-    res.status(500).json({
-      message: "Server error during registration",
+    return res.status(500).json({
+      message: "Server error during registration.",
+      error: error.message,
     });
   }
 });
 
-// =========================
+// ==========================================
 // LOGIN
-// =========================
+// POST /api/auth/login
+// ==========================================
+
 router.post("/login", async (req, res) => {
   try {
+    console.log("📥 Login request received");
+
     const { email, password } = req.body;
 
-    // Check required fields
+    console.log("Email:", email);
+
+    // Check fields
     if (!email || !password) {
       return res.status(400).json({
-        message: "Please enter email and password",
+        message: "Email and password are required.",
       });
     }
 
-    const normalizedEmail = email.trim().toLowerCase();
+    // Clean email
+    const cleanEmail = email
+      .trim()
+      .toLowerCase();
 
     // Find user
     const user = await User.findOne({
-      email: normalizedEmail,
+      email: cleanEmail,
     });
 
     if (!user) {
       return res.status(401).json({
-        message: "Invalid email or password",
+        message: "Invalid email or password.",
       });
     }
 
     // Compare password
-    const passwordMatch = await bcrypt.compare(
-      password,
-      user.password
-    );
+    const passwordMatch =
+      await bcrypt.compare(
+        password,
+        user.password
+      );
 
     if (!passwordMatch) {
       return res.status(401).json({
-        message: "Invalid email or password",
+        message: "Invalid email or password.",
       });
     }
 
-    console.log("✅ User logged in:", normalizedEmail);
+    console.log(
+      "✅ User logged in:",
+      user.email
+    );
 
-    res.status(200).json({
-      message: "Login successful",
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-      },
+    // Don't send password
+    const userResponse = {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+    };
+
+    return res.status(200).json({
+      message: "Login successful.",
+      user: userResponse,
     });
   } catch (error) {
-    console.error("❌ Login error:", error);
+    console.error("❌ Login error:");
+    console.error(error);
 
-    res.status(500).json({
-      message: "Server error during login",
+    return res.status(500).json({
+      message: "Server error during login.",
+      error: error.message,
     });
   }
 });
+
+// ==========================================
+// EXPORT
+// ==========================================
 
 module.exports = router;

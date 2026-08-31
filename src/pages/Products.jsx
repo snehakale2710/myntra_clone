@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
 
-import products from "../data/products";
 import ProductCard from "../components/ProductCard";
 import PageTitle from "../components/PageTitle";
 
@@ -14,14 +13,59 @@ function Products({
   addToWishlist,
   addToCart,
 }) {
-  const [subCategory, setSubCategory] =
-    useState("All");
+  // ============================================
+  // Products from Flask + MongoDB
+  // ============================================
 
-  const [sort, setSort] =
-    useState("default");
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const [subCategory, setSubCategory] = useState("All");
+
+  const [sort, setSort] = useState("default");
 
   const [maxPrice, setMaxPrice] = useState("All");
   const [minimumRating, setMinimumRating] = useState("All");
+
+  // ============================================
+  // Fetch products from Flask API
+  // ============================================
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        const response = await fetch(
+          "http://localhost:5000/api/products"
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+
+        const data = await response.json();
+
+        setProducts(data);
+      } catch (err) {
+        console.error("Product fetch error:", err);
+
+        setError(
+          "Unable to load products. Please try again."
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  // ============================================
+  // Category Data
+  // ============================================
 
   const categoryData = {
     All: [
@@ -125,9 +169,17 @@ function Products({
     ],
   };
 
+  // ============================================
+  // Reset subcategory when category changes
+  // ============================================
+
   useEffect(() => {
     setSubCategory("All");
   }, [category]);
+
+  // ============================================
+  // Category Change
+  // ============================================
 
   const handleCategoryChange = (value) => {
     setCategory(value);
@@ -138,6 +190,10 @@ function Products({
       behavior: "smooth",
     });
   };
+
+  // ============================================
+  // Filter + Sort Products
+  // ============================================
 
   const filteredProducts = useMemo(() => {
     const search =
@@ -179,7 +235,8 @@ function Products({
 
       const matchesRating =
         minimumRating === "All" ||
-        Number(product.rating || 0) >= Number(minimumRating);
+        Number(product.rating || 0) >=
+          Number(minimumRating);
 
       return (
         matchesSearch &&
@@ -190,6 +247,7 @@ function Products({
       );
     });
 
+    // Price: Low to High
     if (sort === "low") {
       result.sort(
         (a, b) =>
@@ -197,6 +255,7 @@ function Products({
       );
     }
 
+    // Price: High to Low
     if (sort === "high") {
       result.sort(
         (a, b) =>
@@ -204,6 +263,7 @@ function Products({
       );
     }
 
+    // Highest Discount
     if (sort === "discount") {
       result.sort(
         (a, b) =>
@@ -212,6 +272,7 @@ function Products({
       );
     }
 
+    // Newest
     if (sort === "newest") {
       result.sort(
         (a, b) =>
@@ -230,6 +291,10 @@ function Products({
     minimumRating,
   ]);
 
+  // ============================================
+  // Page Title
+  // ============================================
+
   const getTitle = () => {
     if (searchTerm?.trim()) {
       return `Search results for "${searchTerm}"`;
@@ -245,6 +310,10 @@ function Products({
 
     return "Shop All";
   };
+
+  // ============================================
+  // Page Description
+  // ============================================
 
   const getDescription = () => {
     if (searchTerm?.trim()) {
@@ -274,6 +343,10 @@ function Products({
     return "Discover fashion, beauty and accessories at STYLEHUB.";
   };
 
+  // ============================================
+  // Clear Filters
+  // ============================================
+
   const clearFilters = () => {
     setCategory("All");
     setSubCategory("All");
@@ -281,6 +354,10 @@ function Products({
     setMaxPrice("All");
     setMinimumRating("All");
   };
+
+  // ============================================
+  // UI
+  // ============================================
 
   return (
     <main className="products-page">
@@ -354,25 +431,61 @@ function Products({
 
       </section>
 
-      <section className="catalogue-filters" aria-label="Product filters">
+      <section
+        className="catalogue-filters"
+        aria-label="Product filters"
+      >
+
         <label>
           Price
-          <select value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)}>
-            <option value="All">Any price</option>
-            <option value="750">Under ₹750</option>
-            <option value="1500">Under ₹1,500</option>
-            <option value="2500">Under ₹2,500</option>
+
+          <select
+            value={maxPrice}
+            onChange={(e) =>
+              setMaxPrice(e.target.value)
+            }
+          >
+            <option value="All">
+              Any price
+            </option>
+
+            <option value="750">
+              Under ₹750
+            </option>
+
+            <option value="1500">
+              Under ₹1,500
+            </option>
+
+            <option value="2500">
+              Under ₹2,500
+            </option>
           </select>
         </label>
 
         <label>
           Customer rating
-          <select value={minimumRating} onChange={(e) => setMinimumRating(e.target.value)}>
-            <option value="All">Any rating</option>
-            <option value="4">4.0 & above</option>
-            <option value="4.5">4.5 & above</option>
+
+          <select
+            value={minimumRating}
+            onChange={(e) =>
+              setMinimumRating(e.target.value)
+            }
+          >
+            <option value="All">
+              Any rating
+            </option>
+
+            <option value="4">
+              4.0 & above
+            </option>
+
+            <option value="4.5">
+              4.5 & above
+            </option>
           </select>
         </label>
+
       </section>
 
       <section className="category-section">
@@ -445,22 +558,75 @@ function Products({
           searchTerm ||
           maxPrice !== "All" ||
           minimumRating !== "All") && (
+
           <button
             className="clear-filters"
             onClick={clearFilters}
           >
             Clear Filters ×
           </button>
+
         )}
 
       </div>
 
-      {filteredProducts.length > 0 ? (
+      {/* ============================================
+          Loading State
+          ============================================ */}
+
+      {loading ? (
+
+        <section className="no-products">
+
+          <h2>
+            Loading products...
+          </h2>
+
+          <p>
+            Please wait while we load the latest products.
+          </p>
+
+        </section>
+
+      ) : error ? (
+
+        /* ============================================
+           Error State
+           ============================================ */
+
+        <section className="no-products">
+
+          <div className="no-products-icon">
+            !
+          </div>
+
+          <h2>
+            Something went wrong
+          </h2>
+
+          <p>
+            {error}
+          </p>
+
+          <button
+            onClick={() => window.location.reload()}
+          >
+            Try Again
+          </button>
+
+        </section>
+
+      ) : filteredProducts.length > 0 ? (
+
+        /* ============================================
+           Products
+           ============================================ */
 
         <section className="product-grid">
 
           {filteredProducts.map(
             (product) => (
+
               <ProductCard
                 key={product.id}
                 product={product}
@@ -470,12 +636,17 @@ function Products({
                 }
                 addToCart={addToCart}
               />
+
             )
           )}
 
         </section>
 
       ) : (
+
+        /* ============================================
+           No Products
+           ============================================ */
 
         <section className="no-products">
 
