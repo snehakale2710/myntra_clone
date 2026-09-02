@@ -10,7 +10,7 @@
 .register-card {
   width: 900px;
   max-width: 100%;
-  min-height: 620px;
+  min-height: 600px;
   background: var(--paper);
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -20,10 +20,9 @@
 }
 
 .register-image {
-  background:
-    linear-gradient(
-      rgba(20, 18, 17, 0.6),
-      rgba(20, 18, 17, 0.6)
+  background: linear-gradient(
+      rgba(23, 21, 28, 0.55),
+      rgba(214, 18, 87, 0.5)
     ),
     url("https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900")
       center/cover;
@@ -35,45 +34,47 @@
 }
 
 .register-image h1 {
-  font-size: 42px;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 800;
 }
 
 .register-image span {
-  color: #e9c8ce;
-  font-style: italic;
+  color: #ffc9dc;
 }
 
 .register-image p {
-  color: #d8d2c9;
+  color: #ece9ee;
   margin-top: 14px;
   font-size: 14px;
 }
 
 .register-form {
-  padding: 52px 56px;
+  padding: 50px 52px;
 }
 
 .register-form h2 {
-  font-size: 26px;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
   margin-top: 8px;
+  color: var(--ink);
 }
 
 .register-form > p:not(.eyebrow) {
   color: var(--ink-soft);
-  margin: 12px 0 24px;
+  margin: 12px 0 22px;
   font-size: 13.5px;
 }
 
 .register-form form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 14px;
 }
 
 .register-form input {
-  padding: 15px;
+  padding: 14px;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-s);
   outline: none;
@@ -82,32 +83,32 @@
 }
 
 .register-form input:focus {
-  border-color: var(--ink);
+  border-color: var(--brand);
 }
 
 .register-form form button {
   padding: 15px;
-  background: var(--ink);
+  background: var(--brand);
   color: var(--paper);
   border: none;
   border-radius: var(--radius-s);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 13px;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   cursor: pointer;
   margin-top: 4px;
   transition: background 0.2s ease;
 }
 
 .register-form form button:hover {
-  background: var(--accent-dark);
+  background: var(--brand-dark);
 }
 
 .switch button {
   border: none;
   background: transparent;
-  color: var(--accent);
-  font-weight: 600;
+  color: var(--brand);
+  font-weight: 700;
   cursor: pointer;
   margin-left: 4px;
 }
@@ -128,6 +129,6 @@
   }
 
   .register-form {
-    padding: 48px 24px;
+    padding: 44px 22px;
   }
 }

@@ -1,6 +1,7 @@
-/* =========================================
-   NAVBAR
-========================================= */
+/* =========================================================
+   NAVBAR — STYLE HUB
+   NAVY / BLUE / SLATE THEME
+========================================================= */
 
 .navbar {
   position: sticky;
@@ -9,26 +10,22 @@
 
   z-index: 1000;
 
-  background:
-    rgba(255, 255, 255, 0.97);
+  background: #0f1f3d;
 
-  border-bottom:
-    1px solid #eeeeee;
+  border-bottom: 1px solid #263a5b;
 
-  backdrop-filter:
-    blur(12px);
+  backdrop-filter: blur(10px);
 }
 
 
-/* =========================================
+/* =========================================================
    NAVBAR INNER
-========================================= */
+========================================================= */
 
 .navbar-inner {
-  min-height: 76px;
+  min-height: 74px;
 
-  padding:
-    0 5vw;
+  padding: 0 5vw;
 
   display: flex;
 
@@ -38,760 +35,31 @@
 }
 
 
-/* =========================================
+/* =========================================================
    BACK BUTTON
-========================================= */
+========================================================= */
 
 .navbar-back-button {
-  width: 38px;
-
-  height: 38px;
+  width: 34px;
+  height: 34px;
 
   flex-shrink: 0;
 
   display: flex;
 
   align-items: center;
-
   justify-content: center;
 
-  border:
-    1px solid #dddddd;
+  border: 1px solid #405474;
 
   border-radius: 50%;
 
-  background:
-    #ffffff;
+  background: #172b4d;
 
-  color:
-    #222;
+  color: #e2e8f0;
 
-  font-size: 22px;
-
-  line-height: 1;
-
-  cursor: pointer;
-
-  transition:
-    all 0.25s ease;
-}
-
-
-/* BACK BUTTON HOVER */
-
-.navbar-back-button:hover:not(:disabled) {
-  background:
-    #111;
-
-  border-color:
-    #111;
-
-  color:
-    #ffffff;
-
-  transform:
-    translateX(-2px);
-}
-
-
-/* BACK BUTTON DISABLED */
-
-.navbar-back-button:disabled {
-  cursor:
-    default;
-}
-
-
-/* SHOW */
-
-.show-back-button {
-  opacity: 1;
-
-  visibility:
-    visible;
-
-  transform:
-    scale(1);
-}
-
-
-/* HIDE */
-
-.hide-back-button {
-  opacity: 0;
-
-  visibility:
-    hidden;
-
-  pointer-events:
-    none;
-
-  transform:
-    scale(0.8);
-}
-
-
-/* =========================================
-   LOGO
-========================================= */
-
-.logo {
-  border: none;
-
-  background:
-    transparent;
-
-  color:
-    #111;
-
-  font-family:
-    Georgia,
-    serif;
-
-  font-size:
-    25px;
-
-  font-weight:
-    600;
-
-  letter-spacing:
-    0.04em;
-
-  cursor:
-    pointer;
-
-  white-space:
-    nowrap;
-}
-
-.logo span {
-  color:
-    #d4af37;
-
-  font-style:
-    italic;
-}
-
-
-/* =========================================
-   DESKTOP NAVIGATION
-========================================= */
-
-.nav-links {
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  gap:
-    22px;
-
-  margin-left:
-    10px;
-}
-
-.nav-links button {
-  position:
-    relative;
-
-  border:
-    none;
-
-  background:
-    transparent;
-
-  color:
-    #555;
-
-  padding:
-    10px 0;
-
-  font-size:
-    11px;
-
-  font-weight:
-    700;
-
-  text-transform:
-    uppercase;
-
-  letter-spacing:
-    0.07em;
-
-  cursor:
-    pointer;
-}
-
-.nav-links button::after {
-  content:
-    "";
-
-  position:
-    absolute;
-
-  left:
-    0;
-
-  right:
-    0;
-
-  bottom:
-    1px;
-
-  height:
-    2px;
-
-  background:
-    #ff3f6c;
-
-  transform:
-    scaleX(0);
-
-  transition:
-    transform 0.25s ease;
-}
-
-.nav-links button:hover {
-  color:
-    #111;
-}
-
-.nav-links button.active {
-  color:
-    #ff3f6c;
-}
-
-.nav-links button.active::after {
-  transform:
-    scaleX(1);
-}
-
-
-/* =========================================
-   SEARCH
-========================================= */
-
-.navbar-search {
-  position:
-    relative;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  flex:
-    1;
-
-  max-width:
-    360px;
-
-  margin-left:
-    auto;
-}
-
-.navbar-search input {
-  width:
-    100%;
-
-  height:
-    40px;
-
-  box-sizing:
-    border-box;
-
-  padding:
-    0 40px;
-
-  border:
-    1px solid #e3e3e3;
-
-  border-radius:
-    4px;
-
-  background:
-    #f7f7f7;
-
-  outline:
-    none;
-
-  color:
-    #222;
-
-  font-size:
-    12px;
-}
-
-.navbar-search input:focus {
-  background:
-    white;
-
-  border-color:
-    #d4af37;
-}
-
-.search-icon {
-  position:
-    absolute;
-
-  left:
-    14px;
-
-  font-size:
-    19px;
-
-  color:
-    #777;
-
-  z-index:
-    2;
-}
-
-.search-clear {
-  position:
-    absolute;
-
-  right:
-    9px;
-
-  border:
-    none;
-
-  background:
-    transparent;
-
-  color:
-    #777;
-
-  font-size:
-    20px;
-
-  cursor:
-    pointer;
-}
-
-
-/* =========================================
-   ACTIONS
-========================================= */
-
-.navbar-actions {
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  gap:
-    15px;
-}
-
-.nav-action {
-  position:
-    relative;
-
-  border:
-    none;
-
-  background:
-    transparent;
-
-  color:
-    #555;
-
-  display:
-    flex;
-
-  flex-direction:
-    column;
-
-  align-items:
-    center;
-
-  gap:
-    3px;
-
-  cursor:
-    pointer;
-
-  min-width:
-    52px;
-}
-
-.nav-action-icon {
-  font-size:
-    19px;
-
-  line-height:
-    1;
-}
-
-.nav-action-label {
-  font-size:
-    9px;
-
-  font-weight:
-    700;
-
-  text-transform:
-    uppercase;
-
-  letter-spacing:
-    0.05em;
-}
-
-.nav-action:hover {
-  color:
-    #111;
-}
-
-.active-action {
-  color:
-    #111;
-}
-
-
-/* =========================================
-   WISHLIST
-========================================= */
-
-.wishlist-filled {
-  color:
-    #ff3f6c !important;
-}
-
-.wishlist-filled
-.nav-action-icon {
-  color:
-    #ff3f6c;
-}
-
-
-/* =========================================
-   COUNT
-========================================= */
-
-.nav-count {
-  position:
-    absolute;
-
-  top:
-    -7px;
-
-  right:
-    2px;
-
-  min-width:
-    16px;
-
-  height:
-    16px;
-
-  padding:
-    0 4px;
-
-  display:
-    flex;
-
-  align-items:
-    center;
-
-  justify-content:
-    center;
-
-  border-radius:
-    50%;
-
-  background:
-    #ff3f6c;
-
-  color:
-    white;
-
-  font-size:
-    8px;
-
-  font-weight:
-    700;
-}
-
-
-/* =========================================
-   MOBILE BUTTON
-========================================= */
-
-.mobile-menu-button {
-  display:
-    none;
-
-  border:
-    none;
-
-  background:
-    transparent;
-
-  font-size:
-    24px;
-
-  cursor:
-    pointer;
-}
-
-
-/* =========================================
-   MOBILE MENU
-========================================= */
-
-.mobile-menu {
-  display:
-    none;
-}
-
-
-/* =========================================
-   MOBILE BACK BUTTON
-========================================= */
-
-.mobile-back-button {
-  font-weight:
-    700 !important;
-
-  color:
-    #111 !important;
-
-  background:
-    #f7f7f7 !important;
-
-  padding:
-    14px 12px !important;
-
-  border-radius:
-    4px;
-
-  margin-bottom:
-    5px;
-}
-
-
-/* =========================================
-   TABLET
-========================================= */
-
-@media (max-width: 1100px) {
-
-  .navbar-inner {
-    gap:
-      14px;
-  }
-
-  .nav-links {
-    gap:
-      13px;
-  }
-
-  .nav-links button {
-    font-size:
-      10px;
-  }
-
-  .navbar-search {
-    max-width:
-      260px;
-  }
-
-}
-
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 850px) {
-
-  .navbar-inner {
-    min-height:
-      68px;
-
-    padding:
-      0 20px;
-
-    gap:
-      12px;
-  }
-
-
-  .nav-links,
-  .navbar-actions {
-    display:
-      none;
-  }
-
-
-  .navbar-search {
-    margin-left:
-      auto;
-
-    max-width:
-      none;
-
-    flex:
-      1;
-  }
-
-
-  .mobile-menu-button {
-    display:
-      block;
-  }
-
-
-  .mobile-menu {
-    display:
-      flex;
-
-    flex-direction:
-      column;
-
-    padding:
-      10px 20px 20px;
-
-    background:
-      white;
-
-    border-top:
-      1px solid #eee;
-  }
-
-
-  .mobile-menu button {
-    padding:
-      14px 0;
-
-    text-align:
-      left;
-
-    border:
-      none;
-
-    border-bottom:
-      1px solid #f0f0f0;
-
-    background:
-      transparent;
-
-    color:
-      #444;
-
-    font-size:
-      12px;
-
-    font-weight:
-      700;
-
-    text-transform:
-      uppercase;
-
-    cursor:
-      pointer;
-  }
-
-
-  .mobile-menu button.mobile-active {
-    color:
-      #ff3f6c;
-  }
-
-
-  .navbar-back-button {
-    width:
-      34px;
-
-    height:
-      34px;
-
-    font-size:
-      19px;
-  }
-
-}
-
-
-/* =========================================
-   SMALL MOBILE
-========================================= */
-
-@media (max-width: 500px) {
-
-  .navbar-inner {
-    padding:
-      0 14px;
-
-    gap:
-      8px;
-  }
-
-
-  .logo {
-    font-size:
-      20px;
-  }
-
-
-  .navbar-search input {
-    height:
-      36px;
-
-    font-size:
-      10px;
-
-    padding-left:
-      34px;
-  }
-
-
-  .search-icon {
-    left:
-      10px;
-  }
-
-
-  .navbar-back-button {
-    width:
-      32px;
-
-    height:
-      32px;
-
-    font-size:
-      18px;
-  }
-
-}
-/* =========================================
-   NAVBAR BACK BUTTON
-========================================= */
-
-.navbar-back-button {
-  width: 32px;
-  height: 32px;
-
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 1px solid #dddddd;
-  border-radius: 50%;
-
-  background: #ffffff;
-
-  color: #333;
-
-  font-size: 17px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 600;
 
   line-height: 1;
 
@@ -800,9 +68,11 @@
   transition: all 0.2s ease;
 }
 
-.navbar-back-button:hover {
-  background: #111;
-  border-color: #111;
+.navbar-back-button:hover:not(:disabled) {
+  background: #2563eb;
+
+  border-color: #2563eb;
+
   color: #ffffff;
 
   transform: translateX(-2px);
@@ -812,13 +82,506 @@
   transform: translateX(-2px) scale(0.94);
 }
 
+.navbar-back-button:disabled {
+  cursor: default;
 
-/* MOBILE BACK BUTTON */
+  opacity: 0.4;
+}
+
+.show-back-button {
+  opacity: 1;
+
+  visibility: visible;
+
+  transform: scale(1);
+}
+
+.hide-back-button {
+  opacity: 0;
+
+  visibility: hidden;
+
+  pointer-events: none;
+
+  transform: scale(0.8);
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo {
+  border: none;
+
+  background: transparent;
+
+  color: #ffffff;
+
+  font-family: var(--font-display);
+
+  font-size: 23px;
+
+  font-weight: 800;
+
+  letter-spacing: -0.01em;
+
+  cursor: pointer;
+
+  white-space: nowrap;
+}
+
+.logo span {
+  color: #60a5fa;
+}
+
+
+/* =========================================================
+   DESKTOP NAVIGATION
+========================================================= */
+
+.nav-links {
+  display: flex;
+
+  align-items: center;
+
+  gap: 22px;
+
+  margin-left: 12px;
+}
+
+.nav-links button {
+  position: relative;
+
+  border: none;
+
+  background: transparent;
+
+  color: #cbd5e1;
+
+  padding: 10px 0;
+
+  font-size: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: color 0.2s ease;
+}
+
+.nav-links button::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  bottom: 2px;
+
+  height: 2px;
+
+  background: #60a5fa;
+
+  border-radius: 2px;
+
+  transform: scaleX(0);
+
+  transition: transform 0.25s ease;
+}
+
+.nav-links button:hover {
+  color: #ffffff;
+}
+
+.nav-links button.active {
+  color: #60a5fa;
+}
+
+.nav-links button.active::after {
+  transform: scaleX(1);
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.navbar-search {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  flex: 1;
+
+  max-width: 380px;
+
+  margin-left: auto;
+}
+
+.navbar-search input {
+  width: 100%;
+
+  height: 42px;
+
+  box-sizing: border-box;
+
+  padding: 0 40px;
+
+  border: 1px solid #344a6b;
+
+  border-radius: var(--radius-m);
+
+  background: #172b4d;
+
+  outline: none;
+
+  color: #ffffff;
+
+  font-size: 13px;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.navbar-search input::placeholder {
+  color: #94a3b8;
+}
+
+.navbar-search input:focus {
+  background: #20385e;
+
+  border-color: #60a5fa;
+}
+
+.search-icon {
+  position: absolute;
+
+  left: 14px;
+
+  font-size: 18px;
+
+  color: #94a3b8;
+
+  z-index: 2;
+}
+
+.search-clear {
+  position: absolute;
+
+  right: 10px;
+
+  border: none;
+
+  background: transparent;
+
+  color: #cbd5e1;
+
+  font-size: 20px;
+
+  cursor: pointer;
+}
+
+.search-clear:hover {
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.navbar-actions {
+  display: flex;
+
+  align-items: center;
+
+  gap: 6px;
+}
+
+.nav-action {
+  position: relative;
+
+  border: none;
+
+  background: transparent;
+
+  color: #cbd5e1;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 3px;
+
+  padding: 6px 10px;
+
+  border-radius: var(--radius-s);
+
+  cursor: pointer;
+
+  min-width: 52px;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.nav-action-icon {
+  font-size: 18px;
+
+  line-height: 1;
+}
+
+.nav-action-label {
+  font-size: 9.5px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.04em;
+}
+
+.nav-action:hover {
+  color: #ffffff;
+
+  background: #172b4d;
+}
+
+.active-action {
+  color: #60a5fa;
+}
+
+
+/* =========================================================
+   WISHLIST
+========================================================= */
+
+.wishlist-filled {
+  color: #60a5fa !important;
+}
+
+.wishlist-filled .nav-action-icon {
+  color: #60a5fa;
+}
+
+
+/* =========================================================
+   COUNT
+========================================================= */
+
+.nav-count {
+  position: absolute;
+
+  top: -4px;
+  right: 4px;
+
+  min-width: 16px;
+  height: 16px;
+
+  padding: 0 4px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  font-size: 9px;
+
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   MOBILE BUTTON
+========================================================= */
+
+.mobile-menu-button {
+  display: none;
+
+  border: none;
+
+  background: transparent;
+
+  font-size: 24px;
+
+  cursor: pointer;
+
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+.mobile-menu {
+  display: none;
+}
 
 .mobile-back-button {
-  color: #111 !important;
-
   font-weight: 700 !important;
 
-  border-bottom: 1px solid #e5e5e5 !important;
+  color: #172033 !important;
+
+  background: #e2e8f0 !important;
+
+  padding: 14px 12px !important;
+
+  border-radius: var(--radius-s);
+
+  margin-bottom: 5px;
+
+  border-bottom: 1px solid #cbd5e1 !important;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+  .navbar-inner {
+    gap: 14px;
+  }
+
+  .nav-links {
+    gap: 13px;
+  }
+
+  .nav-links button {
+    font-size: 11px;
+  }
+
+  .navbar-search {
+    max-width: 260px;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 850px) {
+  .navbar-inner {
+    min-height: 64px;
+
+    padding: 0 20px;
+
+    gap: 12px;
+  }
+
+  .nav-links,
+  .navbar-actions {
+    display: none;
+  }
+
+  .navbar-search {
+    margin-left: auto;
+
+    max-width: none;
+
+    flex: 1;
+  }
+
+  .mobile-menu-button {
+    display: block;
+  }
+
+  .mobile-menu {
+    display: flex;
+
+    flex-direction: column;
+
+    padding: 10px 20px 20px;
+
+    background: #e2e8f0;
+
+    border-top: 1px solid #334766;
+  }
+
+  .mobile-menu button {
+    padding: 14px 0;
+
+    text-align: left;
+
+    border: none;
+
+    border-bottom: 1px solid #cbd5e1;
+
+    background: transparent;
+
+    color: #475569;
+
+    font-size: 12.5px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.02em;
+
+    cursor: pointer;
+  }
+
+  .mobile-menu button.mobile-active {
+    color: #2563eb;
+  }
+
+  .navbar-back-button {
+    width: 32px;
+    height: 32px;
+
+    font-size: 17px;
+  }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 500px) {
+  .navbar-inner {
+    padding: 0 14px;
+
+    gap: 8px;
+  }
+
+  .logo {
+    font-size: 19px;
+  }
+
+  .navbar-search input {
+    height: 38px;
+
+    font-size: 12px;
+
+    padding-left: 34px;
+  }
+
+  .search-icon {
+    left: 10px;
+  }
+
+  .navbar-back-button {
+    width: 30px;
+    height: 30px;
+
+    font-size: 16px;
+  }
 }

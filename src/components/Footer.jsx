@@ -3,96 +3,390 @@ import {
   FaInstagram,
   FaFacebookF,
   FaPinterestP,
+  FaArrowRight,
 } from "react-icons/fa";
+
 import "./Footer.css";
 
-function Footer() {
+function Footer({ setPage }) {
+
+  // =========================================================
+  // NAVIGATION
+  // =========================================================
+
+  const goToPage = (
+    page,
+    searchValue = "",
+    categoryValue = "All"
+  ) => {
+    if (setPage) {
+      setPage(
+        page,
+        searchValue,
+        categoryValue
+      );
+    }
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant",
+    });
+  };
+
+  const goToCategory = (categoryName) => {
+    goToPage(
+      "products",
+      "",
+      categoryName
+    );
+  };
+
+  // =========================================================
+  // NEWSLETTER
+  // =========================================================
+
+  const handleNewsletter = (e) => {
+    e.preventDefault();
+
+    const email = e.target.email.value.trim();
+
+    if (!email) {
+      return;
+    }
+
+    alert("Thank you for subscribing to STYLEHUB!");
+    e.target.reset();
+  };
+
   return (
     <footer className="footer">
 
-      <div className="footer-container">
+      {/* =====================================================
+          MAIN FOOTER
+      ===================================================== */}
 
-        {/* ================= BRAND ================= */}
-        <div className="footer-brand">
+      <div className="footer-main">
 
-          <h2>
-            STYLE<span>HUB</span>
-          </h2>
+        <div className="footer-container">
 
-          <p>
-            Considered clothing for everyday wear.
-            Discover timeless styles made for you.
-          </p>
+          {/* =================================================
+              BRAND
+          ================================================= */}
 
-          <div className="footer-socials">
+          <div className="footer-brand">
 
-            <a
-              href="#"
-              aria-label="Instagram"
-              className="social-icon"
+            <button
+              type="button"
+              className="footer-logo-button"
+              onClick={() => goToPage("home")}
+              aria-label="Go to STYLEHUB home"
             >
-              <FaInstagram />
-            </a>
+              <span className="footer-logo">
+                STYLE<span>HUB</span>
+              </span>
+            </button>
 
-            <a
-              href="#"
-              aria-label="Facebook"
-              className="social-icon"
-            >
-              <FaFacebookF />
-            </a>
+            <p className="footer-description">
+              Discover effortless fashion for every day.
+              Simple styles, modern looks, and pieces made
+              to fit your lifestyle.
+            </p>
 
-            <a
-              href="#"
-              aria-label="Pinterest"
-              className="social-icon"
-            >
-              <FaPinterestP />
-            </a>
+            {/* SOCIAL MEDIA */}
+
+            <div className="footer-socials">
+
+              <a
+                href="#"
+                className="footer-social"
+                aria-label="Instagram"
+                onClick={(e) => e.preventDefault()}
+              >
+                <FaInstagram />
+              </a>
+
+              <a
+                href="#"
+                className="footer-social"
+                aria-label="Facebook"
+                onClick={(e) => e.preventDefault()}
+              >
+                <FaFacebookF />
+              </a>
+
+              <a
+                href="#"
+                className="footer-social"
+                aria-label="Pinterest"
+                onClick={(e) => e.preventDefault()}
+              >
+                <FaPinterestP />
+              </a>
+
+            </div>
 
           </div>
 
-        </div>
+
+          {/* =================================================
+              SHOP
+          ================================================= */}
+
+          <div className="footer-column">
+
+            <h3>SHOP</h3>
+
+            <button
+              type="button"
+              onClick={() => goToPage("products")}
+            >
+              All Products
+            </button>
+
+            <button
+              type="button"
+              onClick={() => goToCategory("Men")}
+            >
+              Men
+            </button>
+
+            <button
+              type="button"
+              onClick={() => goToCategory("Women")}
+            >
+              Women
+            </button>
+
+            <button
+              type="button"
+              onClick={() => goToCategory("Kids")}
+            >
+              Kids
+            </button>
+
+            <button
+              type="button"
+              onClick={() => goToCategory("Beauty")}
+            >
+              Beauty
+            </button>
+
+            <button
+              type="button"
+              onClick={() => goToCategory("Accessories")}
+            >
+              Accessories
+            </button>
+
+          </div>
 
 
-        {/* ================= CUSTOMER CARE ================= */}
-        <div className="footer-column">
+          {/* =================================================
+              QUICK LINKS
+          ================================================= */}
 
-          <h3>Customer Care</h3>
+          <div className="footer-column">
 
-          <button>Contact Us</button>
-          <button>Shipping & Delivery</button>
-          <button>Returns & Exchanges</button>
-          <button>FAQs</button>
+            <h3>QUICK LINKS</h3>
 
-        </div>
+            <button
+              type="button"
+              onClick={() => goToPage("home")}
+            >
+              Home
+            </button>
+
+            <button
+              type="button"
+              onClick={() => goToPage("products")}
+            >
+              Shop
+            </button>
+
+            <button
+              type="button"
+              onClick={() => goToPage("wishlist")}
+            >
+              Wishlist
+            </button>
+
+            <button
+              type="button"
+              onClick={() => goToPage("cart")}
+            >
+              Shopping Bag
+            </button>
+
+            <button
+              type="button"
+              onClick={() => goToPage("orders")}
+            >
+              My Orders
+            </button>
+
+          </div>
 
 
-        {/* ================= INFORMATION ================= */}
-        <div className="footer-column">
+          {/* =================================================
+              MY STYLEHUB
+          ================================================= */}
 
-          <h3>Information</h3>
+          <div className="footer-column">
 
-          <button>About StyleHub</button>
-          <button>Privacy Policy</button>
-          <button>Terms & Conditions</button>
-          <button>Size Guide</button>
+            <h3>MY STYLEHUB</h3>
+
+            <button
+              type="button"
+              onClick={() => goToPage("profile")}
+            >
+              My Account
+            </button>
+
+            <button
+              type="button"
+              onClick={() => goToPage("orders")}
+            >
+              Order History
+            </button>
+
+            <button
+              type="button"
+              onClick={() => goToPage("wishlist")}
+            >
+              Saved Items
+            </button>
+
+            <button
+              type="button"
+              onClick={() => goToPage("cart")}
+            >
+              View Bag
+            </button>
+
+            <button
+              type="button"
+              onClick={() => goToPage("profile")}
+            >
+              Profile
+            </button>
+
+          </div>
 
         </div>
 
       </div>
 
 
-      {/* ================= BOTTOM ================= */}
-      <div className="footer-bottom">
+      {/* =====================================================
+          NEWSLETTER
+      ===================================================== */}
 
-        <p>
-          © {new Date().getFullYear()} STYLEHUB. All rights reserved.
-        </p>
+      <div className="footer-newsletter-section">
 
-        <p>
-          Made with <span className="heart">♥</span> for fashion lovers.
-        </p>
+        <div className="footer-newsletter">
+
+          <div className="newsletter-content">
+
+            <span className="newsletter-label">
+              STYLE UPDATE
+            </span>
+
+            <h3>
+              Stay updated with
+              <br />
+              the latest styles.
+            </h3>
+
+            <p>
+              Get the latest trends, collections and
+              exclusive updates from STYLEHUB.
+            </p>
+
+          </div>
+
+
+          <form
+            className="newsletter-form"
+            onSubmit={handleNewsletter}
+          >
+
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your email address"
+              aria-label="Email address"
+              required
+            />
+
+            <button
+              type="submit"
+              aria-label="Subscribe"
+            >
+              <FaArrowRight />
+            </button>
+
+          </form>
+
+        </div>
+
+      </div>
+
+
+      {/* =====================================================
+          BOTTOM FOOTER
+      ===================================================== */}
+
+      <div className="footer-bottom-section">
+
+        <div className="footer-bottom">
+
+          <p className="footer-copyright">
+            © {new Date().getFullYear()} STYLEHUB.
+            <span> All rights reserved.</span>
+          </p>
+
+
+          <div className="footer-bottom-links">
+
+            <button
+              type="button"
+              onClick={() => goToPage("home")}
+            >
+              Home
+            </button>
+
+            <button
+              type="button"
+              onClick={() => goToPage("products")}
+            >
+              Shop
+            </button>
+
+            <button
+              type="button"
+              onClick={() => goToPage("wishlist")}
+            >
+              Wishlist
+            </button>
+
+            <button
+              type="button"
+              onClick={() => goToPage("cart")}
+            >
+              Bag
+            </button>
+
+            <button
+              type="button"
+              onClick={() => goToPage("profile")}
+            >
+              Account
+            </button>
+
+          </div>
+
+        </div>
 
       </div>
 

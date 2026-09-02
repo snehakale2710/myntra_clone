@@ -1,43 +1,52 @@
-/* =====================================================
-   FOOTER
-===================================================== */
+/* =========================================================
+   STYLEHUB FOOTER
+   COMPACT NAVY / BLUE / SLATE THEME
+========================================================= */
 
 .footer {
   width: 100%;
-  background: #111111;
-  color: #ffffff;
   margin-top: auto;
+  background: #0f1f3d;
+  color: #ffffff;
+  overflow: hidden;
 }
 
 
-/* =====================================================
-   MAIN FOOTER CONTAINER
-===================================================== */
+/* =========================================================
+   MAIN FOOTER
+========================================================= */
+
+.footer-main {
+  width: 100%;
+  border-top: 1px solid rgba(203, 213, 225, 0.07);
+  border-bottom: 1px solid rgba(203, 213, 225, 0.07);
+}
 
 .footer-container {
   width: 100%;
-  max-width: 1300px;
+  max-width: 1250px;
 
   margin: 0 auto;
 
-  padding: 60px 5vw 55px;
+  padding: 32px 45px 30px;
 
   display: grid;
 
   grid-template-columns:
-    1.5fr
+    1.8fr
+    1fr
     1fr
     1fr;
 
-  gap: 70px;
+  column-gap: 55px;
 
   box-sizing: border-box;
 }
 
 
-/* =====================================================
+/* =========================================================
    BRAND
-===================================================== */
+========================================================= */
 
 .footer-brand {
   display: flex;
@@ -46,326 +55,590 @@
 }
 
 
-/* LOGO */
+/* =========================================================
+   LOGO
+========================================================= */
 
-.footer-brand h2 {
+.footer-logo-button {
+  appearance: none;
+  -webkit-appearance: none;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  border: none !important;
+  outline: none !important;
+
+  background: transparent !important;
+  box-shadow: none !important;
+
+  cursor: pointer;
+}
+
+.footer-logo {
+  display: inline-block;
+
   margin: 0;
 
-  font-family: Georgia, "Times New Roman", serif;
+  color: #ffffff;
 
-  font-size: 34px;
+  font-size: 23px;
+  font-weight: 800;
 
-  font-weight: 500;
+  line-height: 1;
 
-  letter-spacing: 0.03em;
+  letter-spacing: -0.6px;
 
-  line-height: 1.1;
+  transition: opacity 0.2s ease;
 }
 
-.footer-brand h2 span {
-  color: #d4af37;
-
-  font-style: italic;
+.footer-logo span {
+  color: #2563eb;
 }
 
-
-/* DESCRIPTION */
-
-.footer-brand p {
-  max-width: 300px;
-
-  margin: 22px 0 0;
-
-  color: #aaaaaa;
-
-  font-size: 15px;
-
-  line-height: 1.8;
+.footer-logo-button:hover .footer-logo {
+  opacity: 0.85;
 }
 
 
-/* =====================================================
-   SOCIAL ICONS
-===================================================== */
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.footer-description {
+  max-width: 305px;
+
+  margin: 13px 0 0;
+
+  color: #9eacbf;
+
+  font-size: 11.5px;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   SOCIALS
+========================================================= */
 
 .footer-socials {
   display: flex;
-
   align-items: center;
 
-  gap: 14px;
+  gap: 8px;
 
-  margin-top: 28px;
+  margin-top: 15px;
 }
 
-
-/* PERFECT CIRCLE */
-
-.social-icon {
-  width: 48px;
-  height: 48px;
+.footer-social {
+  width: 31px;
+  height: 31px;
 
   display: flex;
-
   align-items: center;
   justify-content: center;
 
-  flex-shrink: 0;
-
-  background: #d4af37;
-
-  color: #ffffff;
-
+  border: 1px solid #304463;
   border-radius: 50%;
-
-  text-decoration: none;
-
-  font-size: 21px;
-
-  box-sizing: border-box;
-
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
-    transform 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-
-/* HOVER */
-
-.social-icon:hover {
-  background: #ffffff;
-
-  color: #d4af37;
-
-  transform: translateY(-4px);
-
-  box-shadow:
-    0 8px 20px rgba(212, 175, 55, 0.25);
-}
-
-
-/* =====================================================
-   FOOTER COLUMNS
-===================================================== */
-
-.footer-column {
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: flex-start;
-
-  gap: 14px;
-}
-
-
-/* COLUMN TITLE */
-
-.footer-column h3 {
-  margin: 0 0 10px;
-
-  color: #d4af37;
-
-  font-size: 15px;
-
-  font-weight: 700;
-
-  letter-spacing: 0.12em;
-
-  text-transform: none;
-}
-
-
-/* COLUMN BUTTONS */
-
-.footer-column button {
-  border: none;
 
   background: transparent;
 
-  color: #aaaaaa;
+  color: #9eacbf;
 
-  padding: 0;
+  text-decoration: none;
 
-  margin: 0;
+  font-size: 12px;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.footer-social:hover {
+  color: #ffffff;
+  background: #2563eb;
+  border-color: #2563eb;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   FOOTER COLUMNS
+========================================================= */
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  gap: 8px;
+}
+
+.footer-column h3 {
+  margin: 0 0 6px;
+
+  color: #ffffff;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1.1px;
+
+  line-height: 1.2;
+}
+
+
+/* =========================================================
+   COLUMN LINKS
+========================================================= */
+
+.footer-column button {
+  appearance: none;
+  -webkit-appearance: none;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  border: none !important;
+  outline: none !important;
+
+  background: transparent !important;
+  box-shadow: none !important;
+
+  color: #9eacbf;
 
   font-family: inherit;
 
-  font-size: 14px;
+  font-size: 11.5px;
+  font-weight: 500;
 
-  line-height: 1.5;
-
-  cursor: pointer;
+  line-height: 1.4;
 
   text-align: left;
 
+  cursor: pointer;
+
   transition:
-    color 0.3s ease,
-    transform 0.3s ease;
+    color 0.2s ease,
+    transform 0.2s ease;
 }
-
-
-/* BUTTON HOVER */
 
 .footer-column button:hover {
   color: #ffffff;
-
-  transform: translateX(5px);
+  transform: translateX(3px);
 }
 
 
-/* =====================================================
-   FOOTER BOTTOM
-===================================================== */
+/* =========================================================
+   NEWSLETTER
+========================================================= */
 
-.footer-bottom {
+.footer-newsletter-section {
   width: 100%;
 
-  padding: 20px 5vw;
+  border-bottom: 1px solid rgba(203, 213, 225, 0.07);
+}
 
-  border-top: 1px solid #2c2c2c;
+.footer-newsletter {
+  width: 100%;
+  max-width: 1250px;
 
-  display: flex;
+  margin: 0 auto;
 
-  align-items: center;
-
-  justify-content: space-between;
-
-  gap: 20px;
+  padding: 22px 45px;
 
   box-sizing: border-box;
 
-  color: #777777;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  font-size: 12px;
+  gap: 40px;
 }
 
 
-.footer-bottom p {
+/* =========================================================
+   NEWSLETTER TEXT
+========================================================= */
+
+.newsletter-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.newsletter-label {
+  margin-bottom: 4px;
+
+  color: #60a5fa;
+
+  font-size: 8px;
+  font-weight: 800;
+
+  letter-spacing: 1.4px;
+}
+
+.newsletter-content h3 {
   margin: 0;
+
+  color: #ffffff;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  line-height: 1.3;
 }
 
 
-/* HEART */
+/* =========================================================
+   NEWSLETTER FORM
+========================================================= */
 
-.heart {
-  color: #d4af37;
+.newsletter-form {
+  width: 330px;
+  height: 38px;
 
-  font-size: 13px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+
+  padding: 3px 3px 3px 12px;
+
+  box-sizing: border-box;
+
+  background: #172a4b;
+
+  border: 1px solid #304463;
+
+  border-radius: 7px;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.newsletter-form:focus-within {
+  border-color: #2563eb;
+
+  box-shadow:
+    0 0 0 3px rgba(37, 99, 235, 0.10);
 }
 
 
-/* =====================================================
+/* =========================================================
+   INPUT
+========================================================= */
+
+.newsletter-form input {
+  flex: 1;
+
+  min-width: 0;
+
+  padding: 0;
+
+  border: none;
+  outline: none;
+
+  background: transparent;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 11px;
+}
+
+.newsletter-form input::placeholder {
+  color: #718096;
+}
+
+
+/* =========================================================
+   SUBSCRIBE BUTTON
+========================================================= */
+
+.newsletter-form button {
+  appearance: none;
+  -webkit-appearance: none;
+
+  width: 30px;
+  height: 30px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  margin: 0;
+
+  border: none;
+  outline: none;
+
+  border-radius: 5px;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  font-size: 11px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.newsletter-form button:hover {
+  background: #1d4ed8;
+
+  transform: translateX(2px);
+}
+
+
+/* =========================================================
+   BOTTOM BAR
+========================================================= */
+
+.footer-bottom-section {
+  width: 100%;
+}
+
+.footer-bottom {
+  width: 100%;
+  max-width: 1250px;
+
+  margin: 0 auto;
+
+  padding: 13px 45px;
+
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+
+/* =========================================================
+   COPYRIGHT
+========================================================= */
+
+.footer-copyright {
+  margin: 0;
+
+  color: #718096;
+
+  font-size: 9.5px;
+  font-weight: 400;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   BOTTOM LINKS
+========================================================= */
+
+.footer-bottom-links {
+  display: flex;
+  align-items: center;
+
+  gap: 18px;
+}
+
+.footer-bottom-links button {
+  appearance: none;
+  -webkit-appearance: none;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  border: none !important;
+  outline: none !important;
+
+  background: transparent !important;
+  box-shadow: none !important;
+
+  color: #718096;
+
+  font-family: inherit;
+
+  font-size: 9.5px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease;
+}
+
+.footer-bottom-links button:hover {
+  color: #ffffff;
+}
+
+
+/* =========================================================
    TABLET
-===================================================== */
+========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 950px) {
 
   .footer-container {
     grid-template-columns:
       1.5fr
+      1fr
       1fr;
 
-    gap: 50px;
+    column-gap: 35px;
 
-    padding: 55px 6vw 45px;
+    row-gap: 30px;
+
+    padding: 32px 30px;
   }
 
+  .footer-brand {
+    grid-column: span 3;
+  }
+
+  .footer-newsletter {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+  .footer-bottom {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
 }
 
 
-/* =====================================================
+/* =========================================================
    MOBILE
-===================================================== */
+========================================================= */
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
 
   .footer-container {
     grid-template-columns: 1fr;
 
-    gap: 40px;
+    gap: 25px;
 
-    padding: 45px 25px;
+    padding: 30px 22px;
   }
 
-
-  .footer-brand h2 {
-    font-size: 30px;
+  .footer-brand {
+    grid-column: auto;
   }
 
+  .footer-logo {
+    font-size: 22px;
+  }
 
-  .footer-brand p {
+  .footer-description {
     max-width: 100%;
 
-    font-size: 14px;
-  }
-
-
-  .footer-socials {
-    margin-top: 24px;
-
-    gap: 12px;
-  }
-
-
-  .social-icon {
-    width: 46px;
-    height: 46px;
-
-    font-size: 20px;
-  }
-
-
-  .footer-column {
-    gap: 12px;
-  }
-
-
-  .footer-column h3 {
-    margin-bottom: 8px;
-  }
-
-
-  .footer-bottom {
-    flex-direction: column;
-
-    align-items: flex-start;
-
-    padding: 18px 25px;
-
-    gap: 8px;
+    margin-top: 12px;
 
     font-size: 11px;
   }
 
+  .footer-socials {
+    margin-top: 14px;
+  }
+
+  .footer-social {
+    width: 30px;
+    height: 30px;
+
+    font-size: 11px;
+  }
+
+  .footer-column {
+    gap: 8px;
+  }
+
+  .footer-column h3 {
+    margin-bottom: 5px;
+  }
+
+  .footer-column button {
+    font-size: 11.5px;
+  }
+
+
+  /* NEWSLETTER */
+
+  .footer-newsletter {
+    padding: 22px;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 15px;
+  }
+
+  .newsletter-content h3 {
+    font-size: 16px;
+  }
+
+  .newsletter-form {
+    width: 100%;
+
+    height: 38px;
+  }
+
+
+  /* BOTTOM */
+
+  .footer-bottom {
+    padding: 13px 22px 16px;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 9px;
+  }
+
+  .footer-bottom-links {
+    gap: 16px;
+  }
 }
 
 
-/* =====================================================
-   VERY SMALL DEVICES
-===================================================== */
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
 
 @media (max-width: 400px) {
 
   .footer-container {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 18px;
+    padding-right: 18px;
   }
 
+  .footer-newsletter {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
 
   .footer-bottom {
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 18px;
+    padding-right: 18px;
   }
 
-
-  .social-icon {
-    width: 44px;
-    height: 44px;
-
-    font-size: 19px;
+  .newsletter-content h3 {
+    font-size: 15px;
   }
-
 }

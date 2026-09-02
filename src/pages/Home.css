@@ -1,256 +1,1168 @@
-.hero {
-  min-height: 600px;
-  background:
-    linear-gradient(
-      100deg,
-      rgba(20, 18, 17, 0.78) 0%,
-      rgba(20, 18, 17, 0.35) 55%,
-      rgba(20, 18, 17, 0.15) 100%
-    ),
-    url("https://images.unsplash.com/photo-1445205170230-053b83016050?w=1600")
-      center/cover;
+/* =========================================================
+   STYLEHUB HOME PAGE
+   NAVY / BLUE / SLATE
+========================================================= */
+
+.home {
+  width: 100%;
+  background: #ffffff;
+  color: #172033;
+  overflow: hidden;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.home-hero {
+  position: relative;
+
+  min-height: 500px;
+
   display: flex;
   align-items: center;
-  padding: 60px var(--edge);
-  color: var(--paper);
+
+  padding: 70px 7vw;
+
+  box-sizing: border-box;
+
+  background-image:
+    url("https://images.unsplash.com/photo-1445205170230-053b83016050?w=1800&q=85");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  color: #ffffff;
+
+  overflow: hidden;
 }
 
-.hero-content {
-  max-width: 620px;
+
+/* DARK NAVY OVERLAY */
+
+.home-hero-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(15, 31, 61, 0.96) 0%,
+      rgba(15, 31, 61, 0.84) 38%,
+      rgba(15, 31, 61, 0.38) 72%,
+      rgba(15, 31, 61, 0.12) 100%
+    );
 }
 
-.eyebrow-light {
-  color: #e9c8ce;
+
+/* HERO CONTENT */
+
+.home-hero-content {
+  position: relative;
+  z-index: 2;
+
+  max-width: 610px;
 }
 
-.eyebrow-light::before {
-  background: #e9c8ce;
+
+.home-eyebrow {
+  display: flex;
+  align-items: center;
+
+  margin: 0 0 9px;
+
+  color: #2563eb;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+
+  line-height: 1.3;
 }
 
-.hero-content h1 {
-  font-size: clamp(38px, 5.5vw, 64px);
-  line-height: 1.08;
-  margin: 22px 0 20px;
-  font-weight: 500;
+
+.home-eyebrow::before {
+  content: "";
+
+  width: 20px;
+  height: 1px;
+
+  margin-right: 9px;
+
+  background: #2563eb;
 }
 
-.hero-content h1 em {
-  font-style: italic;
-  color: #e9c8ce;
+
+.home-eyebrow-light {
+  color: #60a5fa;
 }
 
-.hero-content span {
-  display: block;
-  font-size: 16px;
-  line-height: 1.6;
-  color: #ddd8d2;
-  max-width: 460px;
+
+.home-eyebrow-light::before {
+  background: #60a5fa;
 }
 
-.hero-content button {
-  margin-top: 34px;
-  padding: 16px 34px;
-  background: var(--paper);
-  color: var(--ink);
-  border: none;
+
+/* HERO TITLE */
+
+.home-hero h1 {
+  margin: 16px 0 17px;
+
+  color: #ffffff;
+
+  font-size: clamp(38px, 5vw, 62px);
+
+  font-weight: 800;
+
+  line-height: 1.02;
+
+  letter-spacing: -1.8px;
+}
+
+
+.home-hero h1 span {
+  color: #60a5fa;
+}
+
+
+/* HERO DESCRIPTION */
+
+.home-hero-description {
+  max-width: 470px;
+
+  margin: 0;
+
+  color: #d1dae6;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+
+/* HERO BUTTONS */
+
+.home-hero-actions {
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  margin-top: 28px;
+}
+
+
+.home-primary-button,
+.home-secondary-button {
+  appearance: none;
+  -webkit-appearance: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 42px;
+
+  padding: 0 20px;
+
+  border-radius: 6px;
+
+  font-family: inherit;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.7px;
+
   cursor: pointer;
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 0.03em;
-  border-radius: var(--radius-s);
-  transition: background 0.2s ease;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    color 0.2s ease;
 }
 
-.hero-content button:hover {
-  background: #e9c8ce;
+
+.home-primary-button {
+  gap: 10px;
+
+  border: 1px solid #2563eb;
+
+  background: #2563eb;
+
+  color: #ffffff;
 }
+
+
+.home-primary-button:hover {
+  background: #1d4ed8;
+
+  border-color: #1d4ed8;
+
+  transform: translateY(-2px);
+}
+
+
+.home-secondary-button {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+
+  background: rgba(15, 31, 61, 0.25);
+
+  color: #ffffff;
+
+  backdrop-filter: blur(5px);
+}
+
+
+.home-secondary-button:hover {
+  border-color: #ffffff;
+
+  background: rgba(255, 255, 255, 0.1);
+
+  transform: translateY(-2px);
+}
+
+
+/* HERO SEASON CARD */
+
+.hero-season-card {
+  position: absolute;
+
+  z-index: 2;
+
+  right: 7vw;
+  bottom: 42px;
+
+  width: 86px;
+  height: 86px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid rgba(255, 255, 255, 0.22);
+
+  border-radius: 50%;
+
+  background: rgba(15, 31, 61, 0.42);
+
+  backdrop-filter: blur(8px);
+
+  text-align: center;
+}
+
+
+.hero-season-card span {
+  margin-bottom: 4px;
+
+  color: #9eacbf;
+
+  font-size: 7px;
+  font-weight: 800;
+
+  letter-spacing: 1px;
+}
+
+
+.hero-season-card strong {
+  color: #ffffff;
+
+  font-size: 17px;
+
+  line-height: 0.9;
+
+  letter-spacing: -0.5px;
+}
+
+
+/* =========================================================
+   GENERAL SECTIONS
+========================================================= */
 
 .home-section {
-  padding: 84px var(--edge);
-}
-
-.section-heading {
-  text-align: center;
-  margin-bottom: 44px;
-}
-
-.section-heading .eyebrow {
-  justify-content: center;
-  margin-bottom: 14px;
-}
-
-.section-heading .eyebrow::before {
-  display: none;
-}
-
-.section-heading h2 {
-  font-size: clamp(24px, 3vw, 32px);
-  font-weight: 500;
-}
-
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 22px;
-}
-
-.categories {
-  background: var(--surface);
-  padding: 84px var(--edge);
-}
-
-.category-grid {
-  margin-top: 40px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-}
-
-.category-tile {
-  appearance: none;
-  border: 0;
-  padding: 0;
   width: 100%;
-  color: inherit;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-  position: relative;
-  height: 340px;
-  cursor: pointer;
-  overflow: hidden;
-  border-radius: var(--radius-m);
+
+  max-width: 1280px;
+
+  margin: 0 auto;
+
+  padding: 65px 45px;
+
+  box-sizing: border-box;
 }
 
-.category-tile img {
+
+.home-section-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  gap: 30px;
+
+  margin-bottom: 30px;
+}
+
+
+.home-section-header > div {
+  min-width: 0;
+}
+
+
+.home-section-header h2,
+.benefits-heading h2 {
+  margin: 0;
+
+  color: #172033;
+
+  font-size: clamp(23px, 2.7vw, 30px);
+
+  font-weight: 800;
+
+  line-height: 1.15;
+
+  letter-spacing: -0.7px;
+}
+
+
+.section-description {
+  margin: 8px 0 0;
+
+  color: #64748b;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   TEXT LINK
+========================================================= */
+
+.text-link {
+  appearance: none;
+  -webkit-appearance: none;
+
+  display: inline-flex;
+  align-items: center;
+
+  gap: 8px;
+
+  padding: 0 !important;
+  margin: 0;
+
+  border: none !important;
+  outline: none !important;
+
+  background: transparent !important;
+  box-shadow: none !important;
+
+  color: #2563eb;
+
+  font-family: inherit;
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 0.6px;
+
+  white-space: nowrap;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    gap 0.2s ease;
+}
+
+
+.text-link:hover {
+  color: #1d4ed8;
+
+  gap: 11px;
+}
+
+
+/* =========================================================
+   CATEGORY SECTION
+========================================================= */
+
+.category-section {
+  padding-top: 58px;
+  padding-bottom: 58px;
+
+  background: #f8fafc;
+
+  max-width: none;
+
+  padding-left: max(45px, calc((100vw - 1190px) / 2));
+  padding-right: max(45px, calc((100vw - 1190px) / 2));
+}
+
+
+.home-category-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, minmax(0, 1fr));
+
+  gap: 14px;
+}
+
+
+/* CATEGORY CARD */
+
+.home-category-card {
+  position: relative;
+
+  height: 280px;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 8px;
+
+  overflow: hidden;
+
+  background: #dfe6ee;
+
+  cursor: pointer;
+
+  text-align: left;
+
+  box-shadow: none;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.home-category-card:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 12px 28px rgba(15, 31, 61, 0.12);
+}
+
+
+/* CATEGORY IMAGE */
+
+.category-image {
+  position: absolute;
+
+  inset: 0;
+
+  background: #dfe6ee;
+}
+
+
+.category-image img {
   width: 100%;
   height: 100%;
+
+  display: block;
+
   object-fit: cover;
-  transition: transform 0.5s ease;
+
+  transition:
+    transform 0.5s ease;
 }
 
-.category-tile:hover img {
+
+.home-category-card:hover .category-image img {
   transform: scale(1.06);
 }
 
-.category-tile-label {
+
+/* CATEGORY OVERLAY */
+
+.category-overlay {
   position: absolute;
+
   inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(20, 18, 17, 0.75) 0%,
-    rgba(20, 18, 17, 0) 55%
-  );
+
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 20px;
-  color: var(--paper);
+  align-items: flex-end;
+
+  padding: 18px;
+
+  box-sizing: border-box;
+
+  background:
+    linear-gradient(
+      to top,
+      rgba(15, 31, 61, 0.92) 0%,
+      rgba(15, 31, 61, 0.48) 35%,
+      rgba(15, 31, 61, 0) 70%
+    );
+
+  color: #ffffff;
 }
 
-.category-tile-label h3 {
-  font-size: 20px;
-  font-weight: 500;
+
+.category-overlay h3 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 18px;
+  font-weight: 800;
+
+  line-height: 1.1;
 }
 
-.category-tile-label span {
-  font-size: 12px;
-  color: #e9c8ce;
-  margin-top: 6px;
+
+.category-overlay span {
+  display: flex;
+  align-items: center;
+
+  gap: 6px;
+
+  margin-top: 7px;
+
+  color: #93c5fd;
+
+  font-size: 9px;
+  font-weight: 700;
+
   opacity: 0;
-  transform: translateY(6px);
-  transition: 0.25s ease;
+
+  transform: translateY(5px);
+
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
-.category-tile:hover .category-tile-label span {
+
+.home-category-card:hover .category-overlay span {
   opacity: 1;
+
   transform: translateY(0);
 }
 
-.promise-strip {
+
+/* =========================================================
+   PRODUCT SECTION
+========================================================= */
+
+.trending-section {
+  background: #ffffff;
+}
+
+
+.home-product-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid var(--line);
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 18px;
 }
 
-.promise-strip > div {
-  padding: 32px var(--edge);
-  text-align: center;
-  border-left: 1px solid var(--line);
+
+.home-product-grid .product-card {
+  min-width: 0;
+}
+
+
+/* =========================================================
+   PROMOTIONAL BANNER
+========================================================= */
+
+.home-promo {
+  position: relative;
+
+  min-height: 300px;
+
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  align-items: center;
+
+  padding: 45px 7vw;
+
+  box-sizing: border-box;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(15, 31, 61, 0.98) 0%,
+      rgba(15, 31, 61, 0.88) 50%,
+      rgba(15, 31, 61, 0.32) 100%
+    ),
+    url("https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=85");
+
+  background-position: center;
+  background-size: cover;
 }
 
-.promise-strip > div:first-child {
+
+.home-promo-content {
+  max-width: 520px;
+}
+
+
+.home-promo .home-eyebrow {
+  margin-bottom: 10px;
+}
+
+
+.home-promo h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: clamp(27px, 3.5vw, 42px);
+
+  font-weight: 800;
+
+  line-height: 1.08;
+
+  letter-spacing: -1px;
+}
+
+
+.home-promo-content > p:not(.home-eyebrow) {
+  max-width: 420px;
+
+  margin: 12px 0 20px;
+
+  color: #cbd5e1;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+
+
+.home-promo button,
+.home-final-cta button {
+  appearance: none;
+  -webkit-appearance: none;
+
+  display: inline-flex;
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 12px 17px;
+
+  border: 1px solid #2563eb;
+
+  border-radius: 6px;
+
+  background: #2563eb;
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  letter-spacing: 0.7px;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.home-promo button:hover,
+.home-final-cta button:hover {
+  background: #1d4ed8;
+
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   BENEFITS
+========================================================= */
+
+.home-benefits {
+  width: 100%;
+
+  padding: 55px max(45px, calc((100vw - 1190px) / 2));
+
+  box-sizing: border-box;
+
+  background: #f8fafc;
+
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+
+.benefits-heading {
+  margin-bottom: 27px;
+
+  text-align: center;
+}
+
+
+.benefits-heading .home-eyebrow {
+  justify-content: center;
+}
+
+
+.benefits-heading .home-eyebrow::before {
+  display: none;
+}
+
+
+.benefits-heading h2 {
+  font-size: 24px;
+}
+
+
+.benefits-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 0;
+}
+
+
+.benefit-card {
+  display: flex;
+  align-items: center;
+
+  gap: 15px;
+
+  min-height: 62px;
+
+  padding: 0 30px;
+
+  border-left: 1px solid #dbe2ea;
+}
+
+
+.benefit-card:first-child {
   border-left: none;
 }
 
-.promise-strip strong {
-  font-family: var(--font-display);
-  font-size: 15px;
-  font-weight: 600;
+
+.benefit-icon {
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #dbeafe;
+
+  color: #2563eb;
+
+  font-size: 14px;
 }
 
-.promise-strip span {
-  font-size: 12.5px;
-  color: var(--ink-soft);
+
+.benefit-card h3 {
+  margin: 0;
+
+  color: #172033;
+
+  font-size: 12px;
+  font-weight: 800;
 }
 
-@media (max-width: 1000px) {
-  .product-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
 
-  .category-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.benefit-card p {
+  margin: 4px 0 0;
+
+  color: #64748b;
+
+  font-size: 10.5px;
+
+  line-height: 1.4;
 }
 
-@media (max-width: 700px) {
-  .product-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+
+/* =========================================================
+   NEW ARRIVALS
+========================================================= */
+
+.arrivals-section {
+  background: #ffffff;
+}
+
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+.home-final-cta {
+  width: 100%;
+
+  padding: 60px 25px;
+
+  box-sizing: border-box;
+
+  text-align: center;
+
+  background: #eef3f8;
+
+  border-top: 1px solid #dbe2ea;
+}
+
+
+.home-final-cta .home-eyebrow {
+  justify-content: center;
+}
+
+
+.home-final-cta .home-eyebrow::before {
+  display: none;
+}
+
+
+.home-final-cta h2 {
+  margin: 8px 0 20px;
+
+  color: #0f1f3d;
+
+  font-size: clamp(28px, 4vw, 40px);
+
+  font-weight: 800;
+
+  line-height: 1.08;
+
+  letter-spacing: -1px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+  .home-category-grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
   }
 
-  .home-section,
-  .categories {
-    padding: 56px 20px;
+
+  .home-category-card {
+    height: 250px;
   }
 
-  .promise-strip {
+
+  .home-product-grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+}
+
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+========================================================= */
+
+@media (max-width: 850px) {
+
+  .home-hero {
+    min-height: 470px;
+
+    padding-left: 35px;
+    padding-right: 35px;
+  }
+
+
+  .hero-season-card {
+    right: 35px;
+  }
+
+
+  .home-section {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+
+  .category-section {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+
+  .home-benefits {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+
+
+  .home-category-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+
+  .home-product-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+
+  .benefits-grid {
     grid-template-columns: 1fr;
   }
 
-  .promise-strip > div {
+
+  .benefit-card {
+    padding: 17px 0;
+
     border-left: none;
-    border-top: 1px solid var(--line);
-    padding: 22px 20px;
+
+    border-top: 1px solid #dbe2ea;
   }
 
-  .promise-strip > div:first-child {
+
+  .benefit-card:first-child {
     border-top: none;
   }
+
 }
 
-@media (max-width: 500px) {
-  .hero {
-    min-height: 460px;
-    padding: 40px 20px;
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .home-hero {
+    min-height: 520px;
+
+    padding: 45px 22px;
+
+    align-items: center;
+
+    background-position: 62% center;
   }
 
-  .category-grid {
-    grid-template-columns: 1fr 1fr;
+
+  .home-hero-overlay {
+    background:
+      linear-gradient(
+        90deg,
+        rgba(15, 31, 61, 0.97),
+        rgba(15, 31, 61, 0.76)
+      );
+  }
+
+
+  .home-hero-content {
+    max-width: 100%;
+  }
+
+
+  .home-hero h1 {
+    margin-top: 13px;
+
+    font-size: 40px;
+
+    letter-spacing: -1.2px;
+  }
+
+
+  .home-hero-description {
+    max-width: 350px;
+
+    font-size: 12.5px;
+  }
+
+
+  .home-hero-actions {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    max-width: 260px;
+  }
+
+
+  .home-primary-button,
+  .home-secondary-button {
+    width: 100%;
+  }
+
+
+  .hero-season-card {
+    display: none;
+  }
+
+
+  .home-section {
+    padding: 48px 20px;
+  }
+
+
+  .category-section {
+    padding: 45px 20px;
+  }
+
+
+  .home-section-header {
+    align-items: flex-start;
+
+    margin-bottom: 23px;
+  }
+
+
+  .home-section-header h2 {
+    font-size: 23px;
+  }
+
+
+  .section-description {
+    font-size: 11px;
+  }
+
+
+  .home-category-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+  }
+
+
+  .home-category-card {
+    height: 205px;
+
+    border-radius: 7px;
+  }
+
+
+  .category-overlay {
+    padding: 13px;
+  }
+
+
+  .category-overlay h3 {
+    font-size: 15px;
+  }
+
+
+  .category-overlay span {
+    font-size: 8px;
+  }
+
+
+  .home-product-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
     gap: 12px;
   }
 
-  .category-tile {
-    height: 220px;
+
+  .home-promo {
+    min-height: 310px;
+
+    padding: 40px 22px;
   }
+
+
+  .home-promo h2 {
+    font-size: 30px;
+  }
+
+
+  .home-benefits {
+    padding: 45px 20px;
+  }
+
+
+  .benefits-heading {
+    margin-bottom: 20px;
+  }
+
+
+  .benefits-heading h2 {
+    font-size: 21px;
+  }
+
+
+  .benefit-card {
+    gap: 12px;
+
+    min-height: auto;
+  }
+
+
+  .benefit-icon {
+    width: 34px;
+    height: 34px;
+
+    font-size: 12px;
+  }
+
+
+  .home-final-cta {
+    padding: 50px 20px;
+  }
+
+
+  .home-final-cta h2 {
+    font-size: 30px;
+  }
+
 }
 
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
 @media (max-width: 380px) {
-  .product-grid {
-    grid-template-columns: 1fr;
+
+  .home-hero h1 {
+    font-size: 35px;
   }
+
+
+  .home-category-grid {
+    gap: 8px;
+  }
+
+
+  .home-category-card {
+    height: 185px;
+  }
+
+
+  .home-product-grid {
+    gap: 10px;
+  }
+
+
+  .home-section-header {
+    gap: 12px;
+  }
+
+
+  .text-link {
+    font-size: 9px;
+  }
+
 }

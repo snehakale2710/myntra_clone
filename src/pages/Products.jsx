@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-
 import ProductCard from "../components/ProductCard";
-import PageTitle from "../components/PageTitle";
 
 import "./Products.css";
 
@@ -13,24 +11,22 @@ function Products({
   addToWishlist,
   addToCart,
 }) {
-  // ============================================
-  // Products from Flask + MongoDB
-  // ============================================
+  // =====================================================
+  // STATE
+  // =====================================================
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   const [subCategory, setSubCategory] = useState("All");
-
   const [sort, setSort] = useState("default");
-
   const [maxPrice, setMaxPrice] = useState("All");
   const [minimumRating, setMinimumRating] = useState("All");
 
-  // ============================================
-  // Fetch products from Flask API
-  // ============================================
+  // =====================================================
+  // FETCH PRODUCTS
+  // =====================================================
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -53,7 +49,7 @@ function Products({
         console.error("Product fetch error:", err);
 
         setError(
-          "Unable to load products. Please try again."
+          "Unable to load products. Please check that the backend server is running."
         );
       } finally {
         setLoading(false);
@@ -63,20 +59,11 @@ function Products({
     fetchProducts();
   }, []);
 
-  // ============================================
-  // Category Data
-  // ============================================
+  // =====================================================
+  // SUBCATEGORY DATA
+  // =====================================================
 
   const categoryData = {
-    All: [
-      "All",
-      "Men",
-      "Women",
-      "Kids",
-      "Beauty",
-      "Accessories",
-    ],
-
     Men: [
       "All",
       "T-Shirts",
@@ -169,17 +156,17 @@ function Products({
     ],
   };
 
-  // ============================================
-  // Reset subcategory when category changes
-  // ============================================
+  // =====================================================
+  // RESET SUBCATEGORY
+  // =====================================================
 
   useEffect(() => {
     setSubCategory("All");
   }, [category]);
 
-  // ============================================
-  // Category Change
-  // ============================================
+  // =====================================================
+  // CATEGORY CHANGE
+  // =====================================================
 
   const handleCategoryChange = (value) => {
     setCategory(value);
@@ -191,27 +178,22 @@ function Products({
     });
   };
 
-  // ============================================
-  // Filter + Sort Products
-  // ============================================
+  // =====================================================
+  // FILTER + SORT
+  // =====================================================
 
   const filteredProducts = useMemo(() => {
-    const search =
-      searchTerm?.trim().toLowerCase() || "";
+    const search = searchTerm?.trim().toLowerCase() || "";
 
     let result = products.filter((product) => {
-      const name =
-        product.name?.toLowerCase() || "";
-
-      const brand =
-        product.brand?.toLowerCase() || "";
-
+      const name = product.name?.toLowerCase() || "";
+      const brand = product.brand?.toLowerCase() || "";
       const mainCategory =
         product.category?.toLowerCase() || "";
-
       const sub =
         product.subcategory?.toLowerCase() || "";
 
+      // SEARCH
       const matchesSearch =
         !search ||
         name.includes(search) ||
@@ -219,20 +201,24 @@ function Products({
         mainCategory.includes(search) ||
         sub.includes(search);
 
+      // MAIN CATEGORY
       const matchesCategory =
         category === "All" ||
         product.category?.toLowerCase() ===
           category.toLowerCase();
 
+      // SUBCATEGORY
       const matchesSubCategory =
         subCategory === "All" ||
         product.subcategory?.toLowerCase() ===
           subCategory.toLowerCase();
 
+      // PRICE
       const matchesPrice =
         maxPrice === "All" ||
         Number(product.price) <= Number(maxPrice);
 
+      // RATING
       const matchesRating =
         minimumRating === "All" ||
         Number(product.rating || 0) >=
@@ -247,7 +233,7 @@ function Products({
       );
     });
 
-    // Price: Low to High
+    // SORTING
     if (sort === "low") {
       result.sort(
         (a, b) =>
@@ -255,7 +241,6 @@ function Products({
       );
     }
 
-    // Price: High to Low
     if (sort === "high") {
       result.sort(
         (a, b) =>
@@ -263,7 +248,6 @@ function Products({
       );
     }
 
-    // Highest Discount
     if (sort === "discount") {
       result.sort(
         (a, b) =>
@@ -272,11 +256,11 @@ function Products({
       );
     }
 
-    // Newest
     if (sort === "newest") {
       result.sort(
         (a, b) =>
-          Number(b.id) - Number(a.id)
+          Number(b.id || 0) -
+          Number(a.id || 0)
       );
     }
 
@@ -291,61 +275,9 @@ function Products({
     minimumRating,
   ]);
 
-  // ============================================
-  // Page Title
-  // ============================================
-
-  const getTitle = () => {
-    if (searchTerm?.trim()) {
-      return `Search results for "${searchTerm}"`;
-    }
-
-    if (subCategory !== "All") {
-      return subCategory;
-    }
-
-    if (category !== "All") {
-      return category;
-    }
-
-    return "Shop All";
-  };
-
-  // ============================================
-  // Page Description
-  // ============================================
-
-  const getDescription = () => {
-    if (searchTerm?.trim()) {
-      return `Discover products matching "${searchTerm}".`;
-    }
-
-    if (category === "Men") {
-      return "Explore the latest styles for men.";
-    }
-
-    if (category === "Women") {
-      return "Discover modern styles made for every occasion.";
-    }
-
-    if (category === "Kids") {
-      return "Fun, comfortable and stylish looks for kids.";
-    }
-
-    if (category === "Beauty") {
-      return "Beauty essentials to complete your everyday look.";
-    }
-
-    if (category === "Accessories") {
-      return "Complete your outfit with the perfect accessories.";
-    }
-
-    return "Discover fashion, beauty and accessories at STYLEHUB.";
-  };
-
-  // ============================================
-  // Clear Filters
-  // ============================================
+  // =====================================================
+  // CLEAR FILTERS
+  // =====================================================
 
   const clearFilters = () => {
     setCategory("All");
@@ -355,12 +287,36 @@ function Products({
     setMinimumRating("All");
   };
 
-  // ============================================
-  // UI
-  // ============================================
+  // =====================================================
+  // PRODUCT HEADING
+  // =====================================================
+
+  const getProductHeading = () => {
+    if (searchTerm?.trim()) {
+      return "Search results";
+    }
+
+    if (subCategory !== "All") {
+      return subCategory;
+    }
+
+    if (category === "All") {
+      return "Trending styles";
+    }
+
+    return `Latest in ${category}`;
+  };
+
+  // =====================================================
+  // RENDER
+  // =====================================================
 
   return (
     <main className="products-page">
+
+      {/* =================================================
+          BREADCRUMB
+      ================================================= */}
 
       <div className="products-breadcrumb">
 
@@ -368,7 +324,7 @@ function Products({
           Home
         </button>
 
-        <span>/</span>
+        <span>›</span>
 
         <span>
           {category === "All"
@@ -378,36 +334,227 @@ function Products({
 
         {subCategory !== "All" && (
           <>
-            <span>/</span>
-            <span>{subCategory}</span>
+            <span>›</span>
+
+            <span>
+              {subCategory}
+            </span>
           </>
         )}
 
       </div>
 
-      <section className="products-header">
 
-        <PageTitle
-          eyebrow="STYLEHUB COLLECTION"
-          title={getTitle()}
-          description={getDescription()}
-          count={filteredProducts.length}
-        />
+      {/* =================================================
+          SUBCATEGORY NAVIGATION
+      ================================================= */}
 
-        <div className="sort-wrapper">
+      {category !== "All" &&
+        categoryData[category] && (
+          <section className="subcategory-section">
 
-          <label>
-            Sort By
-          </label>
+            <div className="subcat-header">
+
+              <div>
+                <span className="subcat-eyebrow">
+                  EXPLORE
+                </span>
+
+                <strong>
+                  {category}
+                </strong>
+              </div>
+
+              <span className="subcat-count">
+                {categoryData[category].length - 1} categories
+              </span>
+
+            </div>
+
+            <div className="subcategory-scroll">
+
+              {categoryData[category].map(
+                (item) => (
+                  <button
+                    key={item}
+                    className={
+                      subCategory === item
+                        ? "active"
+                        : ""
+                    }
+                    onClick={() =>
+                      setSubCategory(item)
+                    }
+                  >
+                    {item}
+                  </button>
+                )
+              )}
+
+            </div>
+
+          </section>
+        )}
+
+
+      {/* =================================================
+          PRODUCT SECTION HEADING
+      ================================================= */}
+
+      <section className="product-heading">
+
+        <div>
+
+          <div className="product-heading-eyebrow">
+            {category === "All"
+              ? "STYLEHUB EDIT"
+              : `${category} EDIT`}
+          </div>
+
+          <h2>
+            {getProductHeading()}
+          </h2>
+
+          {searchTerm?.trim() && (
+            <p className="search-result-text">
+              Showing products matching your search
+            </p>
+          )}
+
+        </div>
+
+        <div className="product-count">
+
+          <strong>
+            {filteredProducts.length}
+          </strong>
+
+          <span>
+            {filteredProducts.length === 1
+              ? "style"
+              : "styles"}
+          </span>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          ACTIVE FILTERS + FILTER OPTIONS
+      ================================================= */}
+
+      <div className="active-filter-row">
+
+        <span className="active-filter-label">
+          Active filters:
+        </span>
+
+
+        {/* CATEGORY */}
+
+        {category !== "All" && (
+          <button
+            className="filter-chip"
+            onClick={() =>
+              handleCategoryChange("All")
+            }
+          >
+            {category} ×
+          </button>
+        )}
+
+
+        {/* SUBCATEGORY */}
+
+        {subCategory !== "All" && (
+          <button
+            className="filter-chip"
+            onClick={() =>
+              setSubCategory("All")
+            }
+          >
+            {subCategory} ×
+          </button>
+        )}
+
+
+        {/* PRICE */}
+
+        <label className="filter-control">
+
+          <select
+            value={maxPrice}
+            onChange={(e) =>
+              setMaxPrice(e.target.value)
+            }
+            aria-label="Filter by price"
+          >
+
+            <option value="All">
+              Price
+            </option>
+
+            <option value="750">
+              Under ₹750
+            </option>
+
+            <option value="1500">
+              Under ₹1,500
+            </option>
+
+            <option value="2500">
+              Under ₹2,500
+            </option>
+
+          </select>
+
+        </label>
+
+
+        {/* RATING */}
+
+        <label className="filter-control">
+
+          <select
+            value={minimumRating}
+            onChange={(e) =>
+              setMinimumRating(e.target.value)
+            }
+            aria-label="Filter by rating"
+          >
+
+            <option value="All">
+              Rating
+            </option>
+
+            <option value="4">
+              4.0 & above
+            </option>
+
+            <option value="4.5">
+              4.5 & above
+            </option>
+
+          </select>
+
+        </label>
+
+
+        {/* SORT */}
+
+        <label className="filter-control">
 
           <select
             value={sort}
             onChange={(e) =>
               setSort(e.target.value)
             }
+            aria-label="Sort products"
           >
+
             <option value="default">
-              Recommended
+              Sort by
             </option>
 
             <option value="newest">
@@ -425,202 +572,93 @@ function Products({
             <option value="discount">
               Highest Discount
             </option>
+
           </select>
 
-        </div>
-
-      </section>
-
-      <section
-        className="catalogue-filters"
-        aria-label="Product filters"
-      >
-
-        <label>
-          Price
-
-          <select
-            value={maxPrice}
-            onChange={(e) =>
-              setMaxPrice(e.target.value)
-            }
-          >
-            <option value="All">
-              Any price
-            </option>
-
-            <option value="750">
-              Under ₹750
-            </option>
-
-            <option value="1500">
-              Under ₹1,500
-            </option>
-
-            <option value="2500">
-              Under ₹2,500
-            </option>
-          </select>
         </label>
 
-        <label>
-          Customer rating
 
-          <select
-            value={minimumRating}
-            onChange={(e) =>
-              setMinimumRating(e.target.value)
-            }
-          >
-            <option value="All">
-              Any rating
-            </option>
-
-            <option value="4">
-              4.0 & above
-            </option>
-
-            <option value="4.5">
-              4.5 & above
-            </option>
-          </select>
-        </label>
-
-      </section>
-
-      <section className="category-section">
-
-        <div className="category-heading">
-          SHOP BY CATEGORY
-        </div>
-
-        <div className="main-categories">
-
-          {categoryData.All.map((item) => (
-            <button
-              key={item}
-              className={
-                category === item
-                  ? "active"
-                  : ""
-              }
-              onClick={() =>
-                handleCategoryChange(item)
-              }
-            >
-              {item}
-            </button>
-          ))}
-
-        </div>
-
-      </section>
-
-      {category !== "All" && (
-        <section className="subcategory-section">
-
-          <div className="subcategory-scroll">
-
-            {categoryData[category].map(
-              (item) => (
-                <button
-                  key={item}
-                  className={
-                    subCategory === item
-                      ? "active"
-                      : ""
-                  }
-                  onClick={() =>
-                    setSubCategory(item)
-                  }
-                >
-                  {item}
-                </button>
-              )
-            )}
-
-          </div>
-
-        </section>
-      )}
-
-      <div className="products-toolbar">
-
-        <span>
-          <strong>
-            {filteredProducts.length}
-          </strong>{" "}
-          styles available
-        </span>
+        {/* CLEAR ALL */}
 
         {(category !== "All" ||
           subCategory !== "All" ||
-          searchTerm ||
           maxPrice !== "All" ||
-          minimumRating !== "All") && (
+          minimumRating !== "All" ||
+          sort !== "default") && (
 
           <button
-            className="clear-filters"
+            className="clear-all"
             onClick={clearFilters}
           >
-            Clear Filters ×
+            Clear all
           </button>
 
         )}
 
       </div>
 
-      {/* ============================================
-          Loading State
-          ============================================ */}
 
-      {loading ? (
+      {/* =================================================
+          LOADING
+      ================================================= */}
 
-        <section className="no-products">
+      {loading && (
+        <section className="product-state">
 
-          <h2>
-            Loading products...
-          </h2>
+          <div className="loading-spinner"></div>
+
+          <h3>
+            Curating your styles...
+          </h3>
 
           <p>
-            Please wait while we load the latest products.
+            Please wait while we load the latest
+            collection.
           </p>
 
         </section>
+      )}
 
-      ) : error ? (
 
-        /* ============================================
-           Error State
-           ============================================ */
+      {/* =================================================
+          ERROR
+      ================================================= */}
 
-        <section className="no-products">
+      {!loading && error && (
+        <section className="product-state">
 
-          <div className="no-products-icon">
+          <div className="state-icon">
             !
           </div>
 
-          <h2>
+          <h3>
             Something went wrong
-          </h2>
+          </h3>
 
           <p>
             {error}
           </p>
 
           <button
-            onClick={() => window.location.reload()}
+            className="state-button"
+            onClick={() =>
+              window.location.reload()
+            }
           >
             Try Again
           </button>
 
         </section>
+      )}
 
-      ) : filteredProducts.length > 0 ? (
 
-        /* ============================================
-           Products
-           ============================================ */
+      {/* =================================================
+          PRODUCT GRID
+      ================================================= */}
+
+      {!loading &&
+        !error &&
+        filteredProducts.length > 0 && (
 
         <section className="product-grid">
 
@@ -631,9 +669,7 @@ function Products({
                 key={product.id}
                 product={product}
                 setPage={setPage}
-                addToWishlist={
-                  addToWishlist
-                }
+                addToWishlist={addToWishlist}
                 addToCart={addToCart}
               />
 
@@ -641,34 +677,40 @@ function Products({
           )}
 
         </section>
+      )}
 
-      ) : (
 
-        /* ============================================
-           No Products
-           ============================================ */
+      {/* =================================================
+          EMPTY STATE
+      ================================================= */}
 
-        <section className="no-products">
+      {!loading &&
+        !error &&
+        filteredProducts.length === 0 && (
 
-          <div className="no-products-icon">
+        <section className="product-state">
+
+          <div className="state-icon heart">
             ♡
           </div>
 
-          <h2>
-            No products found
-          </h2>
+          <h3>
+            No styles found
+          </h3>
 
           <p>
-            We couldn't find anything matching
-            your selection.
+            We couldn't find products matching
+            your current selection.
           </p>
 
-          <button onClick={clearFilters}>
+          <button
+            className="state-button"
+            onClick={clearFilters}
+          >
             View All Products
           </button>
 
         </section>
-
       )}
 
     </main>

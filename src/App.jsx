@@ -497,6 +497,7 @@ function App() {
         return (
           <Wishlist
             setPage={handleSetPage}
+            wishlist={wishlist}
             addToWishlist={addToWishlist}
             addToCart={addToCart}
           />
@@ -594,7 +595,9 @@ function App() {
       </main>
 
       {/* FOOTER */}
-      {isLoggedIn && <Footer />}
+      {isLoggedIn && (
+        <Footer setPage={handleSetPage} />
+      )}
 
     </div>
   );

@@ -10,7 +10,7 @@
 .auth-card {
   width: 900px;
   max-width: 100%;
-  min-height: 560px;
+  min-height: 540px;
   background: var(--paper);
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -20,10 +20,9 @@
 }
 
 .auth-left {
-  background:
-    linear-gradient(
-      rgba(20, 18, 17, 0.55),
-      rgba(20, 18, 17, 0.7)
+  background: linear-gradient(
+      rgba(23, 21, 28, 0.5),
+      rgba(214, 18, 87, 0.55)
     ),
     url("https://images.unsplash.com/photo-1445205170230-053b83016050?w=900")
       center/cover;
@@ -35,45 +34,47 @@
 }
 
 .auth-left h1 {
-  font-size: 42px;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: 38px;
+  font-weight: 800;
 }
 
 .auth-left h1 span {
-  color: #e9c8ce;
-  font-style: italic;
+  color: #ffc9dc;
 }
 
 .auth-left p {
-  color: #d8d2c9;
+  color: #ece9ee;
   margin-top: 14px;
   font-size: 14px;
 }
 
 .auth-right {
-  padding: 60px 56px;
+  padding: 56px 52px;
 }
 
 .auth-right h2 {
-  font-size: 26px;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
   margin-top: 8px;
+  color: var(--ink);
 }
 
 .auth-right > p:not(.eyebrow) {
   color: var(--ink-soft);
-  margin: 12px 0 28px;
+  margin: 12px 0 26px;
   font-size: 13.5px;
 }
 
 .auth-right form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 15px;
 }
 
 .auth-right input {
-  padding: 15px;
+  padding: 14px;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-s);
   outline: none;
@@ -82,29 +83,29 @@
 }
 
 .auth-right input:focus {
-  border-color: var(--ink);
+  border-color: var(--brand);
 }
 
 .auth-right form button {
   padding: 15px;
-  background: var(--ink);
+  background: var(--brand);
   color: var(--paper);
   border: none;
   border-radius: var(--radius-s);
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 13px;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   margin-top: 6px;
   transition: background 0.2s ease;
 }
 
 .auth-right form button:hover {
-  background: var(--accent-dark);
+  background: var(--brand-dark);
 }
 
 .error {
-  background: var(--accent-soft);
+  background: #fce9ec;
   color: var(--danger);
   padding: 12px 14px;
   margin-bottom: 20px;
@@ -113,7 +114,7 @@
 }
 
 .switch {
-  margin-top: 26px !important;
+  margin-top: 24px !important;
   font-size: 13.5px;
   color: var(--ink-soft);
 }
@@ -121,9 +122,9 @@
 .switch button {
   border: none;
   background: transparent;
-  color: var(--accent);
+  color: var(--brand);
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 700;
   margin-left: 4px;
 }
 
@@ -143,32 +144,21 @@
   }
 
   .auth-right {
-    padding: 48px 24px;
+    padding: 44px 22px;
   }
 }
-.forgot-password {
-  text-align: right;
-  margin: -5px 0 18px;
-  color: #ff3f6c;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: 0.3s;
-}
 
-.forgot-password:hover {
-  text-decoration: underline;
-}
 .forgot-password {
   display: block;
-  margin: 5px 0 18px auto;
+  margin: -5px 0 18px auto;
   padding: 0;
   border: none;
   background: none;
-  color: #ff3f6c;
+  color: var(--brand);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
+  text-align: right;
 }
 
 .forgot-password:hover {

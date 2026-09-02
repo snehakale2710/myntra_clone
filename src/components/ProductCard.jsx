@@ -8,6 +8,7 @@ function ProductCard({
   setPage,
   addToWishlist,
   addToCart,
+  isWishlistPage = false,
 }) {
   const wishlist = getUserData("wishlist", []);
 
@@ -26,7 +27,6 @@ function ProductCard({
 
   return (
     <article className="product-card">
-
       <div
         className="product-image-wrap"
         onClick={openDetails}
@@ -42,7 +42,6 @@ function ProductCard({
           }
         }}
       >
-
         <img
           src={product.image}
           alt={product.name}
@@ -72,11 +71,9 @@ function ProductCard({
         >
           {isWishlisted ? "♥" : "♡"}
         </button>
-
       </div>
 
       <div className="product-info">
-
         <p className="product-brand">
           {product.brand}
         </p>
@@ -93,7 +90,6 @@ function ProductCard({
         </p>
 
         <div className="product-price">
-
           <strong>
             ₹
             {Number(product.price).toLocaleString(
@@ -109,18 +105,18 @@ function ProductCard({
               ).toLocaleString("en-IN")}
             </del>
           )}
-
         </div>
 
-        <button
-          className="product-add"
-          onClick={() => addToCart(product)}
-        >
-          ADD TO BAG
-        </button>
-
+        {!isWishlistPage && (
+          <button
+            type="button"
+            className="product-add"
+            onClick={() => addToCart(product)}
+          >
+            ADD TO BAG
+          </button>
+        )}
       </div>
-
     </article>
   );
 }
