@@ -1,3 +1,4 @@
+
 /* =========================================================
    STYLEHUB HOME PAGE
    NAVY / BLUE / SLATE
@@ -17,14 +18,12 @@
 
 .home-hero {
   position: relative;
-
   min-height: 500px;
 
   display: flex;
   align-items: center;
 
   padding: 70px 7vw;
-
   box-sizing: border-box;
 
   background-image:
@@ -35,16 +34,11 @@
   background-repeat: no-repeat;
 
   color: #ffffff;
-
   overflow: hidden;
 }
 
-
-/* DARK NAVY OVERLAY */
-
 .home-hero-overlay {
   position: absolute;
-
   inset: 0;
 
   background:
@@ -57,16 +51,11 @@
     );
 }
 
-
-/* HERO CONTENT */
-
 .home-hero-content {
   position: relative;
   z-index: 2;
-
   max-width: 610px;
 }
-
 
 .home-eyebrow {
   display: flex;
@@ -80,10 +69,8 @@
   font-weight: 800;
 
   letter-spacing: 1.5px;
-
   line-height: 1.3;
 }
-
 
 .home-eyebrow::before {
   content: "";
@@ -96,18 +83,18 @@
   background: #2563eb;
 }
 
-
 .home-eyebrow-light {
   color: #60a5fa;
 }
-
 
 .home-eyebrow-light::before {
   background: #60a5fa;
 }
 
 
-/* HERO TITLE */
+/* =========================================================
+   HERO TITLE
+========================================================= */
 
 .home-hero h1 {
   margin: 16px 0 17px;
@@ -115,21 +102,20 @@
   color: #ffffff;
 
   font-size: clamp(38px, 5vw, 62px);
-
   font-weight: 800;
 
   line-height: 1.02;
-
   letter-spacing: -1.8px;
 }
-
 
 .home-hero h1 span {
   color: #60a5fa;
 }
 
 
-/* HERO DESCRIPTION */
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
 
 .home-hero-description {
   max-width: 470px;
@@ -139,22 +125,21 @@
   color: #d1dae6;
 
   font-size: 14px;
-
   line-height: 1.7;
 }
 
 
-/* HERO BUTTONS */
+/* =========================================================
+   HERO BUTTONS
+========================================================= */
 
 .home-hero-actions {
   display: flex;
   align-items: center;
 
   gap: 12px;
-
   margin-top: 28px;
 }
-
 
 .home-primary-button,
 .home-secondary-button {
@@ -187,7 +172,6 @@
     color 0.2s ease;
 }
 
-
 .home-primary-button {
   gap: 10px;
 
@@ -198,7 +182,6 @@
   color: #ffffff;
 }
 
-
 .home-primary-button:hover {
   background: #1d4ed8;
 
@@ -206,7 +189,6 @@
 
   transform: translateY(-2px);
 }
-
 
 .home-secondary-button {
   border: 1px solid rgba(255, 255, 255, 0.35);
@@ -218,7 +200,6 @@
   backdrop-filter: blur(5px);
 }
 
-
 .home-secondary-button:hover {
   border-color: #ffffff;
 
@@ -228,7 +209,9 @@
 }
 
 
-/* HERO SEASON CARD */
+/* =========================================================
+   HERO SEASON CARD
+========================================================= */
 
 .hero-season-card {
   position: absolute;
@@ -243,6 +226,7 @@
 
   display: flex;
   flex-direction: column;
+
   align-items: center;
   justify-content: center;
 
@@ -257,7 +241,6 @@
   text-align: center;
 }
 
-
 .hero-season-card span {
   margin-bottom: 4px;
 
@@ -268,7 +251,6 @@
 
   letter-spacing: 1px;
 }
-
 
 .hero-season-card strong {
   color: #ffffff;
@@ -297,9 +279,9 @@
   box-sizing: border-box;
 }
 
-
 .home-section-header {
   display: flex;
+
   align-items: flex-end;
   justify-content: space-between;
 
@@ -308,11 +290,9 @@
   margin-bottom: 30px;
 }
 
-
 .home-section-header > div {
   min-width: 0;
 }
-
 
 .home-section-header h2,
 .benefits-heading h2 {
@@ -328,7 +308,6 @@
 
   letter-spacing: -0.7px;
 }
-
 
 .section-description {
   margin: 8px 0 0;
@@ -350,17 +329,20 @@
   -webkit-appearance: none;
 
   display: inline-flex;
+
   align-items: center;
 
   gap: 8px;
 
   padding: 0 !important;
+
   margin: 0;
 
   border: none !important;
   outline: none !important;
 
   background: transparent !important;
+
   box-shadow: none !important;
 
   color: #2563eb;
@@ -380,7 +362,6 @@
     color 0.2s ease,
     gap 0.2s ease;
 }
-
 
 .text-link:hover {
   color: #1d4ed8;
@@ -405,7 +386,6 @@
   padding-right: max(45px, calc((100vw - 1190px) / 2));
 }
 
-
 .home-category-grid {
   display: grid;
 
@@ -416,7 +396,9 @@
 }
 
 
-/* CATEGORY CARD */
+/* =========================================================
+   CATEGORY CARD
+========================================================= */
 
 .home-category-card {
   position: relative;
@@ -444,7 +426,6 @@
     box-shadow 0.25s ease;
 }
 
-
 .home-category-card:hover {
   transform: translateY(-4px);
 
@@ -453,7 +434,9 @@
 }
 
 
-/* CATEGORY IMAGE */
+/* =========================================================
+   CATEGORY IMAGE
+========================================================= */
 
 .category-image {
   position: absolute;
@@ -462,7 +445,6 @@
 
   background: #dfe6ee;
 }
-
 
 .category-image img {
   width: 100%;
@@ -476,13 +458,14 @@
     transform 0.5s ease;
 }
 
-
 .home-category-card:hover .category-image img {
   transform: scale(1.06);
 }
 
 
-/* CATEGORY OVERLAY */
+/* =========================================================
+   CATEGORY OVERLAY
+========================================================= */
 
 .category-overlay {
   position: absolute;
@@ -490,6 +473,7 @@
   inset: 0;
 
   display: flex;
+
   align-items: flex-end;
 
   padding: 18px;
@@ -507,7 +491,6 @@
   color: #ffffff;
 }
 
-
 .category-overlay h3 {
   margin: 0;
 
@@ -519,9 +502,9 @@
   line-height: 1.1;
 }
 
-
 .category-overlay span {
   display: flex;
+
   align-items: center;
 
   gap: 6px;
@@ -542,7 +525,6 @@
     transform 0.2s ease;
 }
 
-
 .home-category-card:hover .category-overlay span {
   opacity: 1;
 
@@ -559,15 +541,20 @@
 }
 
 
+/* =========================================================
+   HOME PRODUCT GRID
+   SMALLER PRODUCT CARDS
+========================================================= */
+
 .home-product-grid {
   display: grid;
 
+  /* 6 smaller cards on desktop */
   grid-template-columns:
     repeat(4, minmax(0, 1fr));
 
-  gap: 18px;
+  gap: 14px;
 }
-
 
 .home-product-grid .product-card {
   min-width: 0;
@@ -584,6 +571,7 @@
   min-height: 300px;
 
   display: flex;
+
   align-items: center;
 
   padding: 45px 7vw;
@@ -600,19 +588,17 @@
     url("https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=85");
 
   background-position: center;
+
   background-size: cover;
 }
-
 
 .home-promo-content {
   max-width: 520px;
 }
 
-
 .home-promo .home-eyebrow {
   margin-bottom: 10px;
 }
-
 
 .home-promo h2 {
   margin: 0;
@@ -628,7 +614,6 @@
   letter-spacing: -1px;
 }
 
-
 .home-promo-content > p:not(.home-eyebrow) {
   max-width: 420px;
 
@@ -641,13 +626,13 @@
   line-height: 1.6;
 }
 
-
 .home-promo button,
 .home-final-cta button {
   appearance: none;
   -webkit-appearance: none;
 
   display: inline-flex;
+
   align-items: center;
 
   gap: 9px;
@@ -676,7 +661,6 @@
     transform 0.2s ease;
 }
 
-
 .home-promo button:hover,
 .home-final-cta button:hover {
   background: #1d4ed8;
@@ -699,9 +683,9 @@
   background: #f8fafc;
 
   border-top: 1px solid #e2e8f0;
+
   border-bottom: 1px solid #e2e8f0;
 }
-
 
 .benefits-heading {
   margin-bottom: 27px;
@@ -709,21 +693,17 @@
   text-align: center;
 }
 
-
 .benefits-heading .home-eyebrow {
   justify-content: center;
 }
-
 
 .benefits-heading .home-eyebrow::before {
   display: none;
 }
 
-
 .benefits-heading h2 {
   font-size: 24px;
 }
-
 
 .benefits-grid {
   display: grid;
@@ -734,9 +714,9 @@
   gap: 0;
 }
 
-
 .benefit-card {
   display: flex;
+
   align-items: center;
 
   gap: 15px;
@@ -748,11 +728,9 @@
   border-left: 1px solid #dbe2ea;
 }
 
-
 .benefit-card:first-child {
   border-left: none;
 }
-
 
 .benefit-icon {
   width: 38px;
@@ -761,6 +739,7 @@
   flex-shrink: 0;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
@@ -773,7 +752,6 @@
   font-size: 14px;
 }
 
-
 .benefit-card h3 {
   margin: 0;
 
@@ -782,7 +760,6 @@
   font-size: 12px;
   font-weight: 800;
 }
-
 
 .benefit-card p {
   margin: 4px 0 0;
@@ -822,16 +799,13 @@
   border-top: 1px solid #dbe2ea;
 }
 
-
 .home-final-cta .home-eyebrow {
   justify-content: center;
 }
 
-
 .home-final-cta .home-eyebrow::before {
   display: none;
 }
-
 
 .home-final-cta h2 {
   margin: 8px 0 20px;
@@ -849,7 +823,7 @@
 
 
 /* =========================================================
-   TABLET
+   1100px
 ========================================================= */
 
 @media (max-width: 1100px) {
@@ -859,22 +833,37 @@
       repeat(3, minmax(0, 1fr));
   }
 
-
   .home-category-card {
     height: 250px;
   }
 
-
+  /* HOME PRODUCTS */
   .home-product-grid {
     grid-template-columns:
-      repeat(3, minmax(0, 1fr));
-  }
+      repeat(4, minmax(0, 1fr));
 
+    gap: 13px;
+  }
 }
 
 
 /* =========================================================
-   TABLET / SMALL LAPTOP
+   900px
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .home-product-grid {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+
+    gap: 12px;
+  }
+}
+
+
+/* =========================================================
+   850px
 ========================================================= */
 
 @media (max-width: 850px) {
@@ -886,46 +875,40 @@
     padding-right: 35px;
   }
 
-
   .hero-season-card {
     right: 35px;
   }
-
 
   .home-section {
     padding-left: 30px;
     padding-right: 30px;
   }
 
-
   .category-section {
     padding-left: 30px;
     padding-right: 30px;
   }
-
 
   .home-benefits {
     padding-left: 30px;
     padding-right: 30px;
   }
 
-
   .home-category-grid {
     grid-template-columns:
       repeat(2, minmax(0, 1fr));
   }
 
-
   .home-product-grid {
     grid-template-columns:
-      repeat(2, minmax(0, 1fr));
-  }
+      repeat(3, minmax(0, 1fr));
 
+    gap: 12px;
+  }
 
   .benefits-grid {
     grid-template-columns: 1fr;
   }
-
 
   .benefit-card {
     padding: 17px 0;
@@ -935,11 +918,9 @@
     border-top: 1px solid #dbe2ea;
   }
 
-
   .benefit-card:first-child {
     border-top: none;
   }
-
 }
 
 
@@ -959,7 +940,6 @@
     background-position: 62% center;
   }
 
-
   .home-hero-overlay {
     background:
       linear-gradient(
@@ -969,11 +949,9 @@
       );
   }
 
-
   .home-hero-content {
     max-width: 100%;
   }
-
 
   .home-hero h1 {
     margin-top: 13px;
@@ -983,13 +961,11 @@
     letter-spacing: -1.2px;
   }
 
-
   .home-hero-description {
     max-width: 350px;
 
     font-size: 12.5px;
   }
-
 
   .home-hero-actions {
     flex-direction: column;
@@ -999,27 +975,22 @@
     max-width: 260px;
   }
 
-
   .home-primary-button,
   .home-secondary-button {
     width: 100%;
   }
 
-
   .hero-season-card {
     display: none;
   }
-
 
   .home-section {
     padding: 48px 20px;
   }
 
-
   .category-section {
     padding: 45px 20px;
   }
-
 
   .home-section-header {
     align-items: flex-start;
@@ -1027,16 +998,13 @@
     margin-bottom: 23px;
   }
 
-
   .home-section-header h2 {
     font-size: 23px;
   }
 
-
   .section-description {
     font-size: 11px;
   }
-
 
   .home-category-grid {
     grid-template-columns:
@@ -1045,36 +1013,31 @@
     gap: 10px;
   }
 
-
   .home-category-card {
     height: 205px;
 
     border-radius: 7px;
   }
 
-
   .category-overlay {
     padding: 13px;
   }
-
 
   .category-overlay h3 {
     font-size: 15px;
   }
 
-
   .category-overlay span {
     font-size: 8px;
   }
 
-
+  /* MOBILE PRODUCTS */
   .home-product-grid {
     grid-template-columns:
       repeat(2, minmax(0, 1fr));
 
-    gap: 12px;
+    gap: 10px;
   }
-
 
   .home-promo {
     min-height: 310px;
@@ -1082,33 +1045,27 @@
     padding: 40px 22px;
   }
 
-
   .home-promo h2 {
     font-size: 30px;
   }
-
 
   .home-benefits {
     padding: 45px 20px;
   }
 
-
   .benefits-heading {
     margin-bottom: 20px;
   }
 
-
   .benefits-heading h2 {
     font-size: 21px;
   }
-
 
   .benefit-card {
     gap: 12px;
 
     min-height: auto;
   }
-
 
   .benefit-icon {
     width: 34px;
@@ -1117,16 +1074,13 @@
     font-size: 12px;
   }
 
-
   .home-final-cta {
     padding: 50px 20px;
   }
 
-
   .home-final-cta h2 {
     font-size: 30px;
   }
-
 }
 
 
@@ -1140,29 +1094,23 @@
     font-size: 35px;
   }
 
-
   .home-category-grid {
     gap: 8px;
   }
-
 
   .home-category-card {
     height: 185px;
   }
 
-
   .home-product-grid {
-    gap: 10px;
+    gap: 9px;
   }
-
 
   .home-section-header {
     gap: 12px;
   }
 
-
   .text-link {
     font-size: 9px;
   }
-
 }

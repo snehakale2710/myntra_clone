@@ -82,27 +82,10 @@ function Navbar({
 
 
   return (
+    <>
     <header className="navbar">
 
       <div className="navbar-inner">
-
-
-        {/* ==================================
-            BACK BUTTON
-        ================================== */}
-
-        {canGoBack && (
-
-          <button
-            className="navbar-back-button"
-            onClick={onBack}
-            title="Go to previous page"
-            aria-label="Go to previous page"
-          >
-            ←
-          </button>
-
-        )}
 
 
         {/* ==================================
@@ -500,6 +483,31 @@ function Navbar({
       )}
 
     </header>
+
+
+    {/* ==================================
+        BACK BAR — sits below the navbar,
+        not inside it
+    ================================== */}
+
+    {canGoBack && (
+
+      <div className="below-navbar-bar">
+
+        <button
+          className="below-navbar-back-button"
+          onClick={onBack}
+          title="Go to previous page"
+          aria-label="Go to previous page"
+        >
+          ← Back
+        </button>
+
+      </div>
+
+    )}
+
+    </>
   );
 }
 

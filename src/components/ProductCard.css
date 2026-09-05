@@ -1,19 +1,15 @@
+
 /* =========================================================
    PRODUCT CARD — STYLE HUB
-   NAVY / BLUE / SLATE THEME
+   COMPACT E-COMMERCE CARD
 ========================================================= */
 
 .product-card {
   min-width: 0;
-
   background: #dfe6ee;
-
   border: 1px solid #cbd5e1;
-
-  border-radius: 12px;
-
+  border-radius: 10px;
   overflow: hidden;
-
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease,
@@ -21,12 +17,9 @@
 }
 
 .product-card:hover {
-  transform: translateY(-4px);
-
+  transform: translateY(-3px);
   border-color: #b4c2d1;
-
-  box-shadow:
-    0 12px 28px rgba(15, 31, 61, 0.12);
+  box-shadow: 0 8px 20px rgba(15, 31, 61, 0.12);
 }
 
 
@@ -36,35 +29,24 @@
 
 .product-image-wrap {
   cursor: pointer;
-
   position: relative;
-
   width: 100%;
-
-  aspect-ratio: 0.78;
-
+  aspect-ratio: 0.82;
   overflow: hidden;
-
   background: #cbd5e1;
-
-  border-radius: 11px 11px 0 0;
+  border-radius: 9px 9px 0 0;
 }
 
 .product-image-wrap img {
   width: 100%;
-
   height: 100%;
-
   display: block;
-
   object-fit: cover;
-
-  transition:
-    transform 0.45s ease;
+  transition: transform 0.35s ease;
 }
 
 .product-image-wrap:hover img {
-  transform: scale(1.05);
+  transform: scale(1.04);
 }
 
 
@@ -74,25 +56,14 @@
 
 .product-discount {
   position: absolute;
-
-  left: 10px;
-
-  top: 10px;
-
-  padding: 5px 9px;
-
-  border-radius: 6px;
-
+  left: 8px;
+  top: 8px;
+  padding: 4px 7px;
+  border-radius: 5px;
   background: #0f1f3d;
-
   color: #ffffff;
-
-  font-size: 10px;
-
+  font-size: 9px;
   font-weight: 700;
-
-  box-shadow:
-    0 4px 10px rgba(15, 31, 61, 0.18);
 }
 
 
@@ -102,29 +73,22 @@
 
 .product-wishlist {
   position: absolute;
-
-  right: 10px;
-
-  top: 10px;
-
-  width: 34px;
-
-  height: 34px;
-
+  right: 8px;
+  top: 8px;
+  width: 30px;
+  height: 30px;
   border: 1px solid rgba(203, 213, 225, 0.9);
-
   border-radius: 50%;
-
   background: rgba(239, 244, 248, 0.94);
-
   color: #475569;
-
-  font-size: 18px;
-
+  font-size: 16px;
   cursor: pointer;
 
-  box-shadow:
-    0 4px 12px rgba(15, 31, 61, 0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 3px 8px rgba(15, 31, 61, 0.1);
 
   transition:
     color 0.2s ease,
@@ -133,18 +97,14 @@
 }
 
 .product-wishlist:hover {
-  transform: scale(1.08);
-
+  transform: scale(1.07);
   background: #ffffff;
-
   color: #2563eb;
 }
 
 .product-wishlist.wishlisted {
   color: #2563eb;
-
   background: #dbeafe;
-
   border-color: #bfdbfe;
 }
 
@@ -154,8 +114,7 @@
 ========================================================= */
 
 .product-info {
-  padding: 13px 13px 14px;
-
+  padding: 10px 11px 11px;
   background: #dfe6ee;
 }
 
@@ -165,14 +124,10 @@
 ========================================================= */
 
 .product-brand {
-  margin: 0 0 4px;
-
+  margin: 0 0 3px;
   color: #172033;
-
-  font-size: 12px;
-
+  font-size: 11px;
   font-weight: 800;
-
   letter-spacing: 0.01em;
 }
 
@@ -183,33 +138,26 @@
 
 .product-info h3 {
   margin: 0;
-
   color: #475569;
-
-  font-size: 13px;
-
+  font-size: 12px;
   font-weight: 500;
-
   cursor: pointer;
+  line-height: 1.3;
 
-  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .product-title-button {
   display: block;
-
   width: 100%;
-
   padding: 0;
-
   border: 0;
-
   background: transparent;
-
   color: inherit;
-
   text-align: left;
-
   cursor: pointer;
 }
 
@@ -223,20 +171,14 @@
 ========================================================= */
 
 .product-description {
-  margin: 6px 0;
-
+  margin: 5px 0;
   color: #64748b;
-
-  font-size: 11px;
-
-  line-height: 1.5;
+  font-size: 10px;
+  line-height: 1.4;
 
   display: -webkit-box;
-
   -webkit-line-clamp: 1;
-
   -webkit-box-orient: vertical;
-
   overflow: hidden;
 }
 
@@ -247,52 +189,40 @@
 
 .product-price {
   display: flex;
-
   align-items: center;
-
-  gap: 8px;
-
-  margin-top: 8px;
+  gap: 6px;
+  margin-top: 6px;
 }
 
 .product-price strong {
   color: #172033;
-
-  font-size: 14px;
-
+  font-size: 13px;
   font-weight: 800;
 }
 
 .product-price del {
   color: #64748b;
-
-  font-size: 11px;
+  font-size: 10px;
 }
 
 
 /* =========================================================
-   ADD TO BAG BUTTON
+   ADD TO BAG
 ========================================================= */
 
 .product-add {
   width: 100%;
-
-  margin-top: 10px;
-
-  padding: 10px;
+  margin-top: 8px;
+  padding: 8px;
 
   border: 1px solid #2563eb;
-
-  border-radius: 7px;
+  border-radius: 6px;
 
   background: #2563eb;
-
   color: #ffffff;
 
-  font-size: 11px;
-
+  font-size: 10px;
   font-weight: 700;
-
   letter-spacing: 0.03em;
 
   cursor: pointer;
@@ -305,9 +235,7 @@
 
 .product-add:hover {
   background: #1d4ed8;
-
   border-color: #1d4ed8;
-
   transform: translateY(-1px);
 }
 
@@ -323,15 +251,13 @@
 .product-title-button:focus-visible,
 .product-image-wrap:focus-visible {
   outline: 2px solid #2563eb;
-
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
 
 .product-wishlist:focus-visible,
 .product-add:focus-visible {
   outline: 2px solid #2563eb;
-
-  outline-offset: 3px;
+  outline-offset: 2px;
 }
 
 
@@ -342,66 +268,58 @@
 @media (max-width: 600px) {
 
   .product-card {
-    border-radius: 10px;
+    border-radius: 8px;
   }
 
   .product-image-wrap {
-    border-radius: 9px 9px 0 0;
+    border-radius: 7px 7px 0 0;
   }
 
   .product-info {
-    padding: 10px 10px 12px;
+    padding: 8px 9px 10px;
   }
 
   .product-brand {
-    font-size: 11px;
+    font-size: 10px;
   }
 
   .product-info h3 {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .product-description {
-    font-size: 10px;
+    font-size: 9px;
   }
 
   .product-price {
-    gap: 6px;
+    gap: 5px;
   }
 
   .product-price strong {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .product-price del {
-    font-size: 10px;
+    font-size: 9px;
   }
 
   .product-add {
-    font-size: 9.5px;
-
-    padding: 9px;
+    font-size: 9px;
+    padding: 7px;
   }
 
   .product-wishlist {
-    width: 31px;
-
-    height: 31px;
-
-    right: 8px;
-
-    top: 8px;
-
-    font-size: 16px;
+    width: 28px;
+    height: 28px;
+    right: 7px;
+    top: 7px;
+    font-size: 15px;
   }
 
   .product-discount {
-    left: 8px;
-
-    top: 8px;
-
-    padding: 4px 7px;
-
-    font-size: 9px;
+    left: 7px;
+    top: 7px;
+    padding: 3px 6px;
+    font-size: 8px;
   }
 }

@@ -401,8 +401,8 @@ function App() {
             item.id !== product.id
         )
       : [
-          ...currentWishlist,
           product,
+          ...currentWishlist,
         ];
 
     saveUserData(

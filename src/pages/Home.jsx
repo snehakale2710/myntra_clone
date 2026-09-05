@@ -11,12 +11,12 @@ import ProductCard from "../components/ProductCard";
 
 import "./Home.css";
 
-
 function Home({
   setPage,
   navigate,
   addToWishlist,
   addToCart,
+  wishlist,
 }) {
 
   // =========================================================
@@ -66,7 +66,6 @@ function Home({
 
   // =========================================================
   // CATEGORY DATA
-  // Uses your existing product images.
   // =========================================================
 
   const categories = useMemo(() => {
@@ -99,25 +98,62 @@ function Home({
 
   // =========================================================
   // TRENDING PRODUCTS
-  // Highest-rated products first
+  // Wishlisted products appear first.
+  // Most recently wishlisted product appears first.
+  // Remaining products are sorted by rating.
   // =========================================================
 
   const trendingProducts = useMemo(() => {
 
+    const wishlistIds =
+      (wishlist || []).map(
+        (item) => item.id
+      );
+
     return [...products]
-      .sort(
-        (a, b) =>
+      .sort((a, b) => {
+
+        const aIndex =
+          wishlistIds.indexOf(a.id);
+
+        const bIndex =
+          wishlistIds.indexOf(b.id);
+
+        // Both products are wishlisted
+        // Most recently wishlisted comes first
+        if (
+          aIndex !== -1 &&
+          bIndex !== -1
+        ) {
+          return bIndex - aIndex;
+        }
+
+        // Only A is wishlisted
+        if (aIndex !== -1) {
+          return -1;
+        }
+
+        // Only B is wishlisted
+        if (bIndex !== -1) {
+          return 1;
+        }
+
+        // Neither is wishlisted
+        // Keep rating order
+        return (
           Number(b.rating || 0) -
           Number(a.rating || 0)
-      )
+        );
+
+      })
       .slice(0, 8);
 
-  }, []);
+  }, [wishlist]);
 
 
   // =========================================================
   // NEW ARRIVALS
-  // Highest IDs = newest products in your dataset
+  // Highest IDs = newest products
   // =========================================================
 
   const newArrivals = useMemo(() => {
@@ -212,6 +248,7 @@ function Home({
         </div>
 
       </section>
+
 
 
       {/* =====================================================
