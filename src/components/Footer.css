@@ -234,176 +234,6 @@
 
 
 /* =========================================================
-   NEWSLETTER
-========================================================= */
-
-.footer-newsletter-section {
-  width: 100%;
-
-  border-bottom: 1px solid rgba(203, 213, 225, 0.07);
-}
-
-.footer-newsletter {
-  width: 100%;
-  max-width: 1250px;
-
-  margin: 0 auto;
-
-  padding: 22px 45px;
-
-  box-sizing: border-box;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  gap: 40px;
-}
-
-
-/* =========================================================
-   NEWSLETTER TEXT
-========================================================= */
-
-.newsletter-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.newsletter-label {
-  margin-bottom: 4px;
-
-  color: #60a5fa;
-
-  font-size: 8px;
-  font-weight: 800;
-
-  letter-spacing: 1.4px;
-}
-
-.newsletter-content h3 {
-  margin: 0;
-
-  color: #ffffff;
-
-  font-size: 16px;
-  font-weight: 700;
-
-  line-height: 1.3;
-}
-
-
-/* =========================================================
-   NEWSLETTER FORM
-========================================================= */
-
-.newsletter-form {
-  width: 330px;
-  height: 38px;
-
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-
-  padding: 3px 3px 3px 12px;
-
-  box-sizing: border-box;
-
-  background: #172a4b;
-
-  border: 1px solid #304463;
-
-  border-radius: 7px;
-
-  transition:
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-.newsletter-form:focus-within {
-  border-color: #2563eb;
-
-  box-shadow:
-    0 0 0 3px rgba(37, 99, 235, 0.10);
-}
-
-
-/* =========================================================
-   INPUT
-========================================================= */
-
-.newsletter-form input {
-  flex: 1;
-
-  min-width: 0;
-
-  padding: 0;
-
-  border: none;
-  outline: none;
-
-  background: transparent;
-
-  color: #ffffff;
-
-  font-family: inherit;
-
-  font-size: 11px;
-}
-
-.newsletter-form input::placeholder {
-  color: #718096;
-}
-
-
-/* =========================================================
-   SUBSCRIBE BUTTON
-========================================================= */
-
-.newsletter-form button {
-  appearance: none;
-  -webkit-appearance: none;
-
-  width: 30px;
-  height: 30px;
-
-  flex-shrink: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  padding: 0;
-  margin: 0;
-
-  border: none;
-  outline: none;
-
-  border-radius: 5px;
-
-  background: #2563eb;
-
-  color: #ffffff;
-
-  font-size: 11px;
-
-  cursor: pointer;
-
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
-}
-
-.newsletter-form button:hover {
-  background: #1d4ed8;
-
-  transform: translateX(2px);
-}
-
-
-/* =========================================================
    BOTTOM BAR
 ========================================================= */
 
@@ -510,11 +340,6 @@
     grid-column: span 3;
   }
 
-  .footer-newsletter {
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-
   .footer-bottom {
     padding-left: 30px;
     padding-right: 30px;
@@ -576,29 +401,6 @@
   }
 
 
-  /* NEWSLETTER */
-
-  .footer-newsletter {
-    padding: 22px;
-
-    flex-direction: column;
-
-    align-items: flex-start;
-
-    gap: 15px;
-  }
-
-  .newsletter-content h3 {
-    font-size: 16px;
-  }
-
-  .newsletter-form {
-    width: 100%;
-
-    height: 38px;
-  }
-
-
   /* BOTTOM */
 
   .footer-bottom {
@@ -628,17 +430,8 @@
     padding-right: 18px;
   }
 
-  .footer-newsletter {
-    padding-left: 18px;
-    padding-right: 18px;
-  }
-
   .footer-bottom {
     padding-left: 18px;
     padding-right: 18px;
-  }
-
-  .newsletter-content h3 {
-    font-size: 15px;
   }
 }

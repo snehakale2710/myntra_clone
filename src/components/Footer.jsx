@@ -3,7 +3,6 @@ import {
   FaInstagram,
   FaFacebookF,
   FaPinterestP,
-  FaArrowRight,
 } from "react-icons/fa";
 
 import "./Footer.css";
@@ -40,23 +39,6 @@ function Footer({ setPage }) {
       "",
       categoryName
     );
-  };
-
-  // =========================================================
-  // NEWSLETTER
-  // =========================================================
-
-  const handleNewsletter = (e) => {
-    e.preventDefault();
-
-    const email = e.target.email.value.trim();
-
-    if (!email) {
-      return;
-    }
-
-    alert("Thank you for subscribing to STYLEHUB!");
-    e.target.reset();
   };
 
   return (
@@ -272,61 +254,6 @@ function Footer({ setPage }) {
             </button>
 
           </div>
-
-        </div>
-
-      </div>
-
-
-      {/* =====================================================
-          NEWSLETTER
-      ===================================================== */}
-
-      <div className="footer-newsletter-section">
-
-        <div className="footer-newsletter">
-
-          <div className="newsletter-content">
-
-            <span className="newsletter-label">
-              STYLE UPDATE
-            </span>
-
-            <h3>
-              Stay updated with
-              <br />
-              the latest styles.
-            </h3>
-
-            <p>
-              Get the latest trends, collections and
-              exclusive updates from STYLEHUB.
-            </p>
-
-          </div>
-
-
-          <form
-            className="newsletter-form"
-            onSubmit={handleNewsletter}
-          >
-
-            <input
-              type="email"
-              name="email"
-              placeholder="Enter your email address"
-              aria-label="Email address"
-              required
-            />
-
-            <button
-              type="submit"
-              aria-label="Subscribe"
-            >
-              <FaArrowRight />
-            </button>
-
-          </form>
 
         </div>
 

@@ -3,7 +3,6 @@ const products = [
   // =====================================================
   // MEN - 15 PRODUCTS
   // =====================================================
-
   {
     id: 1,
     brand: "Roadster",
@@ -15,11 +14,10 @@ const products = [
     discount: 50,
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=700&q=80",
+      "https://assets.myntassets.com/h_200%2Cw_200%2Cc_fill%2Cg_auto/h_1440%2Cq_100%2Cw_1080/v1/assets/images/1985348/2017/7/21/11500637738190-HERENOW-Men-Navy-Blue-Regular-Fit-Solid-Casual-Shirt-541500637737984-1.jpg",
     description:
       "Premium casual shirt designed for everyday comfort and modern style.",
   },
-
   {
     id: 2,
     brand: "Levis",
@@ -31,11 +29,10 @@ const products = [
     discount: 50,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?w=700&q=80",
+      "https://lsco.scene7.com/is/image/lsco/045114102-front-pdp-ld?fit=crop%2C1&fmt=jpeg&hei=2500&op_usm=0.6%2C0.6%2C8&qlt=70&resMode=sharp2&wid=2000",
     description:
       "Classic slim fit jeans with comfortable stretch and premium denim.",
   },
-
   {
     id: 3,
     brand: "HRX",
@@ -47,11 +44,10 @@ const products = [
     discount: 40,
     rating: 4.2,
     image:
-      "https://images.unsplash.com/photo-1552252059-9d77e4059ad1?w=700&q=80",
+      "https://cdn.dummyjson.com/product-images/mens-shirts/gigabyte-aorus-men-tshirt/thumbnail.webp",
     description:
       "Comfortable printed cotton t-shirt for everyday casual styling.",
   },
-
   {
     id: 4,
     brand: "U.S. Polo Assn.",
@@ -67,7 +63,6 @@ const products = [
     description:
       "Classic polo t-shirt made for smart casual occasions.",
   },
-
   {
     id: 5,
     brand: "Nike",
@@ -83,7 +78,6 @@ const products = [
     description:
       "Comfortable running shoes designed for active lifestyles.",
   },
-
   {
     id: 6,
     brand: "Roadster",
@@ -99,7 +93,6 @@ const products = [
     description:
       "Smart slim-fit trousers for everyday and office wear.",
   },
-
   {
     id: 7,
     brand: "H&M",
@@ -115,7 +108,6 @@ const products = [
     description:
       "Relaxed oversized hoodie made for comfortable streetwear styling.",
   },
-
   {
     id: 8,
     brand: "Jack & Jones",
@@ -131,7 +123,6 @@ const products = [
     description:
       "Classic denim jacket with a timeless casual look.",
   },
-
   {
     id: 9,
     brand: "Roadster",
@@ -147,7 +138,6 @@ const products = [
     description:
       "Stylish checked shirt perfect for casual weekends.",
   },
-
   {
     id: 10,
     brand: "Levis",
@@ -163,7 +153,6 @@ const products = [
     description:
       "Regular fit denim with durable construction and comfortable styling.",
   },
-
   {
     id: 11,
     brand: "Puma",
@@ -179,7 +168,6 @@ const products = [
     description:
       "Modern graphic t-shirt made from soft cotton fabric.",
   },
-
   {
     id: 12,
     brand: "Allen Solly",
@@ -195,7 +183,6 @@ const products = [
     description:
       "Elegant formal shirt designed for professional occasions.",
   },
-
   {
     id: 13,
     brand: "Roadster",
@@ -211,7 +198,6 @@ const products = [
     description:
       "Comfortable casual shorts for summer days and holidays.",
   },
-
   {
     id: 14,
     brand: "Puma",
@@ -227,7 +213,6 @@ const products = [
     description:
       "Lightweight training sneakers designed for daily movement.",
   },
-
   {
     id: 15,
     brand: "Roadster",
@@ -244,11 +229,9 @@ const products = [
       "Warm winter jacket combining comfort with contemporary style.",
   },
 
-
   // =====================================================
   // WOMEN - 15 PRODUCTS
   // =====================================================
-
   {
     id: 16,
     brand: "Roadster",
@@ -264,7 +247,6 @@ const products = [
     description:
       "Elegant floral dress featuring a stylish silhouette and lightweight fabric.",
   },
-
   {
     id: 17,
     brand: "H&M",
@@ -280,7 +262,6 @@ const products = [
     description:
       "Stylish women's top perfect for casual outings and everyday wear.",
   },
-
   {
     id: 18,
     brand: "Tokyo Talkies",
@@ -296,7 +277,6 @@ const products = [
     description:
       "Trendy casual dress with a modern fit and fashionable look.",
   },
-
   {
     id: 19,
     brand: "Biba",
@@ -312,7 +292,6 @@ const products = [
     description:
       "Beautiful printed kurta suitable for festive and everyday occasions.",
   },
-
   {
     id: 20,
     brand: "Nike",
@@ -328,7 +307,6 @@ const products = [
     description:
       "Lightweight sports shoes combining comfort and performance.",
   },
-
   {
     id: 21,
     brand: "Levis",
@@ -344,8 +322,8 @@ const products = [
     description:
       "Classic straight-fit jeans designed for everyday styling.",
   },
-
   {
+    // FIXED: was a duplicate of item #17 (same top image)
     id: 22,
     brand: "DressBerry",
     name: "Women Solid Top",
@@ -356,12 +334,12 @@ const products = [
     discount: 46,
     rating: 4.2,
     image:
-      "https://images.unsplash.com/photo-1614786269829-d24616faf56d?w=700&q=80",
+      "https://images.unsplash.com/photo-1551803091-e20673f15770?w=700&q=80",
     description:
       "Minimal solid top that pairs perfectly with jeans and trousers.",
   },
-
   {
+    // FIXED: was a duplicate of item #19 (same kurta image)
     id: 23,
     brand: "Biba",
     name: "Women Ethnic Kurta Set",
@@ -372,11 +350,10 @@ const products = [
     discount: 50,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1604284195847-88dc4b5a9faa?w=700&q=80",
+      "https://images.unsplash.com/photo-1610189025624-96e9a3084d1c?w=700&q=80",
     description:
       "Elegant ethnic kurta set designed for festive occasions.",
   },
-
   {
     id: 24,
     brand: "Libas",
@@ -392,7 +369,6 @@ const products = [
     description:
       "Beautiful printed kurta with a comfortable contemporary fit.",
   },
-
   {
     id: 25,
     brand: "Roadster",
@@ -408,7 +384,6 @@ const products = [
     description:
       "Classic denim jacket that adds a stylish layer to any outfit.",
   },
-
   {
     id: 26,
     brand: "Mango",
@@ -424,7 +399,6 @@ const products = [
     description:
       "Modern wide-leg trousers designed for effortless elegance.",
   },
-
   {
     id: 27,
     brand: "ONLY",
@@ -440,7 +414,6 @@ const products = [
     description:
       "Stylish party dress designed for evening occasions.",
   },
-
   {
     id: 28,
     brand: "H&M",
@@ -456,7 +429,6 @@ const products = [
     description:
       "Relaxed casual shirt for effortless everyday fashion.",
   },
-
   {
     id: 29,
     brand: "Levis",
@@ -472,7 +444,6 @@ const products = [
     description:
       "High-rise jeans with a flattering silhouette and comfortable stretch.",
   },
-
   {
     id: 30,
     brand: "Vero Moda",
@@ -489,11 +460,9 @@ const products = [
       "Lightweight summer dress featuring a beautiful printed design.",
   },
 
-
   // =====================================================
   // KIDS - 15 PRODUCTS
   // =====================================================
-
   {
     id: 31,
     brand: "H&M",
@@ -509,7 +478,6 @@ const products = [
     description:
       "Soft and comfortable t-shirt designed for kids.",
   },
-
   {
     id: 32,
     brand: "Nike",
@@ -525,7 +493,6 @@ const products = [
     description:
       "Durable and comfortable sports shoes for active kids.",
   },
-
   {
     id: 33,
     brand: "H&M",
@@ -541,7 +508,6 @@ const products = [
     description:
       "Fun printed t-shirt made from soft and breathable fabric.",
   },
-
   {
     id: 34,
     brand: "Mothercare",
@@ -557,7 +523,6 @@ const products = [
     description:
       "Comfortable and stylish casual dress for little ones.",
   },
-
   {
     id: 35,
     brand: "H&M",
@@ -573,7 +538,6 @@ const products = [
     description:
       "Durable denim jeans designed for active kids.",
   },
-
   {
     id: 36,
     brand: "Puma",
@@ -589,7 +553,6 @@ const products = [
     description:
       "Lightweight running shoes for everyday activities.",
   },
-
   {
     id: 37,
     brand: "Allen Solly Junior",
@@ -605,7 +568,6 @@ const products = [
     description:
       "Smart casual shirt suitable for everyday outings.",
   },
-
   {
     id: 38,
     brand: "H&M",
@@ -621,7 +583,6 @@ const products = [
     description:
       "Comfortable denim shorts perfect for summer days.",
   },
-
   {
     id: 39,
     brand: "Mini Klub",
@@ -637,7 +598,6 @@ const products = [
     description:
       "Festive ethnic kurta set designed for special occasions.",
   },
-
   {
     id: 40,
     brand: "Mothercare",
@@ -653,8 +613,8 @@ const products = [
     description:
       "Lightweight summer dress for comfortable everyday wear.",
   },
-
   {
+    // FIXED: was a duplicate of item #31 (same t-shirt image)
     id: 41,
     brand: "Puma",
     name: "Kids Graphic T-Shirt",
@@ -665,11 +625,10 @@ const products = [
     discount: 45,
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=700&q=80",
+      "https://images.unsplash.com/photo-1522771930-78848d9293e8?w=700&q=80",
     description:
       "Playful graphic t-shirt designed for active kids.",
   },
-
   {
     id: 42,
     brand: "H&M",
@@ -685,8 +644,8 @@ const products = [
     description:
       "Easy-to-wear casual shorts for everyday activities.",
   },
-
   {
+    // FIXED: was a duplicate of item #39 (same kids set image)
     id: 43,
     brand: "Mothercare",
     name: "Kids Cotton Set",
@@ -697,12 +656,12 @@ const products = [
     discount: 47,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=700",
+      "https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?w=700&q=80",
     description:
       "Soft cotton co-ord set for comfortable everyday wear.",
   },
-
   {
+    // FIXED: was a duplicate of item #32 (same kids shoes image)
     id: 44,
     brand: "Nike",
     name: "Kids Training Sneakers",
@@ -713,11 +672,10 @@ const products = [
     discount: 48,
     rating: 4.7,
     image:
-      "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=700",
+      "https://images.unsplash.com/photo-1607522370275-f14206abe5d3?w=700&q=80",
     description:
       "Sporty sneakers built for active kids.",
   },
-
   {
     id: 45,
     brand: "Mini Klub",
@@ -734,11 +692,9 @@ const products = [
       "Festive clothing set designed for celebrations and special days.",
   },
 
-
   // =====================================================
-  // BEAUTY - 15 PRODUCTS (unchanged — original images kept)
+  // BEAUTY - 15 PRODUCTS
   // =====================================================
-
   {
     id: 46,
     brand: "Maybelline",
@@ -754,7 +710,6 @@ const products = [
     description:
       "Lightweight matte foundation for an even natural-looking finish.",
   },
-
   {
     id: 47,
     brand: "Lakme",
@@ -770,7 +725,6 @@ const products = [
     description:
       "Smooth kajal for defined and expressive eyes.",
   },
-
   {
     id: 48,
     brand: "The Ordinary",
@@ -786,7 +740,6 @@ const products = [
     description:
       "Lightweight face serum designed for everyday skincare.",
   },
-
   {
     id: 49,
     brand: "Minimalist",
@@ -802,7 +755,6 @@ const products = [
     description:
       "Daily facial serum formulated for a brighter-looking complexion.",
   },
-
   {
     id: 50,
     brand: "L'Oreal",
@@ -818,8 +770,8 @@ const products = [
     description:
       "Nourishing shampoo designed for soft and manageable hair.",
   },
-
   {
+    // FIXED: was a duplicate of item #49 (same serum image)
     id: 51,
     brand: "Dove",
     name: "Nourishing Body Wash",
@@ -830,11 +782,10 @@ const products = [
     discount: 30,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=700",
+      "https://images.unsplash.com/photo-1570194065650-d99fb4b8ccb0?w=700&q=80",
     description:
       "Gentle body wash for a fresh and moisturised feel.",
   },
-
   {
     id: 52,
     brand: "Mamaearth",
@@ -850,7 +801,6 @@ const products = [
     description:
       "Everyday haircare essentials for a healthy-looking routine.",
   },
-
   {
     id: 53,
     brand: "Nykaa",
@@ -866,7 +816,6 @@ const products = [
     description:
       "Richly pigmented matte lipstick with comfortable wear.",
   },
-
   {
     id: 54,
     brand: "Lakme",
@@ -882,7 +831,6 @@ const products = [
     description:
       "Radiant highlighter for a luminous makeup finish.",
   },
-
   {
     id: 55,
     brand: "Plum",
@@ -898,8 +846,8 @@ const products = [
     description:
       "Refreshing face wash suitable for everyday skincare.",
   },
-
   {
+    // FIXED: was a duplicate of item #52 (same haircare image)
     id: 56,
     brand: "L'Oreal",
     name: "Elnett Hair Spray",
@@ -910,12 +858,12 @@ const products = [
     discount: 22,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=700",
+      "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=700&q=80",
     description:
       "Lightweight hairspray for flexible everyday styling.",
   },
-
   {
+    // FIXED: was a duplicate of items #49/#51 (same body-care image)
     id: 57,
     brand: "Nivea",
     name: "Body Lotion",
@@ -926,11 +874,10 @@ const products = [
     discount: 25,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=700",
+      "https://images.unsplash.com/photo-1631730359585-38a4935cbec4?w=700&q=80",
     description:
       "Moisturising body lotion for soft and smooth-looking skin.",
   },
-
   {
     id: 58,
     brand: "Fogg",
@@ -946,7 +893,6 @@ const products = [
     description:
       "Fresh everyday fragrance with a modern scent profile.",
   },
-
   {
     id: 59,
     brand: "Engage",
@@ -962,8 +908,8 @@ const products = [
     description:
       "Elegant fragrance designed for special occasions.",
   },
-
   {
+    // FIXED: was a duplicate of item #47 (same kajal image)
     id: 60,
     brand: "Maybelline",
     name: "Lash Sensational Mascara",
@@ -974,16 +920,14 @@ const products = [
     discount: 29,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1631214524020-7e18dbd7d8c1?w=700",
+      "https://images.unsplash.com/photo-1631730359914-6892f0eab649?w=700&q=80",
     description:
       "Volumising mascara for defined and dramatic-looking lashes.",
   },
 
-
   // =====================================================
-  // ACCESSORIES - 15 PRODUCTS (unchanged — original images kept)
+  // ACCESSORIES - 15 PRODUCTS
   // =====================================================
-
   {
     id: 61,
     brand: "Lavie",
@@ -999,7 +943,6 @@ const products = [
     description:
       "Elegant structured handbag designed for everyday styling.",
   },
-
   {
     id: 62,
     brand: "Fossil",
@@ -1015,7 +958,6 @@ const products = [
     description:
       "Classic analog watch with a timeless sophisticated design.",
   },
-
   {
     id: 63,
     brand: "Voyage",
@@ -1031,7 +973,6 @@ const products = [
     description:
       "Compact leather wallet with multiple card and cash compartments.",
   },
-
   {
     id: 64,
     brand: "Fastrack",
@@ -1047,7 +988,6 @@ const products = [
     description:
       "Modern digital watch designed for everyday wear.",
   },
-
   {
     id: 65,
     brand: "Mango",
@@ -1063,7 +1003,6 @@ const products = [
     description:
       "Fashion-forward sunglasses that complete any outfit.",
   },
-
   {
     id: 66,
     brand: "Baggit",
@@ -1079,8 +1018,8 @@ const products = [
     description:
       "Versatile shoulder bag with a practical everyday design.",
   },
-
   {
+    // FIXED: was a duplicate of item #64 (same watch image)
     id: 67,
     brand: "Fastrack",
     name: "Metal Strap Watch",
@@ -1091,11 +1030,10 @@ const products = [
     discount: 40,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=700",
+      "https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=700&q=80",
     description:
       "Stylish metal strap watch for modern everyday looks.",
   },
-
   {
     id: 68,
     brand: "Voyage",
@@ -1111,7 +1049,6 @@ const products = [
     description:
       "Classic leather belt suitable for casual and formal outfits.",
   },
-
   {
     id: 69,
     brand: "Puma",
@@ -1127,7 +1064,6 @@ const products = [
     description:
       "Classic sports cap designed for casual everyday styling.",
   },
-
   {
     id: 70,
     brand: "Mast & Harbour",
@@ -1143,7 +1079,6 @@ const products = [
     description:
       "Minimal bracelet that adds a stylish finishing touch.",
   },
-
   {
     id: 71,
     brand: "Accessorize",
@@ -1159,7 +1094,6 @@ const products = [
     description:
       "Elegant statement earrings for everyday and occasion wear.",
   },
-
   {
     id: 72,
     brand: "Lavie",
@@ -1175,7 +1109,6 @@ const products = [
     description:
       "Compact crossbody bag perfect for quick outings.",
   },
-
   {
     id: 73,
     brand: "Roadster",
@@ -1191,8 +1124,8 @@ const products = [
     description:
       "Minimal casual cap for effortless everyday style.",
   },
-
   {
+    // FIXED: was a duplicate of items #64/#67 (same watch image)
     id: 74,
     brand: "Fastrack",
     name: "Round Dial Watch",
@@ -1203,12 +1136,12 @@ const products = [
     discount: 40,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1524805444758-089113d48a6d?w=700",
+      "https://images.unsplash.com/photo-1533139502658-0198f920d8e8?w=700&q=80",
     description:
       "Contemporary round-dial watch with a clean modern design.",
   },
-
   {
+    // FIXED: was a duplicate of item #65 (same sunglasses image)
     id: 75,
     brand: "Mast & Harbour",
     name: "Fashion Sunglasses",
@@ -1219,7 +1152,7 @@ const products = [
     discount: 46,
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=700",
+      "https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=700&q=80",
     description:
       "Trendy sunglasses designed to elevate everyday outfits.",
   },
