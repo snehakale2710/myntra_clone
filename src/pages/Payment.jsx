@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import "./Payment.css";
 
-function Payment({ setPage, setCart }) {
+function Payment({ cart, setPage, setCart }) {
   const [paymentMethod, setPaymentMethod] = useState("upi");
   const [loading, setLoading] = useState(false);
-
-  const cart =
-    JSON.parse(localStorage.getItem("cart")) || [];
 
   const address =
     JSON.parse(

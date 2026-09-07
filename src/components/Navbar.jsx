@@ -490,22 +490,18 @@ function Navbar({
         not inside it
     ================================== */}
 
-    {canGoBack && (
+   {canGoBack && (
 
-      <div className="below-navbar-bar">
+  <button
+    className="below-navbar-back-button"
+    onClick={onBack}
+    title="Go to previous page"
+    aria-label="Go to previous page"
+  >
+    ←
+  </button>
 
-        <button
-          className="below-navbar-back-button"
-          onClick={onBack}
-          title="Go to previous page"
-          aria-label="Go to previous page"
-        >
-          ← Back
-        </button>
-
-      </div>
-
-    )}
+)}
 
     </>
   );

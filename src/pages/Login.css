@@ -1,142 +1,383 @@
+/* =========================================================
+   AUTH PAGE — STYLE HUB
+   WHITE / NAVY / BLUE THEME
+========================================================= */
+
 .auth-page {
   min-height: 100vh;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--surface);
+
+  background: #f7f9fc;
+
   padding: 30px;
 }
+
+/* =========================================================
+   AUTH CARD
+========================================================= */
 
 .auth-card {
   width: 900px;
   max-width: 100%;
   min-height: 540px;
-  background: var(--paper);
+
+  background: #ffffff;
+
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-radius: var(--radius-m);
+
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+
   overflow: hidden;
-  box-shadow: var(--shadow-lift);
+
+  box-shadow: 0 20px 50px rgba(15, 31, 61, 0.12);
 }
 
+/* =========================================================
+   LEFT IMAGE SECTION
+========================================================= */
+
 .auth-left {
-  background: linear-gradient(
-      rgba(23, 21, 28, 0.5),
-      rgba(214, 18, 87, 0.55)
+  background:
+    linear-gradient(
+      rgba(15, 31, 61, 0.78),
+      rgba(30, 75, 135, 0.82)
     ),
     url("https://images.unsplash.com/photo-1445205170230-053b83016050?w=900")
-      center/cover;
-  color: var(--paper);
+      center / cover;
+
+  color: #ffffff;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   padding: 50px;
 }
 
+/* =========================================================
+   LEFT HEADING
+========================================================= */
+
 .auth-left h1 {
   font-family: var(--font-display);
+
   font-size: 38px;
   font-weight: 800;
+
+  color: #ffffff;
+
+  margin: 0;
+
+  line-height: 1.2;
 }
+
+/* Heading Highlight */
 
 .auth-left h1 span {
-  color: #ffc9dc;
+  color: #8bb8ff;
 }
 
+/* =========================================================
+   LEFT DESCRIPTION
+========================================================= */
+
 .auth-left p {
-  color: #ece9ee;
+  color: #dbe5f2;
+
   margin-top: 14px;
+
   font-size: 14px;
+
+  line-height: 1.7;
+
+  max-width: 340px;
 }
+
+/* =========================================================
+   RIGHT AUTH SECTION
+========================================================= */
 
 .auth-right {
   padding: 56px 52px;
+
+  background: #ffffff;
 }
+
+/* =========================================================
+   AUTH HEADING
+========================================================= */
 
 .auth-right h2 {
   font-family: var(--font-display);
+
   font-size: 24px;
   font-weight: 700;
+
   margin-top: 8px;
-  color: var(--ink);
+
+  color: #0f1f3d;
 }
 
+/* =========================================================
+   AUTH DESCRIPTION
+========================================================= */
+
 .auth-right > p:not(.eyebrow) {
-  color: var(--ink-soft);
+  color: #64748b;
+
   margin: 12px 0 26px;
+
   font-size: 13.5px;
+
+  line-height: 1.6;
 }
+
+/* =========================================================
+   FORM
+========================================================= */
 
 .auth-right form {
   display: flex;
+
   flex-direction: column;
+
   gap: 15px;
 }
 
+/* =========================================================
+   INPUTS
+========================================================= */
+
 .auth-right input {
+  width: 100%;
+
+  box-sizing: border-box;
+
   padding: 14px;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--radius-s);
+
+  background: #f8fafc;
+
+  border: 1px solid #cbd5e1;
+
+  border-radius: 8px;
+
   outline: none;
+
+  color: #0f1f3d;
+
   font-size: 14px;
-  transition: border-color 0.2s ease;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.auth-right input:focus {
-  border-color: var(--brand);
+/* Placeholder */
+
+.auth-right input::placeholder {
+  color: #94a3b8;
 }
+
+/* =========================================================
+   INPUT FOCUS
+========================================================= */
+
+.auth-right input:focus {
+  border-color: #2f6df6;
+
+  background: #ffffff;
+
+  box-shadow: 0 0 0 3px rgba(47, 109, 246, 0.12);
+}
+
+/* =========================================================
+   LOGIN BUTTON
+========================================================= */
 
 .auth-right form button {
   padding: 15px;
-  background: var(--brand);
-  color: var(--paper);
+
+  background: #2f6df6;
+
+  color: #ffffff;
+
   border: none;
-  border-radius: var(--radius-s);
+
+  border-radius: 8px;
+
   cursor: pointer;
+
   font-weight: 700;
+
   font-size: 13px;
+
   letter-spacing: 0.02em;
+
   margin-top: 6px;
-  transition: background 0.2s ease;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
+
+/* =========================================================
+   BUTTON HOVER
+========================================================= */
 
 .auth-right form button:hover {
-  background: var(--brand-dark);
+  background: #1f5de0;
+
+  transform: translateY(-1px);
+
+  box-shadow: 0 8px 20px rgba(47, 109, 246, 0.22);
 }
 
+/* =========================================================
+   BUTTON ACTIVE
+========================================================= */
+
+.auth-right form button:active {
+  transform: translateY(0);
+}
+
+/* =========================================================
+   ERROR MESSAGE
+========================================================= */
+
 .error {
-  background: #fce9ec;
-  color: var(--danger);
+  background: #eff6ff;
+
+  color: #1d4ed8;
+
   padding: 12px 14px;
+
   margin-bottom: 20px;
-  border-radius: var(--radius-s);
+
+  border: 1px solid #bfdbfe;
+
+  border-radius: 8px;
+
   font-size: 13px;
 }
+
+/* =========================================================
+   SWITCH REGISTER TEXT
+========================================================= */
 
 .switch {
   margin-top: 24px !important;
+
   font-size: 13.5px;
-  color: var(--ink-soft);
+
+  color: #64748b;
 }
+
+/* Switch Button */
 
 .switch button {
   border: none;
+
   background: transparent;
-  color: var(--brand);
+
+  color: #2f6df6;
+
   cursor: pointer;
+
   font-weight: 700;
+
   margin-left: 4px;
+
+  transition: color 0.2s ease;
 }
 
+.switch button:hover {
+  color: #1f5de0;
+}
+
+/* =========================================================
+   FORGOT PASSWORD
+========================================================= */
+
+.forgot-password {
+  display: block;
+
+  margin: -5px 0 18px auto;
+
+  padding: 0;
+
+  border: none;
+
+  background: none;
+
+  color: #2f6df6;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  text-align: right;
+
+  transition: color 0.2s ease;
+}
+
+/* Forgot Password Hover */
+
+.forgot-password:hover {
+  color: #1f5de0;
+
+  text-decoration: underline;
+}
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.auth-right .eyebrow {
+  color: #2f6df6;
+
+  font-size: 11px;
+
+  font-weight: 700;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.12em;
+}
+
+/* =========================================================
+   MOBILE RESPONSIVE
+========================================================= */
+
 @media (max-width: 700px) {
+
   .auth-page {
     padding: 0;
+
+    background: #f7f9fc;
   }
 
   .auth-card {
+    width: 100%;
+    max-width: 100%;
+
     grid-template-columns: 1fr;
+
     border-radius: 0;
+
+    border: none;
+
     min-height: 100vh;
+
+    box-shadow: none;
   }
 
   .auth-left {
@@ -144,23 +385,35 @@
   }
 
   .auth-right {
+    min-height: 100vh;
+
+    box-sizing: border-box;
+
     padding: 44px 22px;
+
+    background: #ffffff;
   }
 }
 
-.forgot-password {
-  display: block;
-  margin: -5px 0 18px auto;
-  padding: 0;
-  border: none;
-  background: none;
-  color: var(--brand);
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  text-align: right;
-}
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
 
-.forgot-password:hover {
-  text-decoration: underline;
+@media (max-width: 400px) {
+
+  .auth-right {
+    padding: 35px 18px;
+  }
+
+  .auth-right h2 {
+    font-size: 22px;
+  }
+
+  .auth-right input {
+    padding: 13px;
+  }
+
+  .auth-right form button {
+    padding: 14px;
+  }
 }

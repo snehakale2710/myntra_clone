@@ -14,7 +14,7 @@ const products = [
     discount: 50,
     rating: 4.3,
     image:
-      "https://assets.myntassets.com/h_200%2Cw_200%2Cc_fill%2Cg_auto/h_1440%2Cq_100%2Cw_1080/v1/assets/images/1985348/2017/7/21/11500637738190-HERENOW-Men-Navy-Blue-Regular-Fit-Solid-Casual-Shirt-541500637737984-1.jpg",
+      "https://images.unsplash.com/photo-1740711152088-88a009e877bb?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Premium casual shirt designed for everyday comfort and modern style.",
   },
@@ -29,7 +29,7 @@ const products = [
     discount: 50,
     rating: 4.5,
     image:
-      "https://lsco.scene7.com/is/image/lsco/045114102-front-pdp-ld?fit=crop%2C1&fmt=jpeg&hei=2500&op_usm=0.6%2C0.6%2C8&qlt=70&resMode=sharp2&wid=2000",
+      "https://plus.unsplash.com/premium_photo-1673977134363-c86a9d5dcafa?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8TWVuJTIwU2xpbSUyMEZpdCUyMEplYW5zfGVufDB8fDB8fHww",
     description:
       "Classic slim fit jeans with comfortable stretch and premium denim.",
   },
@@ -44,7 +44,7 @@ const products = [
     discount: 40,
     rating: 4.2,
     image:
-      "https://cdn.dummyjson.com/product-images/mens-shirts/gigabyte-aorus-men-tshirt/thumbnail.webp",
+      "https://images.unsplash.com/photo-1775979654476-89575df179bd?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Comfortable printed cotton t-shirt for everyday casual styling.",
   },
@@ -59,7 +59,7 @@ const products = [
     discount: 50,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1507680434567-5739c80be1ac?w=700&q=80",
+      "https://images.unsplash.com/photo-1625910513399-c9fcba54338c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8TWVuJTIwQ2xhc3NpYyUyMFBvbG8lMjBULVNoaXJ0fGVufDB8fDB8fHww",
     description:
       "Classic polo t-shirt made for smart casual occasions.",
   },
@@ -74,7 +74,7 @@ const products = [
     discount: 50,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1544441893-675973e31985?w=700&q=80",
+      "https://images.unsplash.com/photo-1582588678413-dbf45f4823e9?q=80&w=765&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Comfortable running shoes designed for active lifestyles.",
   },
@@ -89,7 +89,7 @@ const products = [
     discount: 50,
     rating: 4.1,
     image:
-      "https://images.unsplash.com/photo-1593030103066-0093718efeb9?w=700&q=80",
+      "https://images.unsplash.com/photo-1549369130-1f99f678dc12?q=80&w=739&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Smart slim-fit trousers for everyday and office wear.",
   },
@@ -104,7 +104,7 @@ const products = [
     discount: 48,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1596993100471-c3905dafa78e?w=700&q=80",
+      "https://images.unsplash.com/photo-1564557287817-3785e38ec1f5?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Relaxed oversized hoodie made for comfortable streetwear styling.",
   },
@@ -119,7 +119,7 @@ const products = [
     discount: 49,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1603189343302-e603f7add05a?w=700&q=80",
+      "https://images.unsplash.com/photo-1555583743-991174c11425?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Classic denim jacket with a timeless casual look.",
   },
@@ -134,7 +134,7 @@ const products = [
     discount: 50,
     rating: 4.2,
     image:
-      "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=700&q=80",
+      "https://images.unsplash.com/photo-1771340183956-6f69d2d08f43?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Stylish checked shirt perfect for casual weekends.",
   },
@@ -149,7 +149,7 @@ const products = [
     discount: 50,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?w=700&q=80",
+      "https://images.unsplash.com/photo-1714143164072-7646ef5cb24d?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Regular fit denim with durable construction and comfortable styling.",
   },
@@ -164,7 +164,7 @@ const products = [
     discount: 46,
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1523381294911-8d3cead13475?w=700&q=80",
+      "https://images.unsplash.com/photo-1625728273603-0404614abb7e?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Modern graphic t-shirt made from soft cotton fabric.",
   },
@@ -179,7 +179,7 @@ const products = [
     discount: 48,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1667284152861-36e03571486a?w=700&q=80",
+      "https://images.unsplash.com/photo-1624835567150-0c530a20d8cc?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Elegant formal shirt designed for professional occasions.",
   },
@@ -194,7 +194,7 @@ const products = [
     discount: 46,
     rating: 4.1,
     image:
-      "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=700",
+      "https://images.unsplash.com/photo-1740512922260-543b1b83c986?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Comfortable casual shorts for summer days and holidays.",
   },
@@ -209,7 +209,7 @@ const products = [
     discount: 50,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1479064555552-3ef4979f8908?w=700&q=80",
+      "https://images.unsplash.com/photo-1605408499391-6368c628ef42?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Lightweight training sneakers designed for daily movement.",
   },
@@ -224,7 +224,7 @@ const products = [
     discount: 50,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=700",
+      "https://images.unsplash.com/photo-1624548140129-74786c5f1279?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8TWVuJTIwV2ludGVyJTIwSmFja2V0fGVufDB8fDB8fHww",
     description:
       "Warm winter jacket combining comfort with contemporary style.",
   },
@@ -243,7 +243,7 @@ const products = [
     discount: 50,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1616313253719-c46514cddee1?w=700&q=80",
+      "https://images.unsplash.com/photo-1511130558090-00af810c21b1?q=80&w=689&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Elegant floral dress featuring a stylish silhouette and lightweight fabric.",
   },
@@ -258,7 +258,7 @@ const products = [
     discount: 46,
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1614786269829-d24616faf56d?w=700&q=80",
+      "https://plus.unsplash.com/premium_photo-1689371956254-1a8adca96b78?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Stylish women's top perfect for casual outings and everyday wear.",
   },
@@ -273,7 +273,7 @@ const products = [
     discount: 50,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1562151270-c7d22ceb586a?w=700&q=80",
+      "https://images.unsplash.com/photo-1619216910014-1fdb7a8e98e9?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Trendy casual dress with a modern fit and fashionable look.",
   },
@@ -288,7 +288,7 @@ const products = [
     discount: 50,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1604284195847-88dc4b5a9faa?w=700&q=80",
+      "https://images.unsplash.com/photo-1745313452052-0e4e341f326c?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Beautiful printed kurta suitable for festive and everyday occasions.",
   },
@@ -303,7 +303,7 @@ const products = [
     discount: 50,
     rating: 4.7,
     image:
-      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=700",
+      "https://images.unsplash.com/photo-1613972798457-45fc5237ae32?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Lightweight sports shoes combining comfort and performance.",
   },
@@ -318,7 +318,7 @@ const products = [
     discount: 50,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=700",
+      "https://images.unsplash.com/photo-1598554747436-c9293d6a588f?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Classic straight-fit jeans designed for everyday styling.",
   },
@@ -334,7 +334,7 @@ const products = [
     discount: 46,
     rating: 4.2,
     image:
-      "https://images.unsplash.com/photo-1551803091-e20673f15770?w=700&q=80",
+      "https://plus.unsplash.com/premium_photo-1689575249400-fca1a67732b5?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Minimal solid top that pairs perfectly with jeans and trousers.",
   },
@@ -350,7 +350,7 @@ const products = [
     discount: 50,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1610189025624-96e9a3084d1c?w=700&q=80",
+      "https://images.unsplash.com/photo-1741847639057-b51a25d42892?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Elegant ethnic kurta set designed for festive occasions.",
   },
@@ -365,7 +365,7 @@ const products = [
     discount: 50,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1585488431257-d81d4f3c4c0a?w=700",
+      "https://images.unsplash.com/photo-1735553816887-95a2657d5fd8?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Beautiful printed kurta with a comfortable contemporary fit.",
   },
@@ -380,7 +380,7 @@ const products = [
     discount: 47,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1590330297626-d7aff25a0431?w=700&q=80",
+      "https://images.unsplash.com/photo-1760624294535-40dfdc84a48f?q=80&w=765&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Classic denim jacket that adds a stylish layer to any outfit.",
   },
@@ -395,7 +395,7 @@ const products = [
     discount: 48,
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1580478491436-fd6a937acc9e?w=700&q=80",
+      "https://images.unsplash.com/photo-1551854838-212c50b4c184?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Modern wide-leg trousers designed for effortless elegance.",
   },
@@ -410,7 +410,7 @@ const products = [
     discount: 50,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1613915617430-8ab0fd7c6baf?w=700&q=80",
+      "https://images.unsplash.com/photo-1622079400125-5b6679552976?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Stylish party dress designed for evening occasions.",
   },
@@ -425,7 +425,7 @@ const products = [
     discount: 47,
     rating: 4.2,
     image:
-      "https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=700",
+      "https://plus.unsplash.com/premium_photo-1690350731538-57344931ac02?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Relaxed casual shirt for effortless everyday fashion.",
   },
@@ -440,7 +440,7 @@ const products = [
     discount: 50,
     rating: 4.7,
     image:
-      "https://images.unsplash.com/photo-1584370848010-d7fe6bc767ec?w=700",
+      "https://media.istockphoto.com/id/1424006655/photo/full-length-of-confident-asian-woman-smiling-in-a-casual-outfit-in-a-white-t-shirt-and-jeans.jpg?s=1024x1024&w=is&k=20&c=EXa_oAT8vBaYCpio3HewWb1rSTzzE-ngs9RgjSsRLGs=",
     description:
       "High-rise jeans with a flattering silhouette and comfortable stretch.",
   },
@@ -455,7 +455,7 @@ const products = [
     discount: 50,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=700",
+      "https://images.unsplash.com/photo-1766471524198-055f1fdc555d?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Lightweight summer dress featuring a beautiful printed design.",
   },
@@ -474,7 +474,7 @@ const products = [
     discount: 44,
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=700&q=80",
+      "https://images.unsplash.com/photo-1754639488181-7eae9f6c06e0?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Soft and comfortable t-shirt designed for kids.",
   },
@@ -489,7 +489,7 @@ const products = [
     discount: 48,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=700",
+      "https://images.unsplash.com/photo-1605523741177-cd660595c2cf?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Durable and comfortable sports shoes for active kids.",
   },
@@ -504,7 +504,7 @@ const products = [
     discount: 44,
     rating: 4.2,
     image:
-      "https://images.unsplash.com/photo-1529756148791-fbca69bfe693?w=700&q=80",
+      "https://images.unsplash.com/photo-1785828642909-676851fe3db2?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Fun printed t-shirt made from soft and breathable fabric.",
   },
@@ -519,7 +519,7 @@ const products = [
     discount: 50,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1578897367107-2828e351c8a8?w=700&q=80",
+      "https://images.unsplash.com/photo-1642597549109-d449a47b8113?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Comfortable and stylish casual dress for little ones.",
   },
@@ -534,7 +534,7 @@ const products = [
     discount: 46,
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?w=700",
+      "https://plus.unsplash.com/premium_photo-1723809808474-d4f3488faf1d?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Durable denim jeans designed for active kids.",
   },
@@ -549,7 +549,7 @@ const products = [
     discount: 48,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=700",
+      "https://images.unsplash.com/photo-1571395770221-867c6e2251bc?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Lightweight running shoes for everyday activities.",
   },
@@ -564,7 +564,7 @@ const products = [
     discount: 46,
     rating: 4.2,
     image:
-      "https://images.unsplash.com/photo-1758782213532-bbb5fd89885e?w=700&q=80",
+      "https://plus.unsplash.com/premium_photo-1770512653198-0d3a90e5f4a2?q=80&w=717&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Smart casual shirt suitable for everyday outings.",
   },
@@ -579,7 +579,7 @@ const products = [
     discount: 45,
     rating: 4.1,
     image:
-      "https://images.unsplash.com/photo-1596870230751-ebdfce98ec42?w=700&q=80",
+      "https://plus.unsplash.com/premium_photo-1723575737806-ecd7f74bf3a1?q=80&w=708&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Comfortable denim shorts perfect for summer days.",
   },
@@ -594,7 +594,7 @@ const products = [
     discount: 50,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=700",
+      "https://images.unsplash.com/photo-1686823939646-69f76240e778?q=80&w=688&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Festive ethnic kurta set designed for special occasions.",
   },
@@ -609,7 +609,7 @@ const products = [
     discount: 50,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1590480598135-3be152c87913?w=700&q=80",
+      "https://images.unsplash.com/photo-1599624427857-461fd60c23e5?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Lightweight summer dress for comfortable everyday wear.",
   },
@@ -625,7 +625,7 @@ const products = [
     discount: 45,
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1522771930-78848d9293e8?w=700&q=80",
+      "https://images.unsplash.com/photo-1522771930-78848d9293e8?w=700&q=80https://images.unsplash.com/photo-1764417846375-da86bd2603f8?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8S2lkcyUyMEdyYXBoaWMlMjBULVNoaXJ0fGVufDB8fDB8fHww",
     description:
       "Playful graphic t-shirt designed for active kids.",
   },
@@ -640,7 +640,7 @@ const products = [
     discount: 44,
     rating: 4.1,
     image:
-      "https://images.unsplash.com/photo-1519457431-44ccd64a579b?w=700&q=80",
+      "https://plus.unsplash.com/premium_photo-1689575249309-79f1308d6180?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Easy-to-wear casual shorts for everyday activities.",
   },
@@ -656,7 +656,7 @@ const products = [
     discount: 47,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1622290291468-a28f7a7dc6a8?w=700&q=80",
+      "https://images.unsplash.com/photo-1737716949211-f3c040c53bea?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Soft cotton co-ord set for comfortable everyday wear.",
   },
@@ -672,7 +672,7 @@ const products = [
     discount: 48,
     rating: 4.7,
     image:
-      "https://images.unsplash.com/photo-1607522370275-f14206abe5d3?w=700&q=80",
+      "https://images.unsplash.com/photo-1654907118253-74c27307a955?q=80&w=756&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Sporty sneakers built for active kids.",
   },
@@ -687,7 +687,7 @@ const products = [
     discount: 50,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=700&q=80",
+      "https://images.unsplash.com/photo-1724940765589-081439d69251?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Festive clothing set designed for celebrations and special days.",
   },
@@ -697,7 +697,7 @@ const products = [
   // =====================================================
   {
     id: 46,
-    brand: "Maybelline",
+    brand: "Sephora",
     name: "Fit Me Matte Foundation",
     category: "Beauty",
     subcategory: "Makeup",
@@ -706,7 +706,7 @@ const products = [
     discount: 21,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=700",
+      "https://images.unsplash.com/photo-1627885793933-584e53987c14?q=80&w=736&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Lightweight matte foundation for an even natural-looking finish.",
   },
@@ -721,7 +721,7 @@ const products = [
     discount: 33,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1631214524020-7e18dbd7d8c1?w=700",
+      "https://plus.unsplash.com/premium_photo-1661768065574-c2a463343342?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Smooth kajal for defined and expressive eyes.",
   },
@@ -736,13 +736,13 @@ const products = [
     discount: 22,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=700",
+      "https://images.unsplash.com/photo-1696025522422-aa9a74e4f3d5?q=80&w=765&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Lightweight face serum designed for everyday skincare.",
   },
   {
     id: 49,
-    brand: "Minimalist",
+    brand: "Beauty Formula",
     name: "Vitamin C Face Serum",
     category: "Beauty",
     subcategory: "Skincare",
@@ -751,13 +751,13 @@ const products = [
     discount: 25,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=700",
+      "https://images.unsplash.com/photo-1731599974324-c770bd331f42?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Daily facial serum formulated for a brighter-looking complexion.",
   },
   {
     id: 50,
-    brand: "L'Oreal",
+    brand: "MockUp",
     name: "Dream Lengths Shampoo",
     category: "Beauty",
     subcategory: "Haircare",
@@ -766,14 +766,14 @@ const products = [
     discount: 29,
     rating: 4.3,
     image:
-      "https://images.unsplash.com/photo-1556229010-6c3f2c9ca5f8?w=700",
+      "https://images.unsplash.com/photo-1701992678972-d5a053ad0fb0?q=80&w=657&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Nourishing shampoo designed for soft and manageable hair.",
   },
   {
     // FIXED: was a duplicate of item #49 (same serum image)
     id: 51,
-    brand: "Dove",
+    brand: "Dr. Teal's",
     name: "Nourishing Body Wash",
     category: "Beauty",
     subcategory: "Bath & Body",
@@ -782,7 +782,7 @@ const products = [
     discount: 30,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1570194065650-d99fb4b8ccb0?w=700&q=80",
+      "https://images.unsplash.com/photo-1681880152550-14915b1d8b8e?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Gentle body wash for a fresh and moisturised feel.",
   },
@@ -797,13 +797,13 @@ const products = [
     discount: 31,
     rating: 4.2,
     image:
-      "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=700",
+      "https://images.unsplash.com/photo-1701686794570-fe1d390333e3?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8SGFpciUyMEdyb3d0aCUyMEtpdHxlbnwwfHwwfHx8MA%3D%3D",
     description:
       "Everyday haircare essentials for a healthy-looking routine.",
   },
   {
     id: 53,
-    brand: "Nykaa",
+    brand: "Unique",
     name: "Matte Lipstick",
     category: "Beauty",
     subcategory: "Makeup",
@@ -827,14 +827,14 @@ const products = [
     discount: 35,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=700",
+      "https://images.unsplash.com/photo-1580694500583-21a6189e6b56?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Radiant highlighter for a luminous makeup finish.",
   },
   {
     id: 55,
-    brand: "Plum",
-    name: "Green Tea Face Wash",
+    brand: "Curology",
+    name: "Cleanser",
     category: "Beauty",
     subcategory: "Skincare",
     price: 399,
@@ -849,7 +849,7 @@ const products = [
   {
     // FIXED: was a duplicate of item #52 (same haircare image)
     id: 56,
-    brand: "L'Oreal",
+    brand: "Mockups",
     name: "Elnett Hair Spray",
     category: "Beauty",
     subcategory: "Haircare",
@@ -858,7 +858,7 @@ const products = [
     discount: 22,
     rating: 4.4,
     image:
-      "https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=700&q=80",
+      "https://images.unsplash.com/photo-1694101454099-defbe9571d06?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Lightweight hairspray for flexible everyday styling.",
   },
@@ -874,13 +874,13 @@ const products = [
     discount: 25,
     rating: 4.5,
     image:
-      "https://images.unsplash.com/photo-1631730359585-38a4935cbec4?w=700&q=80",
+      "https://images.unsplash.com/photo-1597931752949-98c74b5b159f?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Moisturising body lotion for soft and smooth-looking skin.",
   },
   {
     id: 58,
-    brand: "Fogg",
+    brand: "Chanel",
     name: "Fresh Fragrance",
     category: "Beauty",
     subcategory: "Fragrance",
@@ -895,7 +895,7 @@ const products = [
   },
   {
     id: 59,
-    brand: "Engage",
+    brand: "Chanel",
     name: "Luxury Eau De Parfum",
     category: "Beauty",
     subcategory: "Fragrance",
@@ -920,7 +920,7 @@ const products = [
     discount: 29,
     rating: 4.6,
     image:
-      "https://images.unsplash.com/photo-1631730359914-6892f0eab649?w=700&q=80",
+      "https://images.unsplash.com/photo-1631214540553-ff044a3ff1d4?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     description:
       "Volumising mascara for defined and dramatic-looking lashes.",
   },

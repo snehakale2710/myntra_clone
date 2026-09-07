@@ -524,6 +524,7 @@ function App() {
       case "payment":
         return (
           <Payment
+            cart={cart}
             setPage={handleSetPage}
             setCart={setCart}
           />
