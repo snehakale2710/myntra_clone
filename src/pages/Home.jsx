@@ -182,6 +182,9 @@ function Home({
 
         <div className="home-hero-overlay"></div>
 
+          
+
+
         <div className="home-hero-content">
 
           <p className="home-eyebrow home-eyebrow-light">

@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import "./Payment.css";
 
+import {
+  getUserData,
+  saveUserData,
+  removeUserData,
+} from "../utils/userStorage";
+
+import { calculateDiscount } from "../utils/coupons";
+
 function Payment({ cart, setPage, setCart }) {
   const [paymentMethod, setPaymentMethod] = useState("upi");
   const [loading, setLoading] = useState(false);
 
-  const address =
-    JSON.parse(
-      localStorage.getItem("deliveryAddress")
-    ) || {};
+  const address = getUserData("deliveryAddress", {});
 
   /* =========================
      PRICE CONVERTER
@@ -30,16 +35,29 @@ function Payment({ cart, setPage, setCart }) {
   };
 
   /* =========================
-     TOTAL AMOUNT
+     SUBTOTAL / COUPON / FINAL
   ========================= */
 
-  const totalAmount = cart.reduce(
+  const subtotal = cart.reduce(
     (total, item) =>
       total +
       getPrice(item.price) *
         (item.quantity || 1),
     0
   );
+
+  const appliedCoupon = getUserData("appliedCoupon", "");
+
+  const discountResult = calculateDiscount(
+    appliedCoupon,
+    subtotal
+  );
+
+  const discountAmount = discountResult.valid
+    ? discountResult.discount
+    : 0;
+
+  const totalAmount = subtotal - discountAmount;
 
   /* =========================
      TOTAL ITEMS
@@ -67,7 +85,17 @@ function Payment({ cart, setPage, setCart }) {
       const newOrder = {
         id: "SH" + Date.now(),
 
+        timestamp: Date.now(),
+
         amount: totalAmount,
+
+        subtotal: subtotal,
+
+        discount: discountAmount,
+
+        couponCode: discountResult.valid
+          ? appliedCoupon
+          : null,
 
         items: cart,
 
@@ -95,13 +123,11 @@ function Payment({ cart, setPage, setCart }) {
       };
 
       /* =========================
-         GET OLD ORDERS
+         GET OLD ORDERS (PER USER)
       ========================= */
 
       const previousOrders =
-        JSON.parse(
-          localStorage.getItem("orders")
-        ) || [];
+        getUserData("orders", []);
 
       /* =========================
          ADD NEW ORDER
@@ -113,23 +139,24 @@ function Payment({ cart, setPage, setCart }) {
       ];
 
       /* =========================
-         SAVE ORDERS
+         SAVE ORDERS (PER USER)
       ========================= */
 
-      localStorage.setItem(
+      saveUserData(
         "orders",
-        JSON.stringify(updatedOrders)
+        updatedOrders
       );
 
       /* =========================
-         CLEAR CART
-         
+         CLEAR CART + COUPON
+
          IMPORTANT:
-         Clear BOTH localStorage
+         Clear BOTH per-user storage
          and React cart state.
       ========================= */
 
-      localStorage.removeItem("cart");
+      removeUserData("cart");
+      removeUserData("appliedCoupon");
 
       setCart([]);
 
@@ -137,7 +164,7 @@ function Payment({ cart, setPage, setCart }) {
 
       /* =========================
          GO TO ORDERS
-         
+
          No alert.
       ========================= */
 
@@ -427,7 +454,7 @@ function Payment({ cart, setPage, setCart }) {
 
             <span>
               ₹
-              {totalAmount.toLocaleString(
+              {subtotal.toLocaleString(
                 "en-IN"
               )}
             </span>
@@ -445,6 +472,23 @@ function Payment({ cart, setPage, setCart }) {
             </span>
 
           </div>
+
+          {discountResult.valid && (
+            <div className="summary-row">
+
+              <span>
+                Coupon ({appliedCoupon})
+              </span>
+
+              <span className="free">
+                − ₹
+                {discountAmount.toLocaleString(
+                  "en-IN"
+                )}
+              </span>
+
+            </div>
+          )}
 
           <hr />
 

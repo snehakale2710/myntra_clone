@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-const Product = require("./models/Product");
-const products = require("./data/seed_products");
+const Product = require("./Product");
+const products = require("../seed_products");
 
 async function seedProducts() {
   try {

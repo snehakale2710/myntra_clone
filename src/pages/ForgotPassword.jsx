@@ -6,16 +6,16 @@ function ForgotPassword({ setPage }) {
 
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
-  const [generatedOtp, setGeneratedOtp] = useState("");
 
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // STEP 1 - Generate OTP
-  const handleSendOtp = (e) => {
+  // STEP 1 - Send OTP to email
+  const handleSendOtp = async (e) => {
     e.preventDefault();
 
     setError("");
@@ -33,20 +33,44 @@ function ForgotPassword({ setPage }) {
       return;
     }
 
-    // Generate 6 digit OTP
-    const newOtp = Math.floor(100000 + Math.random() * 900000).toString();
+    try {
+      setLoading(true);
 
-    setGeneratedOtp(newOtp);
+      const response = await fetch(
+        "http://localhost:5000/api/auth/send-otp",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
 
-    // Demo only
-    console.log("Your OTP is:", newOtp);
+      const data = await response.json();
 
-    setSuccess("OTP generated successfully.");
-    setStep(2);
+      if (!response.ok) {
+        setError(
+          data.message || "Unable to send OTP."
+        );
+        return;
+      }
+
+      setSuccess("OTP sent! Please check your email inbox.");
+      setStep(2);
+    } catch (err) {
+      console.error("SEND OTP ERROR:", err);
+
+      setError(
+        "Unable to connect to the server. Make sure the backend is running on port 5000."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // STEP 2 - Verify OTP
-  const handleVerifyOtp = (e) => {
+  // STEP 2 - Verify OTP against the backend
+  const handleVerifyOtp = async (e) => {
     e.preventDefault();
 
     setError("");
@@ -57,17 +81,44 @@ function ForgotPassword({ setPage }) {
       return;
     }
 
-    if (otp !== generatedOtp) {
-      setError("Invalid OTP. Please try again.");
-      return;
-    }
+    try {
+      setLoading(true);
 
-    setSuccess("OTP verified successfully.");
-    setStep(3);
+      const response = await fetch(
+        "http://localhost:5000/api/auth/verify-otp",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, otp }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(
+          data.message || "Invalid OTP."
+        );
+        return;
+      }
+
+      setSuccess("OTP verified successfully.");
+      setStep(3);
+    } catch (err) {
+      console.error("VERIFY OTP ERROR:", err);
+
+      setError(
+        "Unable to connect to the server. Make sure the backend is running on port 5000."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   // STEP 3 - Reset Password
-  const handleResetPassword = (e) => {
+  const handleResetPassword = async (e) => {
     e.preventDefault();
 
     setError("");
@@ -88,24 +139,46 @@ function ForgotPassword({ setPage }) {
       return;
     }
 
-    // Get existing users from localStorage
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+    try {
+      setLoading(true);
 
-    const userIndex = users.findIndex(
-      (user) => user.email.toLowerCase() === email.toLowerCase()
-    );
+      const response = await fetch(
+        "http://localhost:5000/api/auth/reset-password",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            newPassword,
+          }),
+        }
+      );
 
-    if (userIndex !== -1) {
-      users[userIndex].password = newPassword;
+      const data = await response.json();
 
-      localStorage.setItem("users", JSON.stringify(users));
+      if (!response.ok) {
+        setError(
+          data.message || "Unable to reset password."
+        );
+        return;
+      }
+
+      setSuccess("Password reset successfully!");
+
+      setTimeout(() => {
+        setPage("login");
+      }, 1500);
+    } catch (err) {
+      console.error("RESET PASSWORD ERROR:", err);
+
+      setError(
+        "Unable to connect to the server. Make sure the backend is running on port 5000."
+      );
+    } finally {
+      setLoading(false);
     }
-
-    setSuccess("Password reset successfully!");
-
-    setTimeout(() => {
-      setPage("login");
-    }, 1500);
   };
 
   return (
@@ -124,8 +197,8 @@ function ForgotPassword({ setPage }) {
             <h2>Forgot Password?</h2>
 
             <p className="forgot-description">
-              Enter your registered email address and we'll generate an OTP
-              to reset your password.
+              Enter your registered email address and we'll send an OTP
+              to your inbox to reset your password.
             </p>
 
             <form onSubmit={handleSendOtp}>
@@ -153,8 +226,12 @@ function ForgotPassword({ setPage }) {
                 </p>
               )}
 
-              <button type="submit" className="forgot-button">
-                Generate OTP
+              <button
+                type="submit"
+                className="forgot-button"
+                disabled={loading}
+              >
+                {loading ? "Sending..." : "Send OTP"}
               </button>
 
             </form>
@@ -174,18 +251,12 @@ function ForgotPassword({ setPage }) {
             <h2>Verify OTP</h2>
 
             <p className="forgot-description">
-              Enter the 6-digit OTP generated for:
+              We've sent a 6-digit OTP to:
             </p>
 
             <p className="user-email">
               {email}
             </p>
-
-            {/* DEMO OTP */}
-            <div className="demo-otp">
-              <span>Demo OTP</span>
-              <strong>{generatedOtp}</strong>
-            </div>
 
             <form onSubmit={handleVerifyOtp}>
 
@@ -215,8 +286,12 @@ function ForgotPassword({ setPage }) {
                 </p>
               )}
 
-              <button type="submit" className="forgot-button">
-                Verify OTP
+              <button
+                type="submit"
+                className="forgot-button"
+                disabled={loading}
+              >
+                {loading ? "Verifying..." : "Verify OTP"}
               </button>
 
             </form>
@@ -224,6 +299,7 @@ function ForgotPassword({ setPage }) {
             <button
               className="resend-button"
               onClick={handleSendOtp}
+              disabled={loading}
             >
               Resend OTP
             </button>
@@ -291,8 +367,12 @@ function ForgotPassword({ setPage }) {
                 </p>
               )}
 
-              <button type="submit" className="forgot-button">
-                Reset Password
+              <button
+                type="submit"
+                className="forgot-button"
+                disabled={loading}
+              >
+                {loading ? "Resetting..." : "Reset Password"}
               </button>
 
             </form>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Login.css";
 
-function Login({ setPage, setIsLoggedIn }) {
+function Login({ setPage, setIsLoggedIn, onGuest }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -144,6 +144,16 @@ function Login({ setPage, setIsLoggedIn }) {
             </button>
 
           </form>
+
+          {onGuest && (
+            <button
+              type="button"
+              className="guest-button"
+              onClick={onGuest}
+            >
+              Continue as Guest
+            </button>
+          )}
 
           <p className="switch">
             Don't have an account?

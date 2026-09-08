@@ -41,16 +41,18 @@ main {
 
 /* =========================================================
    DESIGN TOKENS
-   Brand: confident magenta/pink, near-black ink, warm neutral
-   surfaces. Gold is used ONLY as a rare premium accent (ratings,
-   festive badges) — never for primary buttons or links.
 ========================================================= */
 
 :root {
-  /* Brand */
+  /* Brand (kept for buttons/links elsewhere) */
   --brand: #ff2d6f;
   --brand-dark: #d61257;
   --brand-light: #ffe4ee;
+
+  /* Navbar blue — matches the navy navbar / active tab colour */
+  --nav-blue: #2f6fed;
+  --nav-blue-dark: #1f4fc4;
+  --nav-blue-light: #e7effe;
 
   /* Ink / neutrals */
   --paper: #ffffff;
@@ -67,18 +69,14 @@ main {
   --success: #1e8e5a;
   --danger: #d6293f;
 
-  /* Legacy aliases (kept so older component code referencing
-     these still resolves to the new palette) */
   --accent: var(--brand);
   --accent-dark: var(--brand-dark);
   --accent-soft: var(--brand-light);
   --pink: var(--brand);
 
-  /* Type */
   --font-display: "Poppins", "Inter", sans-serif;
   --font-body: "Inter", -apple-system, Arial, sans-serif;
 
-  /* Layout */
   --edge: 5vw;
   --radius-s: 3px;
   --radius-m: 8px;
@@ -93,58 +91,90 @@ main {
 }
 
 /* =========================================================
-   BACK ICON BUTTON
+   PAGE-LEVEL BACK BUTTON
+   Sits right under the navbar, tight to it (no big white
+   gap), coloured blue to match the navbar/brand instead
+   of pink.
 ========================================================= */
 
-.back-icon-button {
-  position: fixed;
-  top: 92px;
-  left: var(--edge);
-  z-index: 1000;
-  width: 40px;
-  height: 40px;
+.page-back-wrapper {
+  padding: 8px var(--edge) 6px;
+  background: var(--paper);
+}
+
+.page-back-button {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  max-width: 34px;
+  flex: 0 0 34px;
+
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
+
   border: 1px solid var(--line);
   border-radius: 50%;
   background: var(--paper);
-  color: var(--ink);
-  font-size: 20px;
+  color: var(--nav-blue-dark);
+  font-size: 19px;
   line-height: 1;
-  cursor: pointer;
+
   box-shadow: var(--shadow-soft);
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
-    transform 0.2s ease, box-shadow 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.back-icon-button:hover {
-  background: var(--brand);
+.page-back-button:hover {
+  background: var(--nav-blue);
   color: #fff;
-  border-color: var(--brand);
+  border-color: var(--nav-blue);
   transform: translateX(-3px);
   box-shadow: var(--shadow-lift);
 }
 
-.back-icon-button:active {
+.page-back-button:active {
   transform: translateX(-1px);
+  background: var(--nav-blue-dark);
 }
 
-.back-icon-button:focus-visible {
-  outline: 2px solid var(--brand);
+.page-back-button:focus-visible {
+  outline: 2px solid var(--nav-blue);
   outline-offset: 3px;
 }
 
 @media (max-width: 600px) {
-  .back-icon-button {
-    top: 78px;
-    left: 15px;
-    width: 36px;
-    height: 36px;
-    font-size: 18px;
+  .page-back-wrapper {
+    padding: 6px 15px 4px;
   }
-}.cart-notification {
+  .page-back-button {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    max-width: 30px;
+    flex: 0 0 30px;
+    font-size: 17px;
+  }
+}
+
+/* =========================================================
+   SAFETY NET — remove any stray hairline/shadow directly
+   under the navbar if Navbar.css has one you can't edit
+   right now. Delete this block once you've cleaned
+   Navbar.css directly.
+========================================================= */
+
+.navbar {
+  border-bottom: none;
+  box-shadow: none;
+}
+
+/* =========================================================
+   ADD TO BAG / WISHLIST NOTIFICATION
+========================================================= */
+
+.cart-notification {
   position: fixed;
   bottom: 30px;
   left: 50%;
@@ -192,5 +222,27 @@ main {
   to {
     opacity: 1;
     transform: translate(-50%, 0);
+  }
+}
+
+@media (max-width: 500px) {
+  .cart-notification {
+    left: 16px;
+    right: 16px;
+    transform: none;
+    min-width: 0;
+    width: auto;
+  }
+
+  @keyframes cartNotificationSlide {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 }

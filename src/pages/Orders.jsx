@@ -1,10 +1,51 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PageTitle from "../components/PageTitle";
 import "./Orders.css";
 
+import { getUserData } from "../utils/userStorage";
+
+const STAGES = [
+  "Confirmed",
+  "Shipped",
+  "Out for Delivery",
+  "Delivered",
+];
+
+// =====================================================
+// SIMULATED ORDER STAGE
+// (No real logistics backend — progresses over minutes
+// so you can see the tracker move during a demo)
+// =====================================================
+
+const getOrderStageIndex = (order) => {
+  if (!order.timestamp) {
+    // Legacy orders placed before the tracker existed
+    return STAGES.length - 1;
+  }
+
+  const elapsedMinutes =
+    (Date.now() - order.timestamp) / (1000 * 60);
+
+  if (elapsedMinutes < 1) return 0;
+  if (elapsedMinutes < 3) return 1;
+  if (elapsedMinutes < 6) return 2;
+
+  return 3;
+};
+
 function Orders({ setPage }) {
-  const orders =
-    JSON.parse(localStorage.getItem("orders")) || [];
+  const orders = getUserData("orders", []);
+
+  // Force a re-render every 15s so the tracker visibly progresses
+  const [, setTick] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTick((t) => t + 1);
+    }, 15000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const formatPrice = (price) =>
     Number(price || 0).toLocaleString("en-IN");
@@ -53,6 +94,15 @@ function Orders({ setPage }) {
           `
         )
         .join("") || "";
+
+    const discountRowHTML = order.discount
+      ? `
+        <div class="summary-row">
+          <span>Coupon (${order.couponCode || "N/A"})</span>
+          <span>− ₹${formatPrice(order.discount)}</span>
+        </div>
+      `
+      : "";
 
     billWindow.document.write(`
       <!DOCTYPE html>
@@ -313,7 +363,7 @@ function Orders({ setPage }) {
               <span>Subtotal</span>
 
               <span>
-                ₹${formatPrice(order.amount)}
+                ₹${formatPrice(order.subtotal || order.amount)}
               </span>
 
             </div>
@@ -325,6 +375,8 @@ function Orders({ setPage }) {
               <span>FREE</span>
 
             </div>
+
+            ${discountRowHTML}
 
             <div class="summary-row total">
 
@@ -430,178 +482,229 @@ function Orders({ setPage }) {
           {orders
             .slice()
             .reverse()
-            .map((order) => (
+            .map((order) => {
 
-              <article
-                className="order-card"
-                key={order.id}
-              >
+              const stageIndex = getOrderStageIndex(order);
+              const stageLabel = STAGES[stageIndex];
 
-                <div className="order-top">
+              return (
 
-                  <div>
-                    <span>ORDER ID</span>
+                <article
+                  className="order-card"
+                  key={order.id}
+                >
 
-                    <strong>
-                      {order.id}
-                    </strong>
+                  <div className="order-top">
+
+                    <div>
+                      <span>ORDER ID</span>
+
+                      <strong>
+                        {order.id}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <span>ORDER DATE</span>
+
+                      <strong>
+                        {order.date}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <span>STATUS</span>
+
+                      <strong className="status">
+                        {stageLabel}
+                      </strong>
+                    </div>
+
                   </div>
 
-                  <div>
-                    <span>ORDER DATE</span>
 
-                    <strong>
-                      {order.date}
-                    </strong>
-                  </div>
+                  {/* ORDER TRACKER */}
 
-                  <div>
-                    <span>STATUS</span>
+                  <div className="order-tracker">
 
-                    <strong className="status">
-                      {order.status}
-                    </strong>
-                  </div>
-
-                </div>
-
-                <div className="order-products">
-
-                  {order.items?.map(
-                    (item, index) => (
+                    {STAGES.map((label, index) => (
 
                       <div
-                        className="order-product"
-                        key={`${item.id}-${index}`}
+                        className={`tracker-step ${
+                          index <= stageIndex
+                            ? "completed"
+                            : ""
+                        } ${
+                          index === stageIndex
+                            ? "current"
+                            : ""
+                        }`}
+                        key={label}
                       >
 
-                        <img
-                          src={item.image}
-                          alt={
-                            item.name ||
-                            item.title ||
-                            "Product"
-                          }
-                        />
-
-                        <div className="order-product-info">
-
-                          <h3>
-                            {item.name ||
-                              item.title ||
-                              "Product"}
-                          </h3>
-
-                          <p>
-                            Brand:{" "}
-                            {item.brand ||
-                              "STYLEHUB"}
-                          </p>
-
-                          {item.size && (
-                            <p>
-                              Size:{" "}
-                              {item.size}
-                            </p>
-                          )}
-
-                          <p>
-                            Quantity:{" "}
-                            {item.quantity || 1}
-                          </p>
-
+                        <div className="tracker-dot">
+                          {index < stageIndex ? "✓" : index + 1}
                         </div>
 
-                        <strong>
-                          ₹
-                          {formatPrice(
-                            Number(item.price || 0) *
-                              (item.quantity || 1)
-                          )}
-                        </strong>
+                        <span className="tracker-label">
+                          {label}
+                        </span>
+
+                        {index < STAGES.length - 1 && (
+                          <div
+                            className={`tracker-line ${
+                              index < stageIndex
+                                ? "completed"
+                                : ""
+                            }`}
+                          />
+                        )}
 
                       </div>
 
-                    )
-                  )}
+                    ))}
 
-                </div>
-
-                <div className="order-bottom">
-
-                  <div>
-                    <span>PAYMENT</span>
-
-                    <strong>
-                      {order.paymentMethod}
-                    </strong>
                   </div>
 
-                  <div>
-                    <span>PAYMENT STATUS</span>
 
-                    <strong>
-                      {order.paymentStatus}
-                    </strong>
+                  <div className="order-products">
+
+                    {order.items?.map(
+                      (item, index) => (
+
+                        <div
+                          className="order-product"
+                          key={`${item.id}-${index}`}
+                        >
+
+                          <img
+                            src={item.image}
+                            alt={
+                              item.name ||
+                              item.title ||
+                              "Product"
+                            }
+                          />
+
+                          <div className="order-product-info">
+
+                            <h3>
+                              {item.name ||
+                                item.title ||
+                                "Product"}
+                            </h3>
+
+                            <p>
+                              Brand:{" "}
+                              {item.brand ||
+                                "STYLEHUB"}
+                            </p>
+
+                            {item.size && (
+                              <p>
+                                Size:{" "}
+                                {item.size}
+                              </p>
+                            )}
+
+                            <p>
+                              Quantity:{" "}
+                              {item.quantity || 1}
+                            </p>
+
+                          </div>
+
+                          <strong>
+                            ₹
+                            {formatPrice(
+                              Number(item.price || 0) *
+                                (item.quantity || 1)
+                            )}
+                          </strong>
+
+                        </div>
+
+                      )
+                    )}
+
                   </div>
 
-                  <div>
-                    <span>TOTAL</span>
+                  <div className="order-bottom">
 
-                    <strong className="order-total">
-                      ₹
-                      {formatPrice(order.amount)}
-                    </strong>
+                    <div>
+                      <span>PAYMENT</span>
+
+                      <strong>
+                        {order.paymentMethod}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <span>PAYMENT STATUS</span>
+
+                      <strong>
+                        {order.paymentStatus}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <span>TOTAL</span>
+
+                      <strong className="order-total">
+                        ₹
+                        {formatPrice(order.amount)}
+                      </strong>
+                    </div>
+
                   </div>
 
-                </div>
+                  <div className="order-address">
 
-                <div className="order-address">
+                    <h3>
+                      Delivery Address
+                    </h3>
 
-                  <h3>
-                    Delivery Address
-                  </h3>
+                    <p>
+                      <strong>
+                        {order.address?.name}
+                      </strong>
+                    </p>
 
-                  <p>
-                    <strong>
-                      {order.address?.name}
-                    </strong>
-                  </p>
+                    <p>
+                      {order.address?.address}
+                    </p>
 
-                  <p>
-                    {order.address?.address}
-                  </p>
+                    <p>
+                      {order.address?.city}{" "}
+                      {order.address?.pincode}
+                    </p>
 
-                  <p>
-                    {order.address?.city}{" "}
-                    {order.address?.pincode}
-                  </p>
+                    <p>
+                      📞{" "}
+                      {order.address?.mobile}
+                    </p>
 
-                  <p>
-                    📞{" "}
-                    {order.address?.mobile}
-                  </p>
+                  </div>
 
-                </div>
+                  {/* PRINT BILL */}
 
-                {/* PRINT BILL */}
+                  <div className="order-actions">
 
-                <div className="order-actions">
+                    <button
+                      className="print-bill-btn"
+                      onClick={() =>
+                        printBill(order)
+                      }
+                    >
+                      🖨 Print Bill
+                    </button>
 
-                  <button
-                    className="print-bill-btn"
-                    onClick={() =>
-                      printBill(order)
-                    }
-                  >
-                    🖨 Print Bill
-                  </button>
+                  </div>
 
-                </div>
+                </article>
 
-              </article>
-
-            ))}
+              );
+            })}
 
         </div>
 

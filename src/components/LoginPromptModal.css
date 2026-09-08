@@ -1,0 +1,175 @@
+.login-prompt-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+  box-sizing: border-box;
+
+  background: rgba(15, 31, 61, 0.55);
+  backdrop-filter: blur(3px);
+
+  animation: loginPromptFade 0.2s ease;
+}
+
+.login-prompt-box {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+
+  padding: 34px 28px 28px;
+  box-sizing: border-box;
+
+  background: #ffffff;
+  border-radius: 16px;
+
+  text-align: center;
+
+  box-shadow: 0 20px 50px rgba(15, 31, 61, 0.25);
+
+  animation: loginPromptPop 0.25s ease;
+}
+
+.login-prompt-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+  border-radius: 50%;
+
+  background: #f1f5f9;
+  color: #64748b;
+
+  font-size: 18px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.login-prompt-close:hover {
+  background: #e2e8f0;
+  color: #0f1f3d;
+}
+
+.login-prompt-icon {
+  width: 56px;
+  height: 56px;
+
+  margin: 0 auto 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #eff6ff;
+
+  font-size: 24px;
+}
+
+.login-prompt-box h2 {
+  margin: 0 0 10px;
+
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+
+  color: #0f1f3d;
+}
+
+.login-prompt-box p {
+  margin: 0 0 22px;
+
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.login-prompt-primary,
+.login-prompt-secondary {
+  width: 100%;
+
+  padding: 13px;
+  margin-bottom: 10px;
+
+  border-radius: 8px;
+
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.login-prompt-primary {
+  border: 1px solid #2563eb;
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.login-prompt-primary:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.login-prompt-secondary {
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #0f1f3d;
+}
+
+.login-prompt-secondary:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+.login-prompt-cancel {
+  margin-top: 2px;
+
+  border: none;
+  background: transparent;
+
+  color: #94a3b8;
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+.login-prompt-cancel:hover {
+  color: #475569;
+  text-decoration: underline;
+}
+
+@keyframes loginPromptFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes loginPromptPop {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}

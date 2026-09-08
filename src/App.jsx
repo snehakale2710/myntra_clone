@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ProfileCard from "./components/ProfileCard";
+import LoginPromptModal from "./components/LoginPromptModal";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -22,6 +23,29 @@ import {
 } from "./utils/userStorage";
 
 import "./App.css";
+
+// ==========================================
+// PAGES A GUEST (NOT LOGGED IN) MAY VIEW
+// ==========================================
+
+const GUEST_ALLOWED_PAGES = [
+  "home",
+  "products",
+  "details",
+];
+
+// ==========================================
+// PAGES THAT ALWAYS REQUIRE LOGIN
+// ==========================================
+
+const PROTECTED_PAGES = [
+  "cart",
+  "wishlist",
+  "checkout",
+  "payment",
+  "orders",
+  "profile",
+];
 
 function App() {
   // ==========================================
@@ -48,22 +72,46 @@ function App() {
   };
 
   // ==========================================
-  // LOGIN STATE
+  // LOGIN / GUEST STATE
   // ==========================================
 
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("loggedIn") === "true"
   );
 
+  const [isGuest, setIsGuest] = useState(
+    localStorage.getItem("guest") === "true"
+  );
+
+  // ==========================================
+  // LOGIN PROMPT MODAL
+  // ==========================================
+
+  const [showLoginPrompt, setShowLoginPrompt] =
+    useState(false);
+
+  const [pendingAction, setPendingAction] =
+    useState(null);
+
   // ==========================================
   // CURRENT PAGE
   // ==========================================
 
-  const [page, setPage] = useState(() =>
-    localStorage.getItem("loggedIn") === "true"
-      ? getPageFromHash()
-      : "login"
-  );
+  const [page, setPage] = useState(() => {
+    if (localStorage.getItem("loggedIn") === "true") {
+      return getPageFromHash();
+    }
+
+    if (localStorage.getItem("guest") === "true") {
+      const hashPage = getPageFromHash();
+
+      return GUEST_ALLOWED_PAGES.includes(hashPage)
+        ? hashPage
+        : "home";
+    }
+
+    return "login";
+  });
 
   // ==========================================
   // SEARCH & CATEGORY
@@ -89,13 +137,22 @@ function App() {
   // ==========================================
 
   const [pageHistory, setPageHistory] = useState(() => {
-    if (
-      localStorage.getItem("loggedIn") !== "true"
-    ) {
+    const loggedIn =
+      localStorage.getItem("loggedIn") === "true";
+    const guest =
+      localStorage.getItem("guest") === "true";
+
+    if (!loggedIn && !guest) {
       return [];
     }
 
-    return [getPageFromHash()];
+    return [
+      loggedIn
+        ? getPageFromHash()
+        : GUEST_ALLOWED_PAGES.includes(getPageFromHash())
+        ? getPageFromHash()
+        : "home",
+    ];
   });
 
   // ==========================================
@@ -115,17 +172,23 @@ function App() {
 
   useEffect(() => {
     const onHashChange = () => {
+      const newPage = getPageFromHash();
+
       if (isLoggedIn) {
-        const newPage = getPageFromHash();
-
         setPage(newPage);
-
-        window.scrollTo({
-          top: 0,
-          left: 0,
-          behavior: "instant",
-        });
+      } else if (isGuest) {
+        if (PROTECTED_PAGES.includes(newPage)) {
+          requireLogin({ type: "page", page: newPage });
+        } else {
+          setPage(newPage);
+        }
       }
+
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "instant",
+      });
     };
 
     window.addEventListener(
@@ -139,7 +202,8 @@ function App() {
         onHashChange
       );
     };
-  }, [isLoggedIn]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoggedIn, isGuest]);
 
   // ==========================================
   // SCROLL TO TOP
@@ -154,6 +218,19 @@ function App() {
   }, [page]);
 
   // ==========================================
+  // REQUIRE LOGIN (opens the modal)
+  // ==========================================
+
+  const requireLogin = (action) => {
+    setPendingAction({
+      ...action,
+      returnPage: page,
+    });
+
+    setShowLoginPrompt(true);
+  };
+
+  // ==========================================
   // NAVIGATION
   // ==========================================
 
@@ -162,6 +239,20 @@ function App() {
     searchValue = "",
     categoryValue = "All"
   ) => {
+    // Block guests (and anonymous users) from protected pages
+    if (
+      !isLoggedIn &&
+      PROTECTED_PAGES.includes(newPage)
+    ) {
+      requireLogin({
+        type: "page",
+        page: newPage,
+        searchValue,
+        categoryValue,
+      });
+      return;
+    }
+
     setSearchTerm(searchValue);
     setCategory(categoryValue);
 
@@ -217,19 +308,57 @@ function App() {
   };
 
   // ==========================================
-  // LOGIN
+  // RESOLVE PENDING ACTION (after successful auth)
   // ==========================================
 
-  const handleLogin = () => {
-    localStorage.setItem(
-      "loggedIn",
-      "true"
-    );
+  const resolvePendingAction = (action) => {
+    if (action.type === "page") {
+      setSearchTerm(action.searchValue || "");
+      setCategory(action.categoryValue || "All");
 
-    setIsLoggedIn(true);
+      setPage(action.page);
+
+      setPageHistory((previousHistory) => [
+        ...previousHistory,
+        action.page,
+      ]);
+
+      window.history.pushState(
+        { page: action.page },
+        "",
+        `#/${action.page}`
+      );
+
+      return;
+    }
+
+    if (action.type === "callback") {
+      const returnPage = action.returnPage || "home";
+
+      setPage(returnPage);
+
+      window.history.replaceState(
+        { page: returnPage },
+        "",
+        `#/${returnPage}`
+      );
+
+      if (typeof action.callback === "function") {
+        action.callback();
+      }
+    }
+  };
+
+  // ==========================================
+  // CONTINUE AS GUEST
+  // ==========================================
+
+  const handleContinueAsGuest = () => {
+    localStorage.setItem("guest", "true");
+
+    setIsGuest(true);
 
     setPage("home");
-
     setPageHistory(["home"]);
 
     window.history.replaceState(
@@ -246,32 +375,52 @@ function App() {
   };
 
   // ==========================================
-  // REGISTER SUCCESS
+  // COMPLETE AUTH (shared by Login + Register)
   // ==========================================
 
-  const handleRegisterSuccess = () => {
-    localStorage.setItem(
-      "loggedIn",
-      "true"
-    );
+  const completeAuth = () => {
+    localStorage.setItem("loggedIn", "true");
+    localStorage.removeItem("guest");
 
+    setIsGuest(false);
     setIsLoggedIn(true);
+    setShowLoginPrompt(false);
 
-    setPage("home");
+    if (pendingAction) {
+      resolvePendingAction(pendingAction);
+      setPendingAction(null);
+    } else {
+      setPage("home");
+      setPageHistory(["home"]);
 
-    setPageHistory(["home"]);
-
-    window.history.replaceState(
-      { page: "home" },
-      "",
-      "#/home"
-    );
+      window.history.replaceState(
+        { page: "home" },
+        "",
+        "#/home"
+      );
+    }
 
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: "instant",
     });
+  };
+
+  // ==========================================
+  // LOGIN
+  // ==========================================
+
+  const handleLogin = () => {
+    completeAuth();
+  };
+
+  // ==========================================
+  // REGISTER SUCCESS
+  // ==========================================
+
+  const handleRegisterSuccess = () => {
+    completeAuth();
   };
 
   // ==========================================
@@ -281,8 +430,10 @@ function App() {
   const handleLogout = () => {
     localStorage.removeItem("loggedIn");
     localStorage.removeItem("currentUser");
+    localStorage.removeItem("guest");
 
     setIsLoggedIn(false);
+    setIsGuest(false);
 
     setPage("login");
 
@@ -414,6 +565,35 @@ function App() {
   };
 
   // ==========================================
+  // GUARDED VERSIONS
+  // (used on guest-accessible pages: Home, Products, ProductDetails)
+  // ==========================================
+
+  const guardedAddToCart = (product) => {
+    if (!isLoggedIn) {
+      requireLogin({
+        type: "callback",
+        callback: () => addToCart(product),
+      });
+      return;
+    }
+
+    addToCart(product);
+  };
+
+  const guardedAddToWishlist = (product) => {
+    if (!isLoggedIn) {
+      requireLogin({
+        type: "callback",
+        callback: () => addToWishlist(product),
+      });
+      return;
+    }
+
+    addToWishlist(product);
+  };
+
+  // ==========================================
   // RENDER PAGE
   // ==========================================
 
@@ -424,6 +604,7 @@ function App() {
         <Login
           setPage={handleSetPage}
           setIsLoggedIn={handleLogin}
+          onGuest={handleContinueAsGuest}
         />
       );
     }
@@ -447,18 +628,32 @@ function App() {
       );
     }
 
-    // PROTECT OTHER PAGES
-    if (!isLoggedIn) {
+    // NEITHER LOGGED IN NOR GUEST -> FORCE LOGIN
+    if (!isLoggedIn && !isGuest) {
       return (
         <Login
           setPage={handleSetPage}
           setIsLoggedIn={handleLogin}
+          onGuest={handleContinueAsGuest}
+        />
+      );
+    }
+
+    // GUEST TRYING TO LAND DIRECTLY ON A PROTECTED PAGE
+    // (e.g. via a bookmarked URL) -> send them to Home
+    if (!isLoggedIn && PROTECTED_PAGES.includes(page)) {
+      return (
+        <Home
+          setPage={handleSetPage}
+          navigate={navigate}
+          addToWishlist={guardedAddToWishlist}
+          addToCart={guardedAddToCart}
         />
       );
     }
 
     // ========================================
-    // AUTHENTICATED PAGES
+    // GUEST-ACCESSIBLE / AUTHENTICATED PAGES
     // ========================================
 
     switch (page) {
@@ -467,8 +662,8 @@ function App() {
           <Home
             setPage={handleSetPage}
             navigate={navigate}
-            addToWishlist={addToWishlist}
-            addToCart={addToCart}
+            addToWishlist={guardedAddToWishlist}
+            addToCart={guardedAddToCart}
           />
         );
 
@@ -479,8 +674,8 @@ function App() {
             searchTerm={searchTerm}
             category={category}
             setCategory={setCategory}
-            addToWishlist={addToWishlist}
-            addToCart={addToCart}
+            addToWishlist={guardedAddToWishlist}
+            addToCart={guardedAddToCart}
           />
         );
 
@@ -488,8 +683,8 @@ function App() {
         return (
           <ProductDetails
             setPage={handleSetPage}
-            addToWishlist={addToWishlist}
-            addToCart={addToCart}
+            addToWishlist={guardedAddToWishlist}
+            addToCart={guardedAddToCart}
           />
         );
 
@@ -550,8 +745,8 @@ function App() {
           <Home
             setPage={handleSetPage}
             navigate={navigate}
-            addToWishlist={addToWishlist}
-            addToCart={addToCart}
+            addToWishlist={guardedAddToWishlist}
+            addToCart={guardedAddToCart}
           />
         );
     }
@@ -574,7 +769,7 @@ function App() {
     <div className="app">
 
       {/* NAVBAR */}
-      {isLoggedIn && (
+      {(isLoggedIn || isGuest) && (
         <Navbar
           setPage={handleSetPage}
           cartCount={cartCount}
@@ -596,8 +791,26 @@ function App() {
       </main>
 
       {/* FOOTER */}
-      {isLoggedIn && (
+      {(isLoggedIn || isGuest) && (
         <Footer setPage={handleSetPage} />
+      )}
+
+      {/* LOGIN PROMPT MODAL */}
+      {showLoginPrompt && (
+        <LoginPromptModal
+          onLogin={() => {
+            setShowLoginPrompt(false);
+            setPage("login");
+          }}
+          onRegister={() => {
+            setShowLoginPrompt(false);
+            setPage("register");
+          }}
+          onClose={() => {
+            setShowLoginPrompt(false);
+            setPendingAction(null);
+          }}
+        />
       )}
 
     </div>

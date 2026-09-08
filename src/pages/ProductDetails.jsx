@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 import "./ProductDetails.css";
 
+import allProducts from "../data/products";
+import ProductCard from "../components/ProductCard";
+
 function ProductDetails({
   setPage,
   addToWishlist,
@@ -61,159 +64,224 @@ function ProductDetails({
     );
   }
 
+  /* =====================================================
+     RELATED PRODUCTS
+     Same category first, falls back to same subcategory
+     if there aren't enough matches.
+  ===================================================== */
+
+  const relatedProducts = (() => {
+    const sameCategory = allProducts.filter(
+      (item) =>
+        item.id !== product.id &&
+        item.category === product.category
+    );
+
+    if (sameCategory.length >= 4) {
+      return sameCategory.slice(0, 4);
+    }
+
+    const extra = allProducts.filter(
+      (item) =>
+        item.id !== product.id &&
+        item.category !== product.category &&
+        item.subcategory === product.subcategory
+    );
+
+    return [...sameCategory, ...extra].slice(0, 4);
+  })();
+
   return (
-    <main className="details-page">
+    <>
+      <main className="details-page">
 
-      <div className="details-image">
+        <div className="details-image">
 
-        <img
-          src={product.image}
-          alt={product.name}
-        />
-
-      </div>
-
-      <div className="details-content">
-
-        <p className="eyebrow">
-          {product.brand}
-        </p>
-
-        <h1>
-          {product.name}
-        </h1>
-
-        <p className="details-description">
-          {product.description}
-        </p>
-
-        <div className="details-price">
-
-          <strong>
-            ₹
-            {Number(
-              product.price
-            ).toLocaleString("en-IN")}
-          </strong>
-
-          <del>
-            ₹
-            {Number(
-              product.originalPrice
-            ).toLocaleString("en-IN")}
-          </del>
-
-          <span>
-            {product.discount}% off
-          </span>
+          <img
+            src={product.image}
+            alt={product.name}
+          />
 
         </div>
 
-        <div className="size-title">
-          Select Size
-        </div>
+        <div className="details-content">
 
-        <div className="sizes">
-
-          {[
-            "S",
-            "M",
-            "L",
-            "XL",
-            "XXL",
-          ].map((size) => (
-
-            <button
-              key={size}
-              className={
-                selectedSize === size
-                  ? "selected"
-                  : ""
-              }
-              onClick={() =>
-                setSelectedSize(size)
-              }
-            >
-              {size}
-            </button>
-
-          ))}
-
-        </div>
-
-        <div className="details-actions">
-
-          <button
-            className="add-cart"
-            onClick={() =>
-              addToCart({
-                ...product,
-                size: selectedSize,
-              })
-            }
-          >
-            ADD TO BAG
-          </button>
-
-          <button
-            className="add-wishlist"
-            onClick={() =>
-              addToWishlist(product)
-            }
-          >
-            ♡ WISHLIST
-          </button>
-
-        </div>
-
-        <div className="delivery">
-
-          <h3>
-            Delivery Options
-          </h3>
-
-          <p>
-            Enter your pincode to check
-            delivery availability.
+          <p className="eyebrow">
+            {product.brand}
           </p>
 
-          <form
-            className="pincode-form"
-            onSubmit={checkPincode}
-          >
+          <h1>
+            {product.name}
+          </h1>
 
-            <input
-              type="text"
-              placeholder="Enter pincode"
-              maxLength={6}
-              value={pincode}
-              onChange={(e) =>
-                setPincode(
-                  e.target.value.replace(
-                    /\D/g,
-                    ""
-                  )
-                )
+          <p className="details-description">
+            {product.description}
+          </p>
+
+          <div className="details-price">
+
+            <strong>
+              ₹
+              {Number(
+                product.price
+              ).toLocaleString("en-IN")}
+            </strong>
+
+            <del>
+              ₹
+              {Number(
+                product.originalPrice
+              ).toLocaleString("en-IN")}
+            </del>
+
+            <span>
+              {product.discount}% off
+            </span>
+
+          </div>
+
+          <div className="size-title">
+            Select Size
+          </div>
+
+          <div className="sizes">
+
+            {[
+              "S",
+              "M",
+              "L",
+              "XL",
+              "XXL",
+            ].map((size) => (
+
+              <button
+                key={size}
+                className={
+                  selectedSize === size
+                    ? "selected"
+                    : ""
+                }
+                onClick={() =>
+                  setSelectedSize(size)
+                }
+              >
+                {size}
+              </button>
+
+            ))}
+
+          </div>
+
+          <div className="details-actions">
+
+            <button
+              className="add-cart"
+              onClick={() =>
+                addToCart({
+                  ...product,
+                  size: selectedSize,
+                })
               }
-            />
-
-            <button type="submit">
-              Check
+            >
+              ADD TO BAG
             </button>
 
-          </form>
+            <button
+              className="add-wishlist"
+              onClick={() =>
+                addToWishlist(product)
+              }
+            >
+              ♡ WISHLIST
+            </button>
 
-          {pincodeMsg && (
-            <p className="pincode-msg">
-              {pincodeMsg}
+          </div>
+
+          <div className="delivery">
+
+            <h3>
+              Delivery Options
+            </h3>
+
+            <p>
+              Enter your pincode to check
+              delivery availability.
             </p>
-          )}
+
+            <form
+              className="pincode-form"
+              onSubmit={checkPincode}
+            >
+
+              <input
+                type="text"
+                placeholder="Enter pincode"
+                maxLength={6}
+                value={pincode}
+                onChange={(e) =>
+                  setPincode(
+                    e.target.value.replace(
+                      /\D/g,
+                      ""
+                    )
+                  )
+                }
+              />
+
+              <button type="submit">
+                Check
+              </button>
+
+            </form>
+
+            {pincodeMsg && (
+              <p className="pincode-msg">
+                {pincodeMsg}
+              </p>
+            )}
+
+          </div>
 
         </div>
 
-      </div>
+      </main>
 
-    </main>
+      {relatedProducts.length > 0 && (
+
+        <section className="related-products">
+
+          <div className="related-products-header">
+
+            <p className="eyebrow">
+              YOU MAY ALSO LIKE
+            </p>
+
+            <h2>
+              Complete the look
+            </h2>
+
+          </div>
+
+          <div className="related-products-grid">
+
+            {relatedProducts.map((item) => (
+
+              <ProductCard
+                key={item.id}
+                product={item}
+                setPage={setPage}
+                addToWishlist={addToWishlist}
+                addToCart={addToCart}
+              />
+
+            ))}
+
+          </div>
+
+        </section>
+
+      )}
+    </>
   );
 }
 

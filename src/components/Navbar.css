@@ -34,15 +34,18 @@
 
 /* =========================================================
    BACK BUTTON
-   ONLY CIRCLE
-   DOES NOT CREATE A FULL ROW
+   FIXED SO IT DOESN'T OCCUPY A FULL FLEX ROW
 ========================================================= */
 
 .below-navbar-back-button {
+  position: fixed;
+  top: 86px;
+  left: 5vw;
+  z-index: 999;
+
   width: 42px;
   height: 42px;
-
-  margin: 12px 0 0 5vw;
+  margin: 0;
   padding: 0;
 
   display: flex;
@@ -63,11 +66,14 @@
 
   cursor: pointer;
 
+  box-shadow: 0 4px 10px rgba(15, 31, 61, 0.1);
+
   transition:
     background 0.2s ease,
     border-color 0.2s ease,
     color 0.2s ease,
-    transform 0.2s ease;
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .below-navbar-back-button:hover {
@@ -577,12 +583,13 @@
     background: #ffffff !important;
   }
 
-  /* Desktop back button positioning */
+  /* Fixed back button positioning on tablet/mobile */
   .below-navbar-back-button {
+    top: 76px;
+    left: 20px;
+
     width: 36px;
     height: 36px;
-
-    margin-left: 20px;
 
     font-size: 20px;
   }
@@ -619,10 +626,11 @@
   }
 
   .below-navbar-back-button {
+    top: 70px;
+    left: 14px;
+
     width: 34px;
     height: 34px;
-
-    margin-left: 14px;
 
     font-size: 19px;
   }

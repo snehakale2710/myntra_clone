@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Cart.css";
 
 import {
   getUserData,
   saveUserData,
+  removeUserData,
 } from "../utils/userStorage";
+
+import { calculateDiscount } from "../utils/coupons";
 
 function Cart({
   cart,
@@ -146,6 +149,57 @@ function Cart({
         (item.quantity || 1),
     0
   );
+
+
+  /* =========================
+     COUPON
+  ========================= */
+
+  const [couponCode, setCouponCode] = useState("");
+
+  const [appliedCoupon, setAppliedCoupon] = useState(() =>
+    getUserData("appliedCoupon", "")
+  );
+
+  const [couponMessage, setCouponMessage] = useState("");
+  const [couponMessageType, setCouponMessageType] = useState("");
+
+  const discountResult = calculateDiscount(
+    appliedCoupon,
+    totalAmount
+  );
+
+  const finalAmount =
+    totalAmount -
+    (discountResult.valid ? discountResult.discount : 0);
+
+  const handleApplyCoupon = () => {
+    const result = calculateDiscount(couponCode, totalAmount);
+
+    if (result.valid) {
+      const normalizedCode = couponCode.trim().toUpperCase();
+
+      saveUserData("appliedCoupon", normalizedCode);
+
+      setAppliedCoupon(normalizedCode);
+      setCouponMessage(result.message);
+      setCouponMessageType("success");
+    } else {
+      setCouponMessage(
+        result.message || "Invalid coupon code."
+      );
+      setCouponMessageType("error");
+    }
+  };
+
+  const handleRemoveCoupon = () => {
+    removeUserData("appliedCoupon");
+
+    setAppliedCoupon("");
+    setCouponCode("");
+    setCouponMessage("");
+    setCouponMessageType("");
+  };
 
 
   /* =========================
@@ -528,6 +582,85 @@ function Cart({
           </div>
 
 
+          {discountResult.valid && (
+            <div className="summary-row discount-row">
+
+              <span>
+                Coupon Discount
+              </span>
+
+              <span>
+                − ₹
+                {discountResult.discount.toLocaleString(
+                  "en-IN"
+                )}
+              </span>
+
+            </div>
+          )}
+
+
+          {/* COUPON */}
+
+          <div className="coupon-section">
+
+            <label>
+              Have a coupon?
+            </label>
+
+            {appliedCoupon ? (
+
+              <div className="coupon-applied">
+
+                <span>
+                  🏷️ {appliedCoupon} applied
+                </span>
+
+                <button
+                  type="button"
+                  onClick={handleRemoveCoupon}
+                >
+                  Remove
+                </button>
+
+              </div>
+
+            ) : (
+
+              <div className="coupon-input-row">
+
+                <input
+                  type="text"
+                  placeholder="Enter coupon code"
+                  value={couponCode}
+                  onChange={(e) => {
+                    setCouponCode(e.target.value);
+                    setCouponMessage("");
+                  }}
+                />
+
+                <button
+                  type="button"
+                  onClick={handleApplyCoupon}
+                >
+                  Apply
+                </button>
+
+              </div>
+
+            )}
+
+            {couponMessage && (
+              <p
+                className={`coupon-message ${couponMessageType}`}
+              >
+                {couponMessage}
+              </p>
+            )}
+
+          </div>
+
+
           <hr />
 
 
@@ -539,7 +672,7 @@ function Cart({
 
             <strong>
               ₹
-              {totalAmount.toLocaleString(
+              {finalAmount.toLocaleString(
                 "en-IN"
               )}
             </strong>

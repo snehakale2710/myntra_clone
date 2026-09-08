@@ -2,18 +2,23 @@ import React, { useState } from "react";
 
 import "./Checkout.css";
 
+import {
+  getUserData,
+  saveUserData,
+} from "../utils/userStorage";
+
+import { calculateDiscount } from "../utils/coupons";
+
 function Checkout({ cart, setPage }) {
   const [address, setAddress] =
     useState(
-      JSON.parse(
-        localStorage.getItem("deliveryAddress")
-      ) || {
+      getUserData("deliveryAddress", {
         name: "",
         mobile: "",
         address: "",
         city: "",
         pincode: "",
-      }
+      })
     );
 
   const [error, setError] = useState("");
@@ -40,6 +45,17 @@ function Checkout({ cart, setPage }) {
         (item.quantity || 1),
     0
   );
+
+  const appliedCoupon = getUserData("appliedCoupon", "");
+
+  const discountResult = calculateDiscount(
+    appliedCoupon,
+    totalAmount
+  );
+
+  const finalAmount =
+    totalAmount -
+    (discountResult.valid ? discountResult.discount : 0);
 
   const handleChange = (e) => {
     const {
@@ -102,9 +118,9 @@ function Checkout({ cart, setPage }) {
       return;
     }
 
-    localStorage.setItem(
+    saveUserData(
       "deliveryAddress",
-      JSON.stringify(address)
+      address
     );
 
     setPage("payment");
@@ -326,6 +342,21 @@ function Checkout({ cart, setPage }) {
               </span>
             </div>
 
+            {discountResult.valid && (
+              <div>
+                <span>
+                  Coupon ({appliedCoupon})
+                </span>
+
+                <span className="free">
+                  − ₹
+                  {discountResult.discount.toLocaleString(
+                    "en-IN"
+                  )}
+                </span>
+              </div>
+            )}
+
             <hr />
 
             <div className="total-row">
@@ -336,7 +367,7 @@ function Checkout({ cart, setPage }) {
 
               <strong>
                 ₹
-                {totalAmount.toLocaleString(
+                {finalAmount.toLocaleString(
                   "en-IN"
                 )}
               </strong>

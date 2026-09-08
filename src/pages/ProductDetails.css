@@ -258,3 +258,47 @@
     max-width: none;
   }
 }
+/* =========================================================
+   RELATED PRODUCTS
+========================================================= */
+
+.related-products {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 10px var(--edge, 5vw) 70px;
+}
+
+.related-products-header {
+  margin-bottom: 22px;
+}
+
+.related-products-header h2 {
+  margin: 6px 0 0;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.related-products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .related-products-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .related-products-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .related-products-header h2 {
+    font-size: 20px;
+  }
+}
