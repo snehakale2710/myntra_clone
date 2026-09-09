@@ -1,6 +1,7 @@
 
 /* =========================================================
    STYLEHUB HOME PAGE
+
    NAVY / BLUE / SLATE
 ========================================================= */
 
@@ -19,20 +20,15 @@
 .home-hero {
   position: relative;
   min-height: 500px;
-
   display: flex;
   align-items: center;
-
   padding: 70px 7vw;
   box-sizing: border-box;
-
   background-image:
     url("https://images.unsplash.com/photo-1445205170230-053b83016050?w=1800&q=85");
-
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
   color: #ffffff;
   overflow: hidden;
 }
@@ -40,7 +36,6 @@
 .home-hero-overlay {
   position: absolute;
   inset: 0;
-
   background:
     linear-gradient(
       90deg,
@@ -60,26 +55,19 @@
 .home-eyebrow {
   display: flex;
   align-items: center;
-
   margin: 0 0 9px;
-
   color: #2563eb;
-
   font-size: 9px;
   font-weight: 800;
-
   letter-spacing: 1.5px;
   line-height: 1.3;
 }
 
 .home-eyebrow::before {
   content: "";
-
   width: 20px;
   height: 1px;
-
   margin-right: 9px;
-
   background: #2563eb;
 }
 
@@ -98,12 +86,9 @@
 
 .home-hero h1 {
   margin: 16px 0 17px;
-
   color: #ffffff;
-
   font-size: clamp(38px, 5vw, 62px);
   font-weight: 800;
-
   line-height: 1.02;
   letter-spacing: -1.8px;
 }
@@ -119,11 +104,8 @@
 
 .home-hero-description {
   max-width: 470px;
-
   margin: 0;
-
   color: #d1dae6;
-
   font-size: 14px;
   line-height: 1.7;
 }
@@ -136,7 +118,6 @@
 .home-hero-actions {
   display: flex;
   align-items: center;
-
   gap: 12px;
   margin-top: 28px;
 }
@@ -145,26 +126,17 @@
 .home-secondary-button {
   appearance: none;
   -webkit-appearance: none;
-
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
   min-height: 42px;
-
   padding: 0 20px;
-
   border-radius: 6px;
-
   font-family: inherit;
-
   font-size: 10px;
   font-weight: 800;
-
   letter-spacing: 0.7px;
-
   cursor: pointer;
-
   transition:
     background 0.2s ease,
     border-color 0.2s ease,
@@ -174,37 +146,27 @@
 
 .home-primary-button {
   gap: 10px;
-
   border: 1px solid #2563eb;
-
   background: #2563eb;
-
   color: #ffffff;
 }
 
 .home-primary-button:hover {
   background: #1d4ed8;
-
   border-color: #1d4ed8;
-
   transform: translateY(-2px);
 }
 
 .home-secondary-button {
   border: 1px solid rgba(255, 255, 255, 0.35);
-
   background: rgba(15, 31, 61, 0.25);
-
   color: #ffffff;
-
   backdrop-filter: blur(5px);
 }
 
 .home-secondary-button:hover {
   border-color: #ffffff;
-
   background: rgba(255, 255, 255, 0.1);
-
   transform: translateY(-2px);
 }
 
@@ -215,50 +177,34 @@
 
 .hero-season-card {
   position: absolute;
-
   z-index: 2;
-
   right: 7vw;
   bottom: 42px;
-
   width: 86px;
   height: 86px;
-
   display: flex;
   flex-direction: column;
-
   align-items: center;
   justify-content: center;
-
   border: 1px solid rgba(255, 255, 255, 0.22);
-
   border-radius: 50%;
-
   background: rgba(15, 31, 61, 0.42);
-
   backdrop-filter: blur(8px);
-
   text-align: center;
 }
 
 .hero-season-card span {
   margin-bottom: 4px;
-
   color: #9eacbf;
-
   font-size: 7px;
   font-weight: 800;
-
   letter-spacing: 1px;
 }
 
 .hero-season-card strong {
   color: #ffffff;
-
   font-size: 17px;
-
   line-height: 0.9;
-
   letter-spacing: -0.5px;
 }
 
@@ -269,24 +215,17 @@
 
 .home-section {
   width: 100%;
-
   max-width: 1280px;
-
   margin: 0 auto;
-
   padding: 65px 45px;
-
   box-sizing: border-box;
 }
 
 .home-section-header {
   display: flex;
-
   align-items: flex-end;
   justify-content: space-between;
-
   gap: 30px;
-
   margin-bottom: 30px;
 }
 
@@ -297,25 +236,17 @@
 .home-section-header h2,
 .benefits-heading h2 {
   margin: 0;
-
   color: #172033;
-
   font-size: clamp(23px, 2.7vw, 30px);
-
   font-weight: 800;
-
   line-height: 1.15;
-
   letter-spacing: -0.7px;
 }
 
 .section-description {
   margin: 8px 0 0;
-
   color: #64748b;
-
   font-size: 12px;
-
   line-height: 1.5;
 }
 
@@ -327,37 +258,22 @@
 .text-link {
   appearance: none;
   -webkit-appearance: none;
-
   display: inline-flex;
-
   align-items: center;
-
   gap: 8px;
-
   padding: 0 !important;
-
   margin: 0;
-
   border: none !important;
   outline: none !important;
-
   background: transparent !important;
-
   box-shadow: none !important;
-
   color: #2563eb;
-
   font-family: inherit;
-
   font-size: 10px;
   font-weight: 800;
-
   letter-spacing: 0.6px;
-
   white-space: nowrap;
-
   cursor: pointer;
-
   transition:
     color 0.2s ease,
     gap 0.2s ease;
@@ -365,7 +281,6 @@
 
 .text-link:hover {
   color: #1d4ed8;
-
   gap: 11px;
 }
 
@@ -377,21 +292,16 @@
 .category-section {
   padding-top: 58px;
   padding-bottom: 58px;
-
   background: #f8fafc;
-
   max-width: none;
-
   padding-left: max(45px, calc((100vw - 1190px) / 2));
   padding-right: max(45px, calc((100vw - 1190px) / 2));
 }
 
 .home-category-grid {
   display: grid;
-
   grid-template-columns:
     repeat(5, minmax(0, 1fr));
-
   gap: 14px;
 }
 
@@ -402,25 +312,15 @@
 
 .home-category-card {
   position: relative;
-
   height: 280px;
-
   padding: 0;
-
   border: none;
-
   border-radius: 8px;
-
   overflow: hidden;
-
   background: #dfe6ee;
-
   cursor: pointer;
-
   text-align: left;
-
   box-shadow: none;
-
   transition:
     transform 0.25s ease,
     box-shadow 0.25s ease;
@@ -428,7 +328,6 @@
 
 .home-category-card:hover {
   transform: translateY(-4px);
-
   box-shadow:
     0 12px 28px rgba(15, 31, 61, 0.12);
 }
@@ -440,20 +339,15 @@
 
 .category-image {
   position: absolute;
-
   inset: 0;
-
   background: #dfe6ee;
 }
 
 .category-image img {
   width: 100%;
   height: 100%;
-
   display: block;
-
   object-fit: cover;
-
   transition:
     transform 0.5s ease;
 }
@@ -469,17 +363,11 @@
 
 .category-overlay {
   position: absolute;
-
   inset: 0;
-
   display: flex;
-
   align-items: flex-end;
-
   padding: 18px;
-
   box-sizing: border-box;
-
   background:
     linear-gradient(
       to top,
@@ -487,39 +375,27 @@
       rgba(15, 31, 61, 0.48) 35%,
       rgba(15, 31, 61, 0) 70%
     );
-
   color: #ffffff;
 }
 
 .category-overlay h3 {
   margin: 0;
-
   color: #ffffff;
-
   font-size: 18px;
   font-weight: 800;
-
   line-height: 1.1;
 }
 
 .category-overlay span {
   display: flex;
-
   align-items: center;
-
   gap: 6px;
-
   margin-top: 7px;
-
   color: #93c5fd;
-
   font-size: 9px;
   font-weight: 700;
-
   opacity: 0;
-
   transform: translateY(5px);
-
   transition:
     opacity 0.2s ease,
     transform 0.2s ease;
@@ -527,7 +403,6 @@
 
 .home-category-card:hover .category-overlay span {
   opacity: 1;
-
   transform: translateY(0);
 }
 
@@ -548,12 +423,9 @@
 
 .home-product-grid {
   display: grid;
-
-  /* 6 smaller cards on desktop */
   grid-template-columns:
-    repeat(4, minmax(0, 1fr));
-
-  gap: 14px;
+    repeat(5, minmax(0, 1fr));
+  gap: 12px;
 }
 
 .home-product-grid .product-card {
@@ -567,17 +439,11 @@
 
 .home-promo {
   position: relative;
-
   min-height: 300px;
-
   display: flex;
-
   align-items: center;
-
   padding: 45px 7vw;
-
   box-sizing: border-box;
-
   background-image:
     linear-gradient(
       90deg,
@@ -586,9 +452,7 @@
       rgba(15, 31, 61, 0.32) 100%
     ),
     url("https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1600&q=85");
-
   background-position: center;
-
   background-size: cover;
 }
 
@@ -602,27 +466,18 @@
 
 .home-promo h2 {
   margin: 0;
-
   color: #ffffff;
-
   font-size: clamp(27px, 3.5vw, 42px);
-
   font-weight: 800;
-
   line-height: 1.08;
-
   letter-spacing: -1px;
 }
 
 .home-promo-content > p:not(.home-eyebrow) {
   max-width: 420px;
-
   margin: 12px 0 20px;
-
   color: #cbd5e1;
-
   font-size: 12px;
-
   line-height: 1.6;
 }
 
@@ -630,32 +485,19 @@
 .home-final-cta button {
   appearance: none;
   -webkit-appearance: none;
-
   display: inline-flex;
-
   align-items: center;
-
   gap: 9px;
-
   padding: 12px 17px;
-
   border: 1px solid #2563eb;
-
   border-radius: 6px;
-
   background: #2563eb;
-
   color: #ffffff;
-
   font-family: inherit;
-
   font-size: 9px;
   font-weight: 800;
-
   letter-spacing: 0.7px;
-
   cursor: pointer;
-
   transition:
     background 0.2s ease,
     transform 0.2s ease;
@@ -664,7 +506,6 @@
 .home-promo button:hover,
 .home-final-cta button:hover {
   background: #1d4ed8;
-
   transform: translateY(-2px);
 }
 
@@ -675,21 +516,15 @@
 
 .home-benefits {
   width: 100%;
-
   padding: 55px max(45px, calc((100vw - 1190px) / 2));
-
   box-sizing: border-box;
-
   background: #f8fafc;
-
   border-top: 1px solid #e2e8f0;
-
   border-bottom: 1px solid #e2e8f0;
 }
 
 .benefits-heading {
   margin-bottom: 27px;
-
   text-align: center;
 }
 
@@ -707,24 +542,17 @@
 
 .benefits-grid {
   display: grid;
-
   grid-template-columns:
     repeat(3, 1fr);
-
   gap: 0;
 }
 
 .benefit-card {
   display: flex;
-
   align-items: center;
-
   gap: 15px;
-
   min-height: 62px;
-
   padding: 0 30px;
-
   border-left: 1px solid #dbe2ea;
 }
 
@@ -735,39 +563,27 @@
 .benefit-icon {
   width: 38px;
   height: 38px;
-
   flex-shrink: 0;
-
   display: flex;
-
   align-items: center;
   justify-content: center;
-
   border-radius: 50%;
-
   background: #dbeafe;
-
   color: #2563eb;
-
   font-size: 14px;
 }
 
 .benefit-card h3 {
   margin: 0;
-
   color: #172033;
-
   font-size: 12px;
   font-weight: 800;
 }
 
 .benefit-card p {
   margin: 4px 0 0;
-
   color: #64748b;
-
   font-size: 10.5px;
-
   line-height: 1.4;
 }
 
@@ -787,15 +603,10 @@
 
 .home-final-cta {
   width: 100%;
-
   padding: 60px 25px;
-
   box-sizing: border-box;
-
   text-align: center;
-
   background: #eef3f8;
-
   border-top: 1px solid #dbe2ea;
 }
 
@@ -809,15 +620,10 @@
 
 .home-final-cta h2 {
   margin: 8px 0 20px;
-
   color: #0f1f3d;
-
   font-size: clamp(28px, 4vw, 40px);
-
   font-weight: 800;
-
   line-height: 1.08;
-
   letter-spacing: -1px;
 }
 
@@ -838,11 +644,11 @@
   }
 
   /* HOME PRODUCTS */
+
   .home-product-grid {
     grid-template-columns:
       repeat(4, minmax(0, 1fr));
-
-    gap: 13px;
+    gap: 11px;
   }
 }
 
@@ -856,8 +662,7 @@
   .home-product-grid {
     grid-template-columns:
       repeat(4, minmax(0, 1fr));
-
-    gap: 12px;
+    gap: 10px;
   }
 }
 
@@ -870,7 +675,6 @@
 
   .home-hero {
     min-height: 470px;
-
     padding-left: 35px;
     padding-right: 35px;
   }
@@ -902,8 +706,7 @@
   .home-product-grid {
     grid-template-columns:
       repeat(3, minmax(0, 1fr));
-
-    gap: 12px;
+    gap: 11px;
   }
 
   .benefits-grid {
@@ -912,9 +715,7 @@
 
   .benefit-card {
     padding: 17px 0;
-
     border-left: none;
-
     border-top: 1px solid #dbe2ea;
   }
 
@@ -932,11 +733,8 @@
 
   .home-hero {
     min-height: 520px;
-
     padding: 45px 22px;
-
     align-items: center;
-
     background-position: 62% center;
   }
 
@@ -955,23 +753,18 @@
 
   .home-hero h1 {
     margin-top: 13px;
-
     font-size: 40px;
-
     letter-spacing: -1.2px;
   }
 
   .home-hero-description {
     max-width: 350px;
-
     font-size: 12.5px;
   }
 
   .home-hero-actions {
     flex-direction: column;
-
     align-items: stretch;
-
     max-width: 260px;
   }
 
@@ -994,7 +787,6 @@
 
   .home-section-header {
     align-items: flex-start;
-
     margin-bottom: 23px;
   }
 
@@ -1009,13 +801,11 @@
   .home-category-grid {
     grid-template-columns:
       repeat(2, minmax(0, 1fr));
-
     gap: 10px;
   }
 
   .home-category-card {
     height: 205px;
-
     border-radius: 7px;
   }
 
@@ -1032,16 +822,15 @@
   }
 
   /* MOBILE PRODUCTS */
+
   .home-product-grid {
     grid-template-columns:
       repeat(2, minmax(0, 1fr));
-
-    gap: 10px;
+    gap: 9px;
   }
 
   .home-promo {
     min-height: 310px;
-
     padding: 40px 22px;
   }
 
@@ -1063,14 +852,12 @@
 
   .benefit-card {
     gap: 12px;
-
     min-height: auto;
   }
 
   .benefit-icon {
     width: 34px;
     height: 34px;
-
     font-size: 12px;
   }
 
@@ -1103,7 +890,7 @@
   }
 
   .home-product-grid {
-    gap: 9px;
+    gap: 8px;
   }
 
   .home-section-header {

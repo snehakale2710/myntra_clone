@@ -37,6 +37,20 @@ function Cart({
 
 
   /* =========================
+     OPEN PRODUCT DETAILS
+  ========================= */
+
+  const openProductDetails = (product) => {
+    localStorage.setItem(
+      "selectedProduct",
+      JSON.stringify(product)
+    );
+
+    setPage("details");
+  };
+
+
+  /* =========================
      UPDATE QUANTITY
   ========================= */
 
@@ -327,7 +341,15 @@ function Cart({
 
                 {/* IMAGE */}
 
-                <div className="cart-image">
+                <div
+                  className="cart-image"
+                  onClick={() =>
+                    openProductDetails(item)
+                  }
+                  style={{
+                    cursor: "pointer",
+                  }}
+                >
 
                   <img
                     src={item.image}
@@ -350,7 +372,14 @@ function Cart({
                       "STYLEHUB"}
                   </span>
 
-                  <h3>
+                  <h3
+                    onClick={() =>
+                      openProductDetails(item)
+                    }
+                    style={{
+                      cursor: "pointer",
+                    }}
+                  >
                     {item.name ||
                       item.title ||
                       "Product"}

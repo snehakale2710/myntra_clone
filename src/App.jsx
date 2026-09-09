@@ -791,10 +791,10 @@ function App() {
       </main>
 
       {/* FOOTER */}
-      {(isLoggedIn || isGuest) && (
-        <Footer setPage={handleSetPage} />
-      )}
-
+{(isLoggedIn || isGuest) &&
+  !["login", "register", "profile", "checkout", "payment", "orders"].includes(page) && (
+    <Footer setPage={handleSetPage} />
+)}
       {/* LOGIN PROMPT MODAL */}
       {showLoginPrompt && (
         <LoginPromptModal

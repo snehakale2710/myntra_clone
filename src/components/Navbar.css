@@ -34,17 +34,18 @@
 
 /* =========================================================
    BACK BUTTON
-   FIXED SO IT DOESN'T OCCUPY A FULL FLEX ROW
+   SMALL CIRCLE
 ========================================================= */
 
 .below-navbar-back-button {
   position: fixed;
   top: 86px;
-  left: 5vw;
+  left: 1vw;
   z-index: 999;
 
-  width: 42px;
-  height: 42px;
+  width: 32px;
+  height: 32px;
+
   margin: 0;
   padding: 0;
 
@@ -60,13 +61,13 @@
   background: #ffffff;
   color: #0f1f3d;
 
-  font-size: 23px;
+  font-size: 17px;
   font-weight: 500;
   line-height: 1;
 
   cursor: pointer;
 
-  box-shadow: 0 4px 10px rgba(15, 31, 61, 0.1);
+  box-shadow: 0 3px 8px rgba(15, 31, 61, 0.1);
 
   transition:
     background 0.2s ease,
@@ -419,12 +420,12 @@
 
 /* =========================================================
    MOBILE BACK BUTTON
-   CIRCLE ONLY
+   SMALL CIRCLE ONLY
 ========================================================= */
 
 .mobile-back-button {
-  width: 40px !important;
-  height: 40px !important;
+  width: 32px !important;
+  height: 32px !important;
 
   padding: 0 !important;
 
@@ -445,7 +446,7 @@
 
   color: #172033 !important;
 
-  font-size: 21px !important;
+  font-size: 17px !important;
 
   font-weight: 600 !important;
 
@@ -565,10 +566,12 @@
     color: #2563eb;
   }
 
-  /* Keep mobile back button circular */
+
+  /* Keep mobile back button small and circular */
+
   .mobile-menu .mobile-back-button {
-    width: 40px !important;
-    height: 40px !important;
+    width: 32px !important;
+    height: 32px !important;
 
     padding: 0 !important;
 
@@ -581,17 +584,21 @@
     border-bottom: 1px solid #cbd5e1 !important;
 
     background: #ffffff !important;
+
+    font-size: 17px !important;
   }
 
-  /* Fixed back button positioning on tablet/mobile */
+
+  /* Fixed back button positioning */
+
   .below-navbar-back-button {
     top: 76px;
     left: 20px;
 
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
 
-    font-size: 20px;
+    font-size: 16px;
   }
 
 }
@@ -625,14 +632,17 @@
     left: 10px;
   }
 
+
+  /* Small mobile back button */
+
   .below-navbar-back-button {
     top: 70px;
     left: 14px;
 
-    width: 34px;
-    height: 34px;
+    width: 28px;
+    height: 28px;
 
-    font-size: 19px;
+    font-size: 15px;
   }
 
 }

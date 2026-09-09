@@ -43,9 +43,8 @@
 
 .auth-left {
   background:
-    linear-gradient(
-      rgba(15, 31, 61, 0.78),
-      rgba(30, 75, 135, 0.82)
+   linear-gradient(
+      rgba(1,20,30,0.80)
     ),
     url("https://images.unsplash.com/photo-1445205170230-053b83016050?w=900")
       center / cover;

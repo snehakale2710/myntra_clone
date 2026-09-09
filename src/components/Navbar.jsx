@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import "./Navbar.css";
 
@@ -495,7 +494,21 @@ function Navbar({
       </header>
 
 
-     
+      {/* =================================================
+          DESKTOP / TABLET BACK BUTTON
+      ================================================= */}
+
+      {canGoBack && currentPage !== "home" && (
+        <button
+          className="below-navbar-back-button"
+          onClick={handleBack}
+          title="Go to previous page"
+          aria-label="Go to previous page"
+        >
+          ←
+        </button>
+      )}
+
     </>
   );
 }

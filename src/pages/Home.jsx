@@ -1,3 +1,4 @@
+
 import React, { useMemo } from "react";
 import {
   FaArrowRight,
@@ -146,7 +147,7 @@ function Home({
         );
 
       })
-      .slice(0, 8);
+      .slice(0, 10);
 
   }, [wishlist]);
 
@@ -164,7 +165,7 @@ function Home({
           Number(b.id || 0) -
           Number(a.id || 0)
       )
-      .slice(0, 4);
+      .slice(0, 5);
 
   }, []);
 
@@ -181,9 +182,6 @@ function Home({
       <section className="home-hero">
 
         <div className="home-hero-overlay"></div>
-
-          
-
 
         <div className="home-hero-content">
 
@@ -251,7 +249,6 @@ function Home({
         </div>
 
       </section>
-
 
 
       {/* =====================================================
@@ -613,3 +610,5 @@ function Home({
 
 
 export default Home;
+
+
