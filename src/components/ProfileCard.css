@@ -114,11 +114,9 @@
   border-radius: 50%;
 
   background:
-    linear-gradient(
-      135deg,
+    linear-gradient(135deg,
       #2563eb,
-      #2438c7
-    );
+      #2438c7);
 
   color: #ffffff;
 
@@ -283,7 +281,7 @@
 
 /* LABEL */
 
-.profile-stat > span:last-child {
+.profile-stat>span:last-child {
   order: 3;
 
   font-size: 13px;
@@ -594,7 +592,7 @@
     height: 25px;
   }
 
-  .profile-stat > span:last-child {
+  .profile-stat>span:last-child {
     font-size: 11px;
   }
 
@@ -637,7 +635,9 @@
 
     height: 44px;
   }
-}/* =========================================================
+}
+
+/* =========================================================
    COMPACT DESKTOP VIEW
    FIT PROFILE CARD WITHOUT SCROLLING
 ========================================================= */
@@ -715,7 +715,7 @@
     height: 23px;
   }
 
-  .profile-stat > span:last-child {
+  .profile-stat>span:last-child {
     font-size: 10px;
   }
 

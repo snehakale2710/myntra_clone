@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -133,6 +133,47 @@ function App() {
   );
 
   // ==========================================
+  // TOAST NOTIFICATION
+  // ==========================================
+
+  const [notification, setNotification] = useState(null);
+  const notificationTimeout = useRef(null);
+
+  // `action` is optional: { label, onClick } — used for "Undo".
+  const showNotification = (
+    icon,
+    title,
+    message,
+    action = null
+  ) => {
+    if (notificationTimeout.current) {
+      clearTimeout(notificationTimeout.current);
+    }
+
+    setNotification({ icon, title, message, action });
+
+    notificationTimeout.current = setTimeout(() => {
+      setNotification(null);
+    }, action ? 4000 : 2500);
+  };
+
+  const dismissNotification = () => {
+    if (notificationTimeout.current) {
+      clearTimeout(notificationTimeout.current);
+    }
+
+    setNotification(null);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (notificationTimeout.current) {
+        clearTimeout(notificationTimeout.current);
+      }
+    };
+  }, []);
+
+  // ==========================================
   // PAGE HISTORY
   // ==========================================
 
@@ -239,7 +280,6 @@ function App() {
     searchValue = "",
     categoryValue = "All"
   ) => {
-    // Block guests (and anonymous users) from protected pages
     if (
       !isLoggedIn &&
       PROTECTED_PAGES.includes(newPage)
@@ -256,7 +296,6 @@ function App() {
     setSearchTerm(searchValue);
     setCategory(categoryValue);
 
-    // Don't add duplicate page
     if (newPage === page) {
       window.scrollTo({
         top: 0,
@@ -267,23 +306,19 @@ function App() {
       return;
     }
 
-    // Add page to custom history
     setPageHistory((previousHistory) => [
       ...previousHistory,
       newPage,
     ]);
 
-    // Change page
     setPage(newPage);
 
-    // Change URL
     window.history.pushState(
       { page: newPage },
       "",
       `#/${newPage}`
     );
 
-    // Scroll top
     window.scrollTo({
       top: 0,
       left: 0,
@@ -378,13 +413,17 @@ function App() {
   // COMPLETE AUTH (shared by Login + Register)
   // ==========================================
 
-  const completeAuth = () => {
+  const completeAuth = (
+    welcomeMessage = "You're now logged in to STYLEHUB."
+  ) => {
     localStorage.setItem("loggedIn", "true");
     localStorage.removeItem("guest");
 
     setIsGuest(false);
     setIsLoggedIn(true);
     setShowLoginPrompt(false);
+
+    showNotification("👋", "Welcome!", welcomeMessage);
 
     if (pendingAction) {
       resolvePendingAction(pendingAction);
@@ -412,7 +451,7 @@ function App() {
   // ==========================================
 
   const handleLogin = () => {
-    completeAuth();
+    completeAuth("You're logged in to STYLEHUB.");
   };
 
   // ==========================================
@@ -420,7 +459,7 @@ function App() {
   // ==========================================
 
   const handleRegisterSuccess = () => {
-    completeAuth();
+    completeAuth("Your account has been created.");
   };
 
   // ==========================================
@@ -444,6 +483,12 @@ function App() {
 
     setCart([]);
     setWishlist([]);
+
+    showNotification(
+      "👋",
+      "Logged Out",
+      "You have been logged out of STYLEHUB."
+    );
 
     window.history.replaceState(
       null,
@@ -530,6 +575,12 @@ function App() {
     );
 
     setCart(updatedCart);
+
+    showNotification(
+      "🛍",
+      "Added to Bag",
+      `${product.name} is now in your bag.`
+    );
   };
 
   // ==========================================
@@ -562,11 +613,18 @@ function App() {
     );
 
     setWishlist(updatedWishlist);
+
+    showNotification(
+      exists ? "♡" : "♥",
+      exists ? "Removed from Wishlist" : "Added to Wishlist",
+      exists
+        ? `${product.name} was removed from your wishlist.`
+        : `${product.name} was saved to your wishlist.`
+    );
   };
 
   // ==========================================
   // GUARDED VERSIONS
-  // (used on guest-accessible pages: Home, Products, ProductDetails)
   // ==========================================
 
   const guardedAddToCart = (product) => {
@@ -598,7 +656,6 @@ function App() {
   // ==========================================
 
   const renderPage = () => {
-    // LOGIN
     if (page === "login") {
       return (
         <Login
@@ -609,7 +666,6 @@ function App() {
       );
     }
 
-    // REGISTER
     if (page === "register") {
       return (
         <Register
@@ -619,7 +675,6 @@ function App() {
       );
     }
 
-    // FORGOT PASSWORD
     if (page === "forgot-password") {
       return (
         <ForgotPassword
@@ -628,7 +683,6 @@ function App() {
       );
     }
 
-    // NEITHER LOGGED IN NOR GUEST -> FORCE LOGIN
     if (!isLoggedIn && !isGuest) {
       return (
         <Login
@@ -639,8 +693,6 @@ function App() {
       );
     }
 
-    // GUEST TRYING TO LAND DIRECTLY ON A PROTECTED PAGE
-    // (e.g. via a bookmarked URL) -> send them to Home
     if (!isLoggedIn && PROTECTED_PAGES.includes(page)) {
       return (
         <Home
@@ -651,10 +703,6 @@ function App() {
         />
       );
     }
-
-    // ========================================
-    // GUEST-ACCESSIBLE / AUTHENTICATED PAGES
-    // ========================================
 
     switch (page) {
       case "home":
@@ -705,6 +753,7 @@ function App() {
             setCart={setCart}
             setPage={handleSetPage}
             addToWishlist={addToWishlist}
+            showNotification={showNotification}
           />
         );
 
@@ -722,6 +771,7 @@ function App() {
             cart={cart}
             setPage={handleSetPage}
             setCart={setCart}
+            showNotification={showNotification}
           />
         );
 
@@ -757,9 +807,7 @@ function App() {
   // ==========================================
 
   const cartCount = cart.length;
-
-  const wishlistCount =
-    wishlist.length;
+  const wishlistCount = wishlist.length;
 
   // ==========================================
   // MAIN UI
@@ -768,7 +816,6 @@ function App() {
   return (
     <div className="app">
 
-      {/* NAVBAR */}
       {(isLoggedIn || isGuest) && (
         <Navbar
           setPage={handleSetPage}
@@ -785,17 +832,15 @@ function App() {
         />
       )}
 
-      {/* PAGE */}
       <main>
         {renderPage()}
       </main>
 
-      {/* FOOTER */}
 {(isLoggedIn || isGuest) &&
   !["login", "register", "profile", "checkout", "payment", "orders"].includes(page) && (
     <Footer setPage={handleSetPage} />
 )}
-      {/* LOGIN PROMPT MODAL */}
+
       {showLoginPrompt && (
         <LoginPromptModal
           onLogin={() => {
@@ -811,6 +856,44 @@ function App() {
             setPendingAction(null);
           }}
         />
+      )}
+
+      {/* TOAST NOTIFICATION */}
+      {notification && (
+        <div className="cart-notification">
+
+          <span className="cart-notification-icon">
+            {notification.icon}
+          </span>
+
+          <div className="cart-notification-text">
+            <strong>{notification.title}</strong>
+            <p>{notification.message}</p>
+          </div>
+
+          {notification.action && (
+            <button
+              type="button"
+              className="cart-notification-action"
+              onClick={() => {
+                notification.action.onClick();
+                dismissNotification();
+              }}
+            >
+              {notification.action.label}
+            </button>
+          )}
+
+          <button
+            type="button"
+            className="cart-notification-close"
+            onClick={dismissNotification}
+            aria-label="Dismiss"
+          >
+            ×
+          </button>
+
+        </div>
       )}
 
     </div>

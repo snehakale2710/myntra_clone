@@ -42,7 +42,7 @@ function Checkout({ cart, setPage }) {
     (total, item) =>
       total +
       getPrice(item.price) *
-        (item.quantity || 1),
+      (item.quantity || 1),
     0
   );
 

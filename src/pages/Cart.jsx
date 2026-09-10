@@ -14,6 +14,7 @@ function Cart({
   setCart,
   setPage,
   addToWishlist,
+  showNotification,
 }) {
 
   /* =========================
@@ -82,11 +83,16 @@ function Cart({
   };
 
 
-  /* =========================
+    /* =========================
      REMOVE PRODUCT
   ========================= */
 
   const removeProduct = (id) => {
+    const removedIndex = cart.findIndex(
+      (item) => item.id === id
+    );
+    const removedItem = cart[removedIndex];
+
     const updatedCart =
       cart.filter(
         (item) => item.id !== id
@@ -98,6 +104,29 @@ function Cart({
       "cart",
       updatedCart
     );
+
+    if (showNotification && removedItem) {
+      showNotification(
+        "🗑",
+        "Removed from Bag",
+        `${removedItem.name || "Item"} was removed from your bag.`,
+        {
+          label: "Undo",
+          onClick: () => {
+            const restoredCart = [...updatedCart];
+
+            restoredCart.splice(
+              Math.min(removedIndex, restoredCart.length),
+              0,
+              removedItem
+            );
+
+            setCart(restoredCart);
+            saveUserData("cart", restoredCart);
+          },
+        }
+      );
+    }
   };
 
 
@@ -138,6 +167,16 @@ function Cart({
       "cart",
       updatedCart
     );
+
+    // Overrides the generic "Added to Wishlist" toast
+    // fired by addToWishlist() with a combined message.
+    if (showNotification) {
+      showNotification(
+        "♥",
+        "Moved to Wishlist",
+        `${product.name} was moved to your wishlist.`
+      );
+    }
   };
 
 
@@ -160,7 +199,7 @@ function Cart({
     (total, item) =>
       total +
       getPrice(item.price) *
-        (item.quantity || 1),
+      (item.quantity || 1),
     0
   );
 
@@ -198,6 +237,14 @@ function Cart({
       setAppliedCoupon(normalizedCode);
       setCouponMessage(result.message);
       setCouponMessageType("success");
+
+      if (showNotification) {
+        showNotification(
+          "🏷️",
+          "Coupon Applied",
+          result.message
+        );
+      }
     } else {
       setCouponMessage(
         result.message || "Invalid coupon code."
@@ -213,6 +260,14 @@ function Cart({
     setCouponCode("");
     setCouponMessage("");
     setCouponMessageType("");
+
+    if (showNotification) {
+      showNotification(
+        "🏷️",
+        "Coupon Removed",
+        "Your coupon has been removed."
+      );
+    }
   };
 
 

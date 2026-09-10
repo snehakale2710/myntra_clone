@@ -86,9 +86,9 @@ function Orders({ setPage }) {
 
               <td>
                 ₹${formatPrice(
-                  Number(item.price || 0) *
-                    (item.quantity || 1)
-                )}
+            Number(item.price || 0) *
+            (item.quantity || 1)
+          )}
               </td>
             </tr>
           `
@@ -530,15 +530,13 @@ function Orders({ setPage }) {
                     {STAGES.map((label, index) => (
 
                       <div
-                        className={`tracker-step ${
-                          index <= stageIndex
+                        className={`tracker-step ${index <= stageIndex
                             ? "completed"
                             : ""
-                        } ${
-                          index === stageIndex
+                          } ${index === stageIndex
                             ? "current"
                             : ""
-                        }`}
+                          }`}
                         key={label}
                       >
 
@@ -552,11 +550,10 @@ function Orders({ setPage }) {
 
                         {index < STAGES.length - 1 && (
                           <div
-                            className={`tracker-line ${
-                              index < stageIndex
+                            className={`tracker-line ${index < stageIndex
                                 ? "completed"
                                 : ""
-                            }`}
+                              }`}
                           />
                         )}
 
@@ -618,7 +615,7 @@ function Orders({ setPage }) {
                             ₹
                             {formatPrice(
                               Number(item.price || 0) *
-                                (item.quantity || 1)
+                              (item.quantity || 1)
                             )}
                           </strong>
 

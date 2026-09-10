@@ -43,11 +43,8 @@
 
 .auth-left {
   background:
-   linear-gradient(
-      rgba(1,20,30,0.80)
-    ),
-    url("https://images.unsplash.com/photo-1445205170230-053b83016050?w=900")
-      center / cover;
+    linear-gradient(rgba(1, 20, 30, 0.80)),
+    url("https://images.unsplash.com/photo-1445205170230-053b83016050?w=900") center / cover;
 
   color: #ffffff;
 
@@ -126,7 +123,7 @@
    AUTH DESCRIPTION
 ========================================================= */
 
-.auth-right > p:not(.eyebrow) {
+.auth-right>p:not(.eyebrow) {
   color: #64748b;
 
   margin: 12px 0 26px;
@@ -416,6 +413,7 @@
     padding: 14px;
   }
 }
+
 /* =========================================================
    CONTINUE AS GUEST
 ========================================================= */

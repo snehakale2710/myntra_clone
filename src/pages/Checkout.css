@@ -217,7 +217,7 @@
   margin-top: 24px;
 }
 
-.price-details > div {
+.price-details>div {
   display: flex;
   justify-content: space-between;
   margin: 14px 0;

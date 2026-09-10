@@ -1,5 +1,4 @@
-
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   FaArrowRight,
   FaTruck,
@@ -7,7 +6,7 @@ import {
   FaShieldAlt,
 } from "react-icons/fa";
 
-import products from "../data/products";
+import { API_BASE_URL } from "../utils/api";
 import ProductCard from "../components/ProductCard";
 
 import "./Home.css";
@@ -19,6 +18,43 @@ function Home({
   addToCart,
   wishlist,
 }) {
+
+  // =========================================================
+  // PRODUCTS
+  // Fetched from the same backend endpoint as Products.jsx,
+  // so Home / Products / ProductDetails always show the
+  // same catalog instead of drifting out of sync.
+  // =========================================================
+
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+
+        const response = await fetch(
+          `${API_BASE_URL}/api/products`
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+
+        const data = await response.json();
+
+        setProducts(data);
+      } catch (err) {
+        console.error("Home product fetch error:", err);
+        setProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   // =========================================================
   // NAVIGATION
@@ -94,7 +130,7 @@ function Home({
 
     });
 
-  }, []);
+  }, [products]);
 
 
   // =========================================================
@@ -120,8 +156,6 @@ function Home({
         const bIndex =
           wishlistIds.indexOf(b.id);
 
-        // Both products are wishlisted
-        // Most recently wishlisted comes first
         if (
           aIndex !== -1 &&
           bIndex !== -1
@@ -129,18 +163,14 @@ function Home({
           return bIndex - aIndex;
         }
 
-        // Only A is wishlisted
         if (aIndex !== -1) {
           return -1;
         }
 
-        // Only B is wishlisted
         if (bIndex !== -1) {
           return 1;
         }
 
-        // Neither is wishlisted
-        // Keep rating order
         return (
           Number(b.rating || 0) -
           Number(a.rating || 0)
@@ -149,7 +179,7 @@ function Home({
       })
       .slice(0, 10);
 
-  }, [wishlist]);
+  }, [products, wishlist]);
 
 
   // =========================================================
@@ -167,7 +197,7 @@ function Home({
       )
       .slice(0, 5);
 
-  }, []);
+  }, [products]);
 
 
   return (
@@ -231,8 +261,6 @@ function Home({
 
         </div>
 
-
-        {/* HERO SIDE INFO */}
 
         <div className="hero-season-card">
 
@@ -374,21 +402,27 @@ function Home({
         </div>
 
 
-        <div className="home-product-grid">
+        {loading ? (
+          <p className="section-description">
+            Loading trending styles...
+          </p>
+        ) : (
+          <div className="home-product-grid">
 
-          {trendingProducts.map((product) => (
+            {trendingProducts.map((product) => (
 
-            <ProductCard
-              key={product.id}
-              product={product}
-              setPage={setPage}
-              addToWishlist={addToWishlist}
-              addToCart={addToCart}
-            />
+              <ProductCard
+                key={product.id}
+                product={product}
+                setPage={setPage}
+                addToWishlist={addToWishlist}
+                addToCart={addToCart}
+              />
 
-          ))}
+            ))}
 
-        </div>
+          </div>
+        )}
 
       </section>
 
@@ -557,21 +591,27 @@ function Home({
         </div>
 
 
-        <div className="home-product-grid arrivals-grid">
+        {loading ? (
+          <p className="section-description">
+            Loading new arrivals...
+          </p>
+        ) : (
+          <div className="home-product-grid arrivals-grid">
 
-          {newArrivals.map((product) => (
+            {newArrivals.map((product) => (
 
-            <ProductCard
-              key={product.id}
-              product={product}
-              setPage={setPage}
-              addToWishlist={addToWishlist}
-              addToCart={addToCart}
-            />
+              <ProductCard
+                key={product.id}
+                product={product}
+                setPage={setPage}
+                addToWishlist={addToWishlist}
+                addToCart={addToCart}
+              />
 
-          ))}
+            ))}
 
-        </div>
+          </div>
+        )}
 
       </section>
 
@@ -610,5 +650,3 @@ function Home({
 
 
 export default Home;
-
-

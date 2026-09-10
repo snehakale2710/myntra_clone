@@ -33,10 +33,7 @@
   display: grid;
 
   grid-template-columns:
-    1.8fr
-    1fr
-    1fr
-    1fr;
+    1.8fr 1fr 1fr 1fr;
 
   column-gap: 55px;
 
@@ -325,9 +322,7 @@
 
   .footer-container {
     grid-template-columns:
-      1.5fr
-      1fr
-      1fr;
+      1.5fr 1fr 1fr;
 
     column-gap: 35px;
 

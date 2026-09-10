@@ -56,9 +56,8 @@ function ProductCard({
 
         <button
           type="button"
-          className={`product-wishlist ${
-            isWishlisted ? "wishlisted" : ""
-          }`}
+          className={`product-wishlist ${isWishlisted ? "wishlisted" : ""
+            }`}
           onClick={(e) => {
             e.stopPropagation();
             addToWishlist(product);

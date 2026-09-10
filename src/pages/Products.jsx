@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import ProductCard from "../components/ProductCard";
 
+import { API_BASE_URL } from "../utils/api";
+
 import "./Products.css";
 
 function Products({
@@ -20,6 +22,7 @@ function Products({
   const [error, setError] = useState("");
 
   const [subCategory, setSubCategory] = useState("All");
+  const [brand, setBrand] = useState("All");
   const [sort, setSort] = useState("default");
   const [maxPrice, setMaxPrice] = useState("All");
   const [minimumRating, setMinimumRating] = useState("All");
@@ -35,7 +38,7 @@ function Products({
         setError("");
 
         const response = await fetch(
-          "http://localhost:5000/api/products"
+          `${API_BASE_URL}/api/products`
         );
 
         if (!response.ok) {
@@ -118,11 +121,37 @@ function Products({
   };
 
   // =====================================================
-  // RESET SUBCATEGORY
+  // AVAILABLE BRANDS
+  // Scoped to the current category so the dropdown only
+  // shows brands that actually exist within it.
+  // =====================================================
+
+  const availableBrands = useMemo(() => {
+    const scoped =
+      category === "All"
+        ? products
+        : products.filter(
+            (item) =>
+              item.category?.toLowerCase() ===
+              category.toLowerCase()
+          );
+
+    return Array.from(
+      new Set(
+        scoped
+          .map((item) => item.brand)
+          .filter(Boolean)
+      )
+    ).sort();
+  }, [products, category]);
+
+  // =====================================================
+  // RESET SUBCATEGORY + BRAND ON CATEGORY CHANGE
   // =====================================================
 
   useEffect(() => {
     setSubCategory("All");
+    setBrand("All");
   }, [category]);
 
   // =====================================================
@@ -132,6 +161,7 @@ function Products({
   const handleCategoryChange = (value) => {
     setCategory(value);
     setSubCategory("All");
+    setBrand("All");
 
     window.scrollTo({
       top: 0,
@@ -148,7 +178,7 @@ function Products({
 
     let result = products.filter((product) => {
       const name = product.name?.toLowerCase() || "";
-      const brand = product.brand?.toLowerCase() || "";
+      const productBrand = product.brand?.toLowerCase() || "";
       const mainCategory =
         product.category?.toLowerCase() || "";
       const sub =
@@ -158,7 +188,7 @@ function Products({
       const matchesSearch =
         !search ||
         name.includes(search) ||
-        brand.includes(search) ||
+        productBrand.includes(search) ||
         mainCategory.includes(search) ||
         sub.includes(search);
 
@@ -173,6 +203,11 @@ function Products({
         subCategory === "All" ||
         product.subcategory?.toLowerCase() ===
           subCategory.toLowerCase();
+
+      // BRAND
+      const matchesBrand =
+        brand === "All" ||
+        product.brand === brand;
 
       // PRICE
       const matchesPrice =
@@ -189,6 +224,7 @@ function Products({
         matchesSearch &&
         matchesCategory &&
         matchesSubCategory &&
+        matchesBrand &&
         matchesPrice &&
         matchesRating
       );
@@ -217,6 +253,14 @@ function Products({
       );
     }
 
+    if (sort === "rating") {
+      result.sort(
+        (a, b) =>
+          Number(b.rating || 0) -
+          Number(a.rating || 0)
+      );
+    }
+
     if (sort === "newest") {
       result.sort(
         (a, b) =>
@@ -231,6 +275,7 @@ function Products({
     searchTerm,
     category,
     subCategory,
+    brand,
     sort,
     maxPrice,
     minimumRating,
@@ -243,6 +288,7 @@ function Products({
   const clearFilters = () => {
     setCategory("All");
     setSubCategory("All");
+    setBrand("All");
     setSort("default");
     setMaxPrice("All");
     setMinimumRating("All");
@@ -275,9 +321,7 @@ function Products({
   return (
     <main className="products-page">
 
-      {/* =================================================
-          BREADCRUMB
-      ================================================= */}
+      {/* BREADCRUMB */}
 
       <div className="products-breadcrumb">
 
@@ -306,9 +350,7 @@ function Products({
       </div>
 
 
-      {/* =================================================
-          SUBCATEGORY NAVIGATION
-      ================================================= */}
+      {/* SUBCATEGORY NAVIGATION */}
 
       {category !== "All" &&
         categoryData[category] && (
@@ -358,9 +400,7 @@ function Products({
         )}
 
 
-      {/* =================================================
-          PRODUCT SECTION HEADING
-      ================================================= */}
+      {/* PRODUCT SECTION HEADING */}
 
       <section className="product-heading">
 
@@ -401,9 +441,7 @@ function Products({
       </section>
 
 
-      {/* =================================================
-          ACTIVE FILTERS + FILTER OPTIONS
-      ================================================= */}
+      {/* ACTIVE FILTERS + FILTER OPTIONS */}
 
       <div className="active-filter-row">
 
@@ -438,6 +476,47 @@ function Products({
             {subCategory} ×
           </button>
         )}
+
+
+        {/* BRAND */}
+
+        {brand !== "All" && (
+          <button
+            className="filter-chip"
+            onClick={() =>
+              setBrand("All")
+            }
+          >
+            {brand} ×
+          </button>
+        )}
+
+
+        {/* BRAND SELECT */}
+
+        <label className="filter-control">
+
+          <select
+            value={brand}
+            onChange={(e) =>
+              setBrand(e.target.value)
+            }
+            aria-label="Filter by brand"
+          >
+
+            <option value="All">
+              Brand
+            </option>
+
+            {availableBrands.map((b) => (
+              <option key={b} value={b}>
+                {b}
+              </option>
+            ))}
+
+          </select>
+
+        </label>
 
 
         {/* PRICE */}
@@ -522,6 +601,10 @@ function Products({
               Newest
             </option>
 
+            <option value="rating">
+              Highest Rated
+            </option>
+
             <option value="low">
               Price: Low to High
             </option>
@@ -543,6 +626,7 @@ function Products({
 
         {(category !== "All" ||
           subCategory !== "All" ||
+          brand !== "All" ||
           maxPrice !== "All" ||
           minimumRating !== "All" ||
           sort !== "default") && (
@@ -559,9 +643,7 @@ function Products({
       </div>
 
 
-      {/* =================================================
-          LOADING
-      ================================================= */}
+      {/* LOADING */}
 
       {loading && (
         <section className="product-state">
@@ -581,9 +663,7 @@ function Products({
       )}
 
 
-      {/* =================================================
-          ERROR
-      ================================================= */}
+      {/* ERROR */}
 
       {!loading && error && (
         <section className="product-state">
@@ -613,9 +693,7 @@ function Products({
       )}
 
 
-      {/* =================================================
-          PRODUCT GRID
-      ================================================= */}
+      {/* PRODUCT GRID */}
 
       {!loading &&
         !error &&
@@ -641,9 +719,7 @@ function Products({
       )}
 
 
-      {/* =================================================
-          EMPTY STATE
-      ================================================= */}
+      {/* EMPTY STATE */}
 
       {!loading &&
         !error &&

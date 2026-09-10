@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./Payment.css";
-
 import {
   getUserData,
   saveUserData,
@@ -9,14 +8,14 @@ import {
 
 import { calculateDiscount } from "../utils/coupons";
 
-function Payment({ cart, setPage, setCart }) {
+function Payment({ cart, setPage, setCart, showNotification }) {
   const [paymentMethod, setPaymentMethod] = useState("upi");
   const [loading, setLoading] = useState(false);
 
   const address = getUserData("deliveryAddress", {});
 
   /* =========================
-     PRICE CONVERTER
+  PRICE CONVERTER
   ========================= */
 
   const getPrice = (price) => {
@@ -32,17 +31,19 @@ function Payment({ cart, setPage, setCart }) {
           .trim()
       ) || 0
     );
+
+
   };
 
   /* =========================
-     SUBTOTAL / COUPON / FINAL
+  SUBTOTAL / COUPON / FINAL
   ========================= */
 
   const subtotal = cart.reduce(
     (total, item) =>
       total +
       getPrice(item.price) *
-        (item.quantity || 1),
+      (item.quantity || 1),
     0
   );
 
@@ -60,7 +61,7 @@ function Payment({ cart, setPage, setCart }) {
   const totalAmount = subtotal - discountAmount;
 
   /* =========================
-     TOTAL ITEMS
+  TOTAL ITEMS
   ========================= */
 
   const totalItems = cart.reduce(
@@ -70,7 +71,7 @@ function Payment({ cart, setPage, setCart }) {
   );
 
   /* =========================
-     PLACE ORDER
+  PLACE ORDER
   ========================= */
 
   const handlePlaceOrder = () => {
@@ -78,6 +79,7 @@ function Payment({ cart, setPage, setCart }) {
       setPage("cart");
       return;
     }
+
 
     setLoading(true);
 
@@ -105,10 +107,10 @@ function Payment({ cart, setPage, setCart }) {
           paymentMethod === "upi"
             ? "UPI"
             : paymentMethod === "card"
-            ? "Credit / Debit Card"
-            : paymentMethod === "netbanking"
-            ? "Net Banking"
-            : "Cash on Delivery",
+              ? "Credit / Debit Card"
+              : paymentMethod === "netbanking"
+                ? "Net Banking"
+                : "Cash on Delivery",
 
         paymentStatus:
           paymentMethod === "cod"
@@ -117,9 +119,7 @@ function Payment({ cart, setPage, setCart }) {
 
         status: "Confirmed",
 
-        date: new Date().toLocaleString(
-          "en-IN"
-        ),
+        date: new Date().toLocaleString("en-IN"),
       };
 
       /* =========================
@@ -149,10 +149,6 @@ function Payment({ cart, setPage, setCart }) {
 
       /* =========================
          CLEAR CART + COUPON
-
-         IMPORTANT:
-         Clear BOTH per-user storage
-         and React cart state.
       ========================= */
 
       removeUserData("cart");
@@ -164,387 +160,382 @@ function Payment({ cart, setPage, setCart }) {
 
       /* =========================
          GO TO ORDERS
-
-         No alert.
       ========================= */
 
       setPage("orders");
     }, 1500);
+
+
   };
 
-  return (
-    <div className="payment-page">
+  return (<div className="payment-page">
+
+
+    {/* =========================
+      TITLE
+  ========================= */}
+
+    <div className="payment-title">
+
+      <h1>Payment</h1>
+
+      <p>
+        Complete your Style Hub order
+      </p>
+
+    </div>
+
+    <div className="payment-container">
 
       {/* =========================
-          TITLE
-      ========================= */}
+        PAYMENT SECTION
+    ========================= */}
 
-      <div className="payment-title">
+      <div className="payment-box">
 
-        <h1>Payment</h1>
+        <h2>
+          Select Payment Method
+        </h2>
 
-        <p>
-          Complete your Style Hub order
-        </p>
-
-      </div>
-
-      <div className="payment-container">
+        <div className="secure-payment">
+          🔒 Safe & Secure Checkout
+        </div>
 
         {/* =========================
-            PAYMENT SECTION
-        ========================= */}
+          UPI
+      ========================= */}
 
-        <div className="payment-box">
+        <div
+          className={`payment-method ${paymentMethod === "upi"
+              ? "selected"
+              : ""
+            }`}
+          onClick={() =>
+            setPaymentMethod("upi")
+          }
+        >
 
-          <h2>
-            Select Payment Method
-          </h2>
-
-          <div className="secure-payment">
-            🔒 Safe & Secure Checkout
+          <div className="method-icon">
+            📱
           </div>
 
-          {/* =========================
-              UPI
-          ========================= */}
+          <div className="method-content">
 
-          <div
-            className={`payment-method ${
+            <strong>
+              UPI
+            </strong>
+
+            <p>
+              Google Pay, PhonePe,
+              Paytm and other UPI apps
+            </p>
+
+          </div>
+
+          <input
+            type="radio"
+            checked={
               paymentMethod === "upi"
-                ? "selected"
-                : ""
-            }`}
-            onClick={() =>
+            }
+            onChange={() =>
               setPaymentMethod("upi")
             }
-          >
-
-            <div className="method-icon">
-              📱
-            </div>
-
-            <div className="method-content">
-
-              <strong>
-                UPI
-              </strong>
-
-              <p>
-                Google Pay, PhonePe,
-                Paytm and other UPI apps
-              </p>
-
-            </div>
-
-            <input
-              type="radio"
-              checked={
-                paymentMethod === "upi"
-              }
-              onChange={() =>
-                setPaymentMethod("upi")
-              }
-            />
-
-          </div>
-
-          {/* =========================
-              CARD
-          ========================= */}
-
-          <div
-            className={`payment-method ${
-              paymentMethod === "card"
-                ? "selected"
-                : ""
-            }`}
-            onClick={() =>
-              setPaymentMethod("card")
-            }
-          >
-
-            <div className="method-icon">
-              💳
-            </div>
-
-            <div className="method-content">
-
-              <strong>
-                Credit / Debit Card
-              </strong>
-
-              <p>
-                Visa, Mastercard, RuPay
-                and more
-              </p>
-
-            </div>
-
-            <input
-              type="radio"
-              checked={
-                paymentMethod === "card"
-              }
-              onChange={() =>
-                setPaymentMethod("card")
-              }
-            />
-
-          </div>
-
-          {/* =========================
-              NET BANKING
-          ========================= */}
-
-          <div
-            className={`payment-method ${
-              paymentMethod ===
-              "netbanking"
-                ? "selected"
-                : ""
-            }`}
-            onClick={() =>
-              setPaymentMethod(
-                "netbanking"
-              )
-            }
-          >
-
-            <div className="method-icon">
-              🏦
-            </div>
-
-            <div className="method-content">
-
-              <strong>
-                Net Banking
-              </strong>
-
-              <p>
-                All major banks supported
-              </p>
-
-            </div>
-
-            <input
-              type="radio"
-              checked={
-                paymentMethod ===
-                "netbanking"
-              }
-              onChange={() =>
-                setPaymentMethod(
-                  "netbanking"
-                )
-              }
-            />
-
-          </div>
-
-          {/* =========================
-              CASH ON DELIVERY
-          ========================= */}
-
-          <div
-            className={`payment-method ${
-              paymentMethod === "cod"
-                ? "selected"
-                : ""
-            }`}
-            onClick={() =>
-              setPaymentMethod("cod")
-            }
-          >
-
-            <div className="method-icon">
-              💵
-            </div>
-
-            <div className="method-content">
-
-              <strong>
-                Cash on Delivery
-              </strong>
-
-              <p>
-                Pay when your order
-                arrives
-              </p>
-
-            </div>
-
-            <input
-              type="radio"
-              checked={
-                paymentMethod === "cod"
-              }
-              onChange={() =>
-                setPaymentMethod("cod")
-              }
-            />
-
-          </div>
-
-          {/* =========================
-              PLACE ORDER
-          ========================= */}
-
-          <button
-            className="pay-button"
-            onClick={handlePlaceOrder}
-            disabled={loading}
-          >
-
-            {loading
-              ? "PROCESSING..."
-              : paymentMethod === "cod"
-              ? `PLACE ORDER • ₹${totalAmount.toLocaleString(
-                  "en-IN"
-                )}`
-              : `PAY ₹${totalAmount.toLocaleString(
-                  "en-IN"
-                )}`}
-
-          </button>
-
-          {/* =========================
-              BACK
-          ========================= */}
-
-          <button
-            className="back-button"
-            onClick={() =>
-              setPage("checkout")
-            }
-            disabled={loading}
-          >
-            ← Back to Checkout
-          </button>
+          />
 
         </div>
 
         {/* =========================
-            ORDER SUMMARY
-        ========================= */}
+          CARD
+      ========================= */}
 
-        <div className="payment-summary">
+        <div
+          className={`payment-method ${paymentMethod === "card"
+              ? "selected"
+              : ""
+            }`}
+          onClick={() =>
+            setPaymentMethod("card")
+          }
+        >
 
-          <h2>
-            Order Summary
-          </h2>
+          <div className="method-icon">
+            💳
+          </div>
 
-          <div className="summary-row">
+          <div className="method-content">
 
-            <span>
-              Items
-            </span>
+            <strong>
+              Credit / Debit Card
+            </strong>
 
-            <span>
-              {totalItems}
-            </span>
+            <p>
+              Visa, Mastercard, RuPay
+              and more
+            </p>
 
           </div>
 
-          <div className="summary-row">
+          <input
+            type="radio"
+            checked={
+              paymentMethod === "card"
+            }
+            onChange={() =>
+              setPaymentMethod("card")
+            }
+          />
 
-            <span>
-              Subtotal
-            </span>
+        </div>
 
-            <span>
-              ₹
-              {subtotal.toLocaleString(
+        {/* =========================
+          NET BANKING
+      ========================= */}
+
+        <div
+          className={`payment-method ${paymentMethod === "netbanking"
+              ? "selected"
+              : ""
+            }`}
+          onClick={() =>
+            setPaymentMethod("netbanking")
+          }
+        >
+
+          <div className="method-icon">
+            🏦
+          </div>
+
+          <div className="method-content">
+
+            <strong>
+              Net Banking
+            </strong>
+
+            <p>
+              All major banks supported
+            </p>
+
+          </div>
+
+          <input
+            type="radio"
+            checked={
+              paymentMethod ===
+              "netbanking"
+            }
+            onChange={() =>
+              setPaymentMethod(
+                "netbanking"
+              )
+            }
+          />
+
+        </div>
+
+        {/* =========================
+          CASH ON DELIVERY
+      ========================= */}
+
+        <div
+          className={`payment-method ${paymentMethod === "cod"
+              ? "selected"
+              : ""
+            }`}
+          onClick={() =>
+            setPaymentMethod("cod")
+          }
+        >
+
+          <div className="method-icon">
+            💵
+          </div>
+
+          <div className="method-content">
+
+            <strong>
+              Cash on Delivery
+            </strong>
+
+            <p>
+              Pay when your order
+              arrives
+            </p>
+
+          </div>
+
+          <input
+            type="radio"
+            checked={
+              paymentMethod === "cod"
+            }
+            onChange={() =>
+              setPaymentMethod("cod")
+            }
+          />
+
+        </div>
+
+        {/* =========================
+          PLACE ORDER
+      ========================= */}
+
+        <button
+          className="pay-button"
+          onClick={handlePlaceOrder}
+          disabled={loading}
+        >
+
+          {loading
+            ? "PROCESSING..."
+            : paymentMethod === "cod"
+              ? `PLACE ORDER • ₹${totalAmount.toLocaleString(
                 "en-IN"
-              )}
-            </span>
+              )}`
+              : `PAY ₹${totalAmount.toLocaleString(
+                "en-IN"
+              )}`}
 
-          </div>
+        </button>
 
+        {/* =========================
+          BACK
+      ========================= */}
+
+        <button
+          className="back-button"
+          onClick={() =>
+            setPage("checkout")
+          }
+          disabled={loading}
+        >
+          ← Back to Checkout
+        </button>
+
+      </div>
+
+      {/* =========================
+        ORDER SUMMARY
+    ========================= */}
+
+      <div className="payment-summary">
+
+        <h2>
+          Order Summary
+        </h2>
+
+        <div className="summary-row">
+
+          <span>
+            Items
+          </span>
+
+          <span>
+            {totalItems}
+          </span>
+
+        </div>
+
+        <div className="summary-row">
+
+          <span>
+            Subtotal
+          </span>
+
+          <span>
+            ₹
+            {subtotal.toLocaleString(
+              "en-IN"
+            )}
+          </span>
+
+        </div>
+
+        <div className="summary-row">
+
+          <span>
+            Delivery
+          </span>
+
+          <span className="free">
+            FREE
+          </span>
+
+        </div>
+
+        {discountResult.valid && (
           <div className="summary-row">
 
             <span>
-              Delivery
+              Coupon ({appliedCoupon})
             </span>
 
             <span className="free">
-              FREE
+              − ₹
+              {discountAmount.toLocaleString(
+                "en-IN"
+              )}
             </span>
 
           </div>
+        )}
 
-          {discountResult.valid && (
-            <div className="summary-row">
+        <hr />
 
-              <span>
-                Coupon ({appliedCoupon})
-              </span>
+        <div className="final-total">
 
-              <span className="free">
-                − ₹
-                {discountAmount.toLocaleString(
-                  "en-IN"
-                )}
-              </span>
+          <strong>
+            Total
+          </strong>
 
-            </div>
-          )}
+          <strong>
+            ₹
+            {totalAmount.toLocaleString(
+              "en-IN"
+            )}
+          </strong>
 
-          <hr />
+        </div>
 
-          <div className="final-total">
+        {/* =========================
+          DELIVERY ADDRESS
+      ========================= */}
 
+        <div className="delivery-summary">
+
+          <h3>
+            Delivery Address
+          </h3>
+
+          <p>
             <strong>
-              Total
+              {address.name ||
+                "Customer"}
             </strong>
+          </p>
 
-            <strong>
-              ₹
-              {totalAmount.toLocaleString(
-                "en-IN"
-              )}
-            </strong>
+          <p>
+            {address.address || ""}
+          </p>
 
-          </div>
+          <p>
+            {address.city || ""}{" "}
+            {address.pincode || ""}
+          </p>
 
-          {/* =========================
-              DELIVERY ADDRESS
-          ========================= */}
-
-          <div className="delivery-summary">
-
-            <h3>
-              Delivery Address
-            </h3>
-
-            <p>
-              <strong>
-                {address.name ||
-                  "Customer"}
-              </strong>
-            </p>
-
-            <p>
-              {address.address || ""}
-            </p>
-
-            <p>
-              {address.city || ""}{" "}
-              {address.pincode || ""}
-            </p>
-
-            <p>
-              📞{" "}
-              {address.mobile || ""}
-            </p>
-
-          </div>
+          <p>
+            📞{" "}
+            {address.mobile || ""}
+          </p>
 
         </div>
 
       </div>
 
     </div>
+
+  </div>
+
+
   );
 }
 

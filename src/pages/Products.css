@@ -1,4 +1,3 @@
-
 /* =========================================================
    PRODUCTS PAGE — STYLE HUB
    NAVY / BLUE / SLATE THEME
@@ -57,7 +56,7 @@
   margin-bottom: 9px;
 }
 
-.subcat-header > div {
+.subcat-header>div {
   display: flex;
   align-items: baseline;
   gap: 8px;

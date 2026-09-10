@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./ProductDetails.css";
 
-import allProducts from "../data/products";
+import { API_BASE_URL } from "../utils/api";
 import ProductCard from "../components/ProductCard";
 
 function ProductDetails({
@@ -19,12 +19,44 @@ function ProductDetails({
   const [pincodeMsg, setPincodeMsg] =
     useState("");
 
+  const [allProducts, setAllProducts] =
+    useState([]);
+
   const product =
     JSON.parse(
       localStorage.getItem(
         "selectedProduct"
       )
     );
+
+  // =====================================================
+  // FETCH FULL CATALOG
+  // Same backend endpoint as Products.jsx, so related
+  // products always reflect the real, current catalog.
+  // =====================================================
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/api/products`
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+
+        const data = await response.json();
+
+        setAllProducts(data);
+      } catch (err) {
+        console.error("Related products fetch error:", err);
+        setAllProducts([]);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const checkPincode = (e) => {
     e.preventDefault();

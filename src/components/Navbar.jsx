@@ -162,7 +162,7 @@ function Navbar({
             <button
               className={
                 currentPage === "products" &&
-                currentCategory === "Men"
+                  currentCategory === "Men"
                   ? "active"
                   : ""
               }
@@ -179,7 +179,7 @@ function Navbar({
             <button
               className={
                 currentPage === "products" &&
-                currentCategory === "Women"
+                  currentCategory === "Women"
                   ? "active"
                   : ""
               }
@@ -196,7 +196,7 @@ function Navbar({
             <button
               className={
                 currentPage === "products" &&
-                currentCategory === "Kids"
+                  currentCategory === "Kids"
                   ? "active"
                   : ""
               }
@@ -213,7 +213,7 @@ function Navbar({
             <button
               className={
                 currentPage === "products" &&
-                currentCategory === "Beauty"
+                  currentCategory === "Beauty"
                   ? "active"
                   : ""
               }
@@ -230,7 +230,7 @@ function Navbar({
             <button
               className={
                 currentPage === "products" &&
-                currentCategory === "Accessories"
+                  currentCategory === "Accessories"
                   ? "active"
                   : ""
               }
@@ -308,15 +308,13 @@ function Navbar({
               className={`
                 nav-action
                 wishlist-nav
-                ${
-                  wishlistCount > 0
-                    ? "wishlist-filled"
-                    : ""
+                ${wishlistCount > 0
+                  ? "wishlist-filled"
+                  : ""
                 }
-                ${
-                  currentPage === "wishlist"
-                    ? "active-action"
-                    : ""
+                ${currentPage === "wishlist"
+                  ? "active-action"
+                  : ""
                 }
               `}
               onClick={goWishlist}
@@ -349,10 +347,9 @@ function Navbar({
             <button
               className={`
                 nav-action
-                ${
-                  currentPage === "cart"
-                    ? "active-action"
-                    : ""
+                ${currentPage === "cart"
+                  ? "active-action"
+                  : ""
                 }
               `}
               onClick={goCart}
@@ -447,7 +444,7 @@ function Navbar({
                 key={item}
                 className={
                   currentPage === "products" &&
-                  currentCategory === item
+                    currentCategory === item
                     ? "mobile-active"
                     : ""
                 }

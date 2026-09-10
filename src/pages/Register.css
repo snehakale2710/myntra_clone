@@ -42,12 +42,9 @@
 
 .register-image {
   background:
-    linear-gradient(
-      rgba(15, 31, 61, 0.78),
-      rgba(30, 75, 135, 0.82)
-    ),
-    url("https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900")
-      center / cover;
+    linear-gradient(rgba(15, 31, 61, 0.78),
+      rgba(30, 75, 135, 0.82)),
+    url("https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900") center / cover;
 
   color: #ffffff;
 
@@ -123,7 +120,7 @@
    FORM DESCRIPTION
 ========================================================= */
 
-.register-form > p:not(.eyebrow) {
+.register-form>p:not(.eyebrow) {
   color: #64748b;
 
   margin: 12px 0 22px;
