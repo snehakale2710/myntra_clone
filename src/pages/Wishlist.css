@@ -6,7 +6,7 @@
   width: 100%;
   max-width: 1150px;
   margin: 0 auto;
-  padding: 0 24px 60px;
+  padding: 50px 24px 60px;
   box-sizing: border-box;
 }
 
@@ -317,7 +317,7 @@
 @media (max-width: 800px) {
 
   .wishlist-page {
-    padding: 0 20px 50px;
+    padding: 50px 20px 50px;
   }
 
   .wishlist-grid {
@@ -335,7 +335,7 @@
 @media (max-width: 768px) {
 
   .wishlist-page {
-    padding: 0 18px 40px;
+    padding: 50px 18px 40px;
   }
 
   .wishlist-header {
@@ -377,7 +377,7 @@
 @media (max-width: 600px) {
 
   .wishlist-page {
-    padding: 0 15px 40px;
+    padding: 50px 15px 40px;
   }
 
   .wishlist-grid {
@@ -395,7 +395,7 @@
 @media (max-width: 480px) {
 
   .wishlist-page {
-    padding: 0 14px 35px;
+    padding: 50px 14px 35px;
   }
 
   .wishlist-header {
