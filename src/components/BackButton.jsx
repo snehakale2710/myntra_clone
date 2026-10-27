@@ -1,5 +1,4 @@
 import React from "react";
-
 function BackButton({ onBack }) {
   return (
     <div className="page-back-wrapper">
@@ -27,5 +26,4 @@ function BackButton({ onBack }) {
     </div>
   );
 }
-
 export default BackButton;
