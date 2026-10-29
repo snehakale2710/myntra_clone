@@ -1,8 +1,3 @@
-/* =========================================================
-   STYLEHUB FOOTER
-   COMPACT NAVY / BLUE / SLATE THEME
-========================================================= */
-
 .footer {
   width: 100%;
   margin-top: auto;
@@ -10,421 +5,240 @@
   color: #ffffff;
   overflow: hidden;
 }
-
-
-/* =========================================================
-   MAIN FOOTER
-========================================================= */
-
 .footer-main {
   width: 100%;
   border-top: 1px solid rgba(203, 213, 225, 0.07);
   border-bottom: 1px solid rgba(203, 213, 225, 0.07);
 }
-
 .footer-container {
   width: 100%;
   max-width: 1250px;
-
   margin: 0 auto;
-
   padding: 32px 45px 30px;
-
   display: grid;
-
   grid-template-columns:
     1.8fr 1fr 1fr 1fr;
-
   column-gap: 55px;
-
   box-sizing: border-box;
 }
-
-
-/* =========================================================
-   BRAND
-========================================================= */
-
 .footer-brand {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-
-
-/* =========================================================
-   LOGO
-========================================================= */
-
 .footer-logo-button {
   appearance: none;
   -webkit-appearance: none;
-
   padding: 0 !important;
   margin: 0 !important;
-
   border: none !important;
   outline: none !important;
-
   background: transparent !important;
   box-shadow: none !important;
-
   cursor: pointer;
 }
-
 .footer-logo {
   display: inline-block;
-
   margin: 0;
-
   color: #ffffff;
-
   font-size: 23px;
   font-weight: 800;
-
   line-height: 1;
-
   letter-spacing: -0.6px;
-
   transition: opacity 0.2s ease;
 }
-
 .footer-logo span {
   color: #2563eb;
 }
-
 .footer-logo-button:hover .footer-logo {
   opacity: 0.85;
 }
-
-
-/* =========================================================
-   DESCRIPTION
-========================================================= */
-
 .footer-description {
   max-width: 305px;
-
   margin: 13px 0 0;
-
   color: #9eacbf;
-
   font-size: 11.5px;
-
   line-height: 1.65;
 }
-
-
-/* =========================================================
-   SOCIALS
-========================================================= */
-
 .footer-socials {
   display: flex;
   align-items: center;
-
   gap: 8px;
-
   margin-top: 15px;
 }
-
 .footer-social {
   width: 31px;
   height: 31px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   border: 1px solid #304463;
   border-radius: 50%;
-
   background: transparent;
-
   color: #9eacbf;
-
   text-decoration: none;
-
   font-size: 12px;
-
   transition:
     color 0.2s ease,
     background 0.2s ease,
     border-color 0.2s ease,
     transform 0.2s ease;
 }
-
 .footer-social:hover {
   color: #ffffff;
   background: #2563eb;
   border-color: #2563eb;
-
   transform: translateY(-2px);
 }
-
-
-/* =========================================================
-   FOOTER COLUMNS
-========================================================= */
-
 .footer-column {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
   gap: 8px;
 }
-
 .footer-column h3 {
   margin: 0 0 6px;
-
   color: #ffffff;
-
   font-size: 10px;
   font-weight: 800;
-
   letter-spacing: 1.1px;
-
   line-height: 1.2;
 }
-
-
-/* =========================================================
-   COLUMN LINKS
-========================================================= */
-
 .footer-column button {
   appearance: none;
   -webkit-appearance: none;
-
   padding: 0 !important;
   margin: 0 !important;
-
   border: none !important;
   outline: none !important;
-
   background: transparent !important;
   box-shadow: none !important;
-
   color: #9eacbf;
-
   font-family: inherit;
-
   font-size: 11.5px;
   font-weight: 500;
-
   line-height: 1.4;
-
   text-align: left;
-
   cursor: pointer;
-
   transition:
     color 0.2s ease,
     transform 0.2s ease;
 }
-
 .footer-column button:hover {
   color: #ffffff;
   transform: translateX(3px);
 }
-
-
-/* =========================================================
-   BOTTOM BAR
-========================================================= */
-
 .footer-bottom-section {
   width: 100%;
 }
-
 .footer-bottom {
   width: 100%;
   max-width: 1250px;
-
   margin: 0 auto;
-
   padding: 13px 45px;
-
   box-sizing: border-box;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   gap: 20px;
 }
-
-
-/* =========================================================
-   COPYRIGHT
-========================================================= */
-
 .footer-copyright {
   margin: 0;
-
   color: #718096;
-
   font-size: 9.5px;
   font-weight: 400;
-
   line-height: 1.4;
 }
-
-
-/* =========================================================
-   BOTTOM LINKS
-========================================================= */
-
 .footer-bottom-links {
   display: flex;
   align-items: center;
-
   gap: 18px;
 }
-
 .footer-bottom-links button {
   appearance: none;
   -webkit-appearance: none;
-
   padding: 0 !important;
   margin: 0 !important;
-
   border: none !important;
   outline: none !important;
-
   background: transparent !important;
   box-shadow: none !important;
-
   color: #718096;
-
   font-family: inherit;
-
   font-size: 9.5px;
   font-weight: 500;
-
   cursor: pointer;
-
   transition:
     color 0.2s ease;
 }
-
 .footer-bottom-links button:hover {
   color: #ffffff;
 }
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
 @media (max-width: 950px) {
-
   .footer-container {
     grid-template-columns:
       1.5fr 1fr 1fr;
-
     column-gap: 35px;
-
     row-gap: 30px;
-
     padding: 32px 30px;
   }
-
   .footer-brand {
     grid-column: span 3;
   }
-
   .footer-bottom {
     padding-left: 30px;
     padding-right: 30px;
   }
 }
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
 @media (max-width: 650px) {
-
   .footer-container {
     grid-template-columns: 1fr;
-
     gap: 25px;
-
     padding: 30px 22px;
   }
-
   .footer-brand {
     grid-column: auto;
   }
-
   .footer-logo {
     font-size: 22px;
   }
-
   .footer-description {
     max-width: 100%;
-
     margin-top: 12px;
-
     font-size: 11px;
   }
-
   .footer-socials {
     margin-top: 14px;
   }
-
   .footer-social {
     width: 30px;
     height: 30px;
-
     font-size: 11px;
   }
-
   .footer-column {
     gap: 8px;
   }
-
   .footer-column h3 {
     margin-bottom: 5px;
   }
-
   .footer-column button {
     font-size: 11.5px;
   }
-
-
-  /* BOTTOM */
-
   .footer-bottom {
     padding: 13px 22px 16px;
-
     flex-direction: column;
-
     align-items: flex-start;
-
     gap: 9px;
   }
-
   .footer-bottom-links {
     gap: 16px;
   }
 }
-
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
 @media (max-width: 400px) {
-
   .footer-container {
     padding-left: 18px;
     padding-right: 18px;
   }
-
   .footer-bottom {
     padding-left: 18px;
     padding-right: 18px;
