@@ -1,10 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
-
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ProfileCard from "./components/ProfileCard";
 import LoginPromptModal from "./components/LoginPromptModal";
-
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -16,28 +14,22 @@ import Cart from "./pages/Cart";
 import Orders from "./pages/Orders";
 import Checkout from "./pages/Checkout";
 import Payment from "./pages/Payment";
-
 import {
   getUserData,
   saveUserData,
 } from "./utils/userStorage";
-
 import "./App.css";
-
 // ==========================================
 // PAGES A GUEST (NOT LOGGED IN) MAY VIEW
 // ==========================================
-
 const GUEST_ALLOWED_PAGES = [
   "home",
   "products",
   "details",
 ];
-
 // ==========================================
 // PAGES THAT ALWAYS REQUIRE LOGIN
 // ==========================================
-
 const PROTECTED_PAGES = [
   "cart",
   "wishlist",
@@ -46,15 +38,12 @@ const PROTECTED_PAGES = [
   "orders",
   "profile",
 ];
-
 function App() {
   // ==========================================
   // GET PAGE FROM URL HASH
   // ==========================================
-
   const getPageFromHash = () => {
     const page = window.location.hash.replace("#/", "");
-
     return [
       "home",
       "products",
@@ -70,68 +59,51 @@ function App() {
       ? page
       : "home";
   };
-
   // ==========================================
   // LOGIN / GUEST STATE
   // ==========================================
-
   const [isLoggedIn, setIsLoggedIn] = useState(
     localStorage.getItem("loggedIn") === "true"
   );
-
   const [isGuest, setIsGuest] = useState(
     localStorage.getItem("guest") === "true"
   );
-
   // ==========================================
   // LOGIN PROMPT MODAL
   // ==========================================
-
   const [showLoginPrompt, setShowLoginPrompt] =
     useState(false);
-
   const [pendingAction, setPendingAction] =
     useState(null);
-
   // ==========================================
   // CURRENT PAGE
   // ==========================================
-
   const [page, setPage] = useState(() => {
     if (localStorage.getItem("loggedIn") === "true") {
       return getPageFromHash();
     }
-
     if (localStorage.getItem("guest") === "true") {
       const hashPage = getPageFromHash();
-
       return GUEST_ALLOWED_PAGES.includes(hashPage)
         ? hashPage
         : "home";
     }
-
     return "login";
   });
-
   // ==========================================
   // SEARCH & CATEGORY
   // ==========================================
-
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("All");
-
   // ==========================================
   // CART & WISHLIST
   // ==========================================
-
   const [cart, setCart] = useState(() =>
     getUserData("cart", [])
   );
-
   const [wishlist, setWishlist] = useState(() =>
     getUserData("wishlist", [])
   );
-
   // ==========================================
   // TOAST NOTIFICATION
   // ==========================================
@@ -191,8 +163,8 @@ function App() {
       loggedIn
         ? getPageFromHash()
         : GUEST_ALLOWED_PAGES.includes(getPageFromHash())
-        ? getPageFromHash()
-        : "home",
+          ? getPageFromHash()
+          : "home",
     ];
   });
 
@@ -517,7 +489,7 @@ function App() {
 
     const previousPage =
       updatedHistory[
-        updatedHistory.length - 1
+      updatedHistory.length - 1
       ];
 
     setPageHistory(updatedHistory);
@@ -553,21 +525,21 @@ function App() {
 
     const updatedCart = existing
       ? currentCart.map((item) =>
-          item.id === product.id
-            ? {
-                ...item,
-                quantity:
-                  (item.quantity || 1) + 1,
-              }
-            : item
-        )
+        item.id === product.id
+          ? {
+            ...item,
+            quantity:
+              (item.quantity || 1) + 1,
+          }
+          : item
+      )
       : [
-          ...currentCart,
-          {
-            ...product,
-            quantity: 1,
-          },
-        ];
+        ...currentCart,
+        {
+          ...product,
+          quantity: 1,
+        },
+      ];
 
     saveUserData(
       "cart",
@@ -599,13 +571,13 @@ function App() {
 
     const updatedWishlist = exists
       ? currentWishlist.filter(
-          (item) =>
-            item.id !== product.id
-        )
+        (item) =>
+          item.id !== product.id
+      )
       : [
-          product,
-          ...currentWishlist,
-        ];
+        product,
+        ...currentWishlist,
+      ];
 
     saveUserData(
       "wishlist",
@@ -836,10 +808,10 @@ function App() {
         {renderPage()}
       </main>
 
-{(isLoggedIn || isGuest) &&
-  !["login", "register", "profile", "checkout", "payment", "orders"].includes(page) && (
-    <Footer setPage={handleSetPage} />
-)}
+      {(isLoggedIn || isGuest) &&
+        !["login", "register", "profile", "checkout", "payment", "orders"].includes(page) && (
+          <Footer setPage={handleSetPage} />
+        )}
 
       {showLoginPrompt && (
         <LoginPromptModal
