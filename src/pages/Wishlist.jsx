@@ -114,7 +114,6 @@ function Wishlist({
               addToCart={addToCart}
               isWishlistPage={true}
             />
-
             <div className="wishlist-actions">
               <button
                 type="button"
@@ -125,7 +124,6 @@ function Wishlist({
               >
                 MOVE TO BAG
               </button>
-
               <button
                 type="button"
                 className="remove-wishlist"
@@ -142,5 +140,4 @@ function Wishlist({
     </section>
   );
 }
-
 export default Wishlist;
