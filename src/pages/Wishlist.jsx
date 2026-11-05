@@ -1,8 +1,6 @@
 import React from "react";
 import ProductCard from "../components/ProductCard";
-
 import "./Wishlist.css";
-
 function Wishlist({
   setPage,
   wishlist,
@@ -13,11 +11,9 @@ function Wishlist({
     addToCart(product);
     addToWishlist(product);
   };
-
   const removeFromWishlist = (product) => {
     addToWishlist(product);
   };
-
   if (wishlist.length === 0) {
     return (
       <section className="wishlist-page">
@@ -25,13 +21,10 @@ function Wishlist({
           <div className="wishlist-eyebrow">
             STYLEHUB SAVED ITEMS
           </div>
-
           <h1 className="wishlist-title">
             My Wishlist
           </h1>
-
           <div className="wishlist-title-line"></div>
-
           <div className="wishlist-header-bottom">
             <p className="wishlist-subtitle">
               Save your favourite styles and come back to them anytime.
