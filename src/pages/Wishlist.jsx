@@ -29,7 +29,6 @@ function Wishlist({
             <p className="wishlist-subtitle">
               Save your favourite styles and come back to them anytime.
             </p>
-
             <span className="wishlist-count">
               0 PRODUCTS
             </span>
