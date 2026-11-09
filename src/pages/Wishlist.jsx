@@ -92,7 +92,6 @@ function Wishlist({
           </span>
         </div>
       </div>
-
       <div className="wishlist-grid">
         {wishlist.map((product) => (
           <div
