@@ -1,41 +1,32 @@
 import React, { useState } from "react";
 import "./Register.css";
-
 function Register({ setPage, setIsLoggedIn }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-
   const handleRegister = async (e) => {
     e.preventDefault();
-
     setError("");
-
     const name = e.target.name.value.trim();
     const email = e.target.email.value.trim().toLowerCase();
     const password = e.target.password.value;
     const confirmPassword =
       e.target.confirmPassword.value;
-
     // Password validation
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
       return;
     }
-
     if (password.length < 6) {
       setError(
         "Password must be at least 6 characters."
       );
       return;
     }
-
     try {
       setLoading(true);
-
       console.log("Sending register request...");
       console.log("Name:", name);
       console.log("Email:", email);
-
       const response = await fetch(
         "http://localhost:5000/api/auth/register",
         {
@@ -50,7 +41,6 @@ function Register({ setPage, setIsLoggedIn }) {
           }),
         }
       );
-
       console.log(
         "Register response status:",
         response.status
