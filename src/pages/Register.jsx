@@ -45,18 +45,14 @@ function Register({ setPage, setIsLoggedIn }) {
         "Register response status:",
         response.status
       );
-
       const data = await response.json();
-
       console.log("Register response:", data);
-
       if (!response.ok) {
         setError(
           data.message || "Registration failed."
         );
         return;
       }
-
       // Save user if backend sends user
       if (data.user) {
         localStorage.setItem(
@@ -64,16 +60,12 @@ function Register({ setPage, setIsLoggedIn }) {
           JSON.stringify(data.user)
         );
       }
-
       localStorage.setItem("loggedIn", "true");
-
       // Update login state if available
       if (setIsLoggedIn) {
         setIsLoggedIn(true);
       }
-
       setError("");
-
       // Go to home
       setPage("home");
     } catch (error) {
@@ -81,7 +73,6 @@ function Register({ setPage, setIsLoggedIn }) {
         "REGISTER FETCH ERROR:",
         error
       );
-
       setError(
         "Unable to connect to the server. Make sure the backend is running on port 5000."
       );
@@ -89,7 +80,6 @@ function Register({ setPage, setIsLoggedIn }) {
       setLoading(false);
     }
   };
-
   return (
     <div className="register-page">
       <div className="register-card">
